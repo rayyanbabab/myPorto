@@ -461,7 +461,7 @@ const Hero = () => {
         {/* Enhanced GitHub Button */}
         <div className="github-container flex items-center justify-center relative z-25 mt-8 lg:mt-12">
           <a
-            href="https://github.com/rayyanammf"
+            href="https://github.com/rayyanbabab"
             className="group relative"
             target="_blank"
             rel="noopener noreferrer"

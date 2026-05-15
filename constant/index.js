@@ -367,67 +367,71 @@ const techstack = [
 const projectsData = [
   {
     id: 1,
-    gambar: "kultilas.png",
+    gambar: ".png",
     judul: "LonIk",
     parag: "LonIk is a web-based application designed to facilitate for Hospital.",
     tech: ["TypeScript", "Blade", "JavaScript", "PHP", "Vite"],
     linkDemo: "#",
-    linkCode: "https://github.com/Raditt10/Kultilas"
+    linkCode: "https://github.com/rayyanbabab/Loket-klinik"
   },
 
   {
     id: 2,
-    gambar: "kulkul.png",
+    gambar: ".png",
     judul: "artilia inventory",
     parag: "Artilia Inventory is an application for managing inventory in company",
     tech: ["Laravel", "MySQL", "Tailwind", "Vite", "Blade", "Laravel"],
     linkDemo: "#",
-    linkCode: "https://github.com/Raditt10/kulkul",
+    linkCode: "",
     isComingSoon: true
   },
 
   {
     id: 3,
-    gambar: "irmaverse.png",
-    judul: "IrmaVerse",
+    gambar: ".png",
+    judul: "Laundry Website",
     parag: "Official Website of IRMA Extracurricular Activities at SMKN 13 Bandung. ",
     tech: ["Next.js", "Tailwind", "Prisma", "Supabase", "Gemini API", "TypeScript"],
     linkDemo: "#",
-    linkCode: "https://github.com/Raditt10/IRMA-Verse",
+    linkCode: "",
     isComingSoon: true
   },
   {
     id: 4,
-    gambar: "hoshiday.png",
-    judul: "HoshiDay.io",
+    gambar: ".png",
+    judul: "islamic",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "https://hoshi-day-io.vercel.app/",
-    linkCode: "https://github.com/Raditt10/hoshiDay.io",
+    linkDemo: "#",
+    linkCode: "#",
     isComingSoon: true
   },
   {
     id: 5,
-    gambar: "bendeharaku.png",
-    judul: "BendeharaKu",
-    parag: "Web application for recording, monitoring, and managing class finances in a transparent, and easy-to-use manner for the treasurer of class XI RPL 1. ",
-    tech: ["PHP Native", "MySQL", "CSS"],
+    gambar: ".png",
+    judul: "next task",
+    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "#",
-    linkCode: "https://github.com/Raditt10/bendeharaKu",
+    linkCode: "#",
+    isComingSoon: true
   },
+
   {
     id: 6,
-    gambar: "foru.png",
-    judul: "For U",
-    parag: "Interactive digital gift web app built with React, Vite, TS, Node.js + MongoDB. Features animated UI and real-time Discord notifications. ",
-    tech: ["React", "Node.js", "MongoDB", "Express", "Vite", "TypeScript", "Confetti", "Discord API"],
+    gambar: ".png",
+    judul: "absensi FaceRec",
+    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "#",
-    linkCode: "https://github.com/Raditt10/forU",
+    linkCode: "#",
+    isComingSoon: true
   },
+
   {
     id: 7,
     gambar: "coming-soon.png",
-    judul: "Jalan Sehat",
+    judul: "WarbuPay",
     parag: "Coming soon",
     isComingSoon: true
   }
