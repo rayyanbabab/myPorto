@@ -390,7 +390,7 @@ const projectsData = [
     id: 3,
     gambar: ".png",
     judul: "Laundry Website",
-    parag: "Official Website of IRMA Extracurricular Activities at SMKN 13 Bandung. ",
+    parag: " ",
     tech: ["Next.js", "Tailwind", "Prisma", "Supabase", "Gemini API", "TypeScript"],
     linkDemo: "#",
     linkCode: "",
