@@ -430,6 +430,17 @@ const projectsData = [
 
   {
     id: 7,
+    gambar: ".png",
+    judul: "RuangGaya",
+    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "#",
+    linkCode: "#",
+    isComingSoon: true
+  },
+
+  {
+    id: 8,
     gambar: "coming-soon.png",
     judul: "WarbuPay",
     parag: "Coming soon",
