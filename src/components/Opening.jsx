@@ -102,7 +102,7 @@ const Opening = ({ onComplete }) => {
                 ref={textContainerRef}
                 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight uppercase overflow-hidden py-2"
             >
-                Portfolio
+                My Portofolio
             </h1>
         </div>
     </div>

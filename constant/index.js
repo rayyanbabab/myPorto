@@ -367,7 +367,7 @@ const techstack = [
 const projectsData = [
   {
     id: 1,
-    gambar: ".png",
+    gambar: "tiket.png",
     judul: "LonIk",
     parag: "LonIk is a web-based application designed to facilitate for Hospital.",
     tech: ["TypeScript", "Blade", "JavaScript", "PHP", "Vite"],
@@ -377,7 +377,7 @@ const projectsData = [
 
   {
     id: 2,
-    gambar: ".png",
+    gambar: "Artilia.png",
     judul: "artilia inventory",
     parag: "Artilia Inventory is an application for managing inventory in company",
     tech: ["Laravel", "MySQL", "Tailwind", "Vite", "Blade", "Laravel"],
@@ -388,17 +388,7 @@ const projectsData = [
 
   {
     id: 3,
-    gambar: ".png",
-    judul: "Laundry Website",
-    parag: " ",
-    tech: ["Next.js", "Tailwind", "Prisma", "Supabase", "Gemini API", "TypeScript"],
-    linkDemo: "#",
-    linkCode: "",
-    isComingSoon: true
-  },
-  {
-    id: 4,
-    gambar: ".png",
+    gambar: "islamicBot.png",
     judul: "islamic",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
@@ -407,8 +397,8 @@ const projectsData = [
     isComingSoon: true
   },
   {
-    id: 5,
-    gambar: ".png",
+    id: 4,
+    gambar: "nextt.jpeg",
     judul: "next task",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
@@ -418,9 +408,9 @@ const projectsData = [
   },
 
   {
-    id: 6,
-    gambar: ".png",
-    judul: "absensi FaceRec",
+    id: 5,
+    gambar: "absensi.png",
+    judul: "absensi siswa QR Code",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "#",
@@ -429,8 +419,8 @@ const projectsData = [
   },
 
   {
-    id: 7,
-    gambar: ".png",
+    id: 6,
+    gambar: "RuangGaya.png",
     judul: "RuangGaya",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
@@ -440,9 +430,50 @@ const projectsData = [
   },
 
   {
+    id: 7,
+    gambar: "Al-quran.png",
+    judul: "Al-Quran App",
+    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "#",
+    linkCode: "#",
+    isComingSoon: true
+  },
+
+{
     id: 8,
+    gambar: "CashierV1.png",
+    judul: "CashierV1 App",
+    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "#",
+    linkCode: "#",
+    isComingSoon: true
+  },
+
+  {
+    id: 9,
+    gambar: "Ngasir.png",
+    judul: "Ngasir Apps",
+    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "#",
+    linkCode: "#",
+    isComingSoon: true
+  },
+
+  {
+    id: 10,
     gambar: "coming-soon.png",
     judul: "WarbuPay",
+    parag: "Coming soon",
+    isComingSoon: true
+  },
+
+  {
+    id: 11,
+    gambar: "coming-soon.png",
+    judul: "LaundryApp",
     parag: "Coming soon",
     isComingSoon: true
   }
