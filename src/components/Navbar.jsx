@@ -77,7 +77,7 @@ const Navbar = () => {
       >
         <a href="#home" className="pl-4 pr-6 flex items-center">
             <img 
-                src="/img/lo.png" 
+                src="/img/logo1.png" 
                 alt="Logo" 
                 className={`h-10 w-auto object-contain transition-all duration-300 hover:scale-110 ${isLight ? 'invert' : ''}`} 
             />
@@ -129,7 +129,7 @@ const Navbar = () => {
         {/* Logo */}
         <a href="#home" className="relative z-[70]">
             <img 
-                src="/img/logo2.png" 
+                src="/img/logo1.png" 
                 alt="Logo" 
                 className={`h-8 w-auto object-contain transition-all duration-300 ${
                     // Jika menu terbuka, logo menyesuaikan warna background menu (biasanya gelap/terang penuh)
