@@ -51,13 +51,21 @@ const Educations = () => {
       tags: ["English Club", "Futsal"]
     },
     {
-      year: "2023 - Sekarang",
+      year: "2023 - 2026",
       title: "SMK Telekomunikasi Telesandi Bekasi",
       subtitle: "Rekayasa Perangkat Lunak",
       description: "Terjun ke dunia IT. Mempelajari coding, manajemen server, dan membangun masa depan sebagai Developer.",
       logo: "/img/tels.png",
       current: true,
       tags: ["Syntax", "Volly", "Futsal", "Football"]
+    },
+     {
+      year: "2026 - Now",
+      title: "ASTRA TECH",
+      subtitle: "D4-Rekayasa Perangkat Lunak",
+      description: "Mulai aktif berorganisasi dan menemukan minat dalam bidang teknologi dan olahraga.",
+      logo: "/img/astra.jpg",
+      tags: ["English Club", "Futsal"]
     },
   ];
 

@@ -138,82 +138,6 @@
 //   },
 // ];
 
-// const projectsData = [
-//   {
-//     id: 1,
-//     gambar: "BetFree.png",
-//     judul: "BetFree",
-//     parag:
-//       "A web-based platform for online gambling rehabilitation, integrated with the Gemini Quiz API to assess user conditions, offering personalized rehabilitation plans and an interactive online forum for peer support and discussion.",
-//     stack: {
-//       img: ["Laravel.png", "React.png", "MySQL.png", "Tailwind.png"],
-//       tech: ["Laravel", "React", "MySQL", "Tailwind"],
-//     },
-
-//     link: "https://github.com/Alif1507/BetFree",
-//   },
-
-//   {
-//     id: 2,
-//     gambar: "jurnal.png",
-//     judul: "Jurnailistik 26",
-//     parag:
-//       "Journalism is an extracurricular activity at SMK Negeri 26 Jakarta that aims to develop students' interests and talents in the field of journalism.",
-//     stack: {
-//       img: ["Laravel.png", "Php.png", "MySQL.png", "Tailwind.png"],
-//       tech: ["Laravel", "PHP", "MySQL", "Tailwind"],
-//     },
-
-//     link: "https://jurnalistik26.serv00.net/",
-//   },
-
-//   {
-//     id: 3,
-//     gambar: "infoforyou.png",
-//     judul: "InfoForYou",
-//     parag:
-//       "#INDONESIAGELAP is a hashtag that refers to the government's incompetence in leading Indonesia, this is currently being widely discussed on social media.",
-//     stack: {
-//       img: ["HTML.png", "CSS.png", "JS.png", "vercel.png"],
-//     tech: ["HTML", "CSS", "JS", "Vercel"],
-//     },
-//     link: "https://dark-indonesia.vercel.app/",
-//   },
-// ];
-
-// const dataCerti = [
-//   {
-//     id: 1,
-//     gambar: "certifocation-foto.png",
-//     judul: "Backend Fundamental (Lumoshive)",
-//     link: "https://drive.google.com/file/d/1vWeUXHOs_RZdq894Tgs4KKvdfL2YFton/view?usp=sharing",
-//   },
-
-//   {
-//     id: 2,
-//     gambar: "untar.png",
-//     judul: "3rd Place Web App Competition (I/O Fest 2025)",
-//     link: "https://drive.google.com/file/d/1VZMa0SQSHLXJ9yvh9AEUvH-lfJ8-nlKu/view?usp=sharing",
-//   },
-
-//   {
-//     id: 3,
-//     gambar: "JDSC_2024.png",
-//     judul: "Finalist Junior Data Scientist Competition (BeeFest 2024)",
-//     link: "https://drive.google.com/file/d/1r85Rp_bu5kxBW6oBdq-Gi7Mx4dC1JY3d/view?usp=sharing",
-//   },
-
-//   {
-//     id: 4,
-//     gambar: "Techcomfest.png",
-//     judul: "participation in Techcomfest Web App Competition 2025",
-//     link: "https://drive.google.com/file/d/1ivzMjIEJVFVM9geCrvpzmk3HoQo-V-Qu/view?usp=sharing",
-//   },
-// ];
-
-// export { navlinks, techstack, projectsData, dataCerti };
-
-
 const navlinks = [
   {
     id: 1,
@@ -382,8 +306,8 @@ const projectsData = [
     parag: "Artilia Inventory is an application for managing inventory in company",
     tech: ["Laravel", "MySQL", "Tailwind", "Vite", "Blade", "Laravel"],
     linkDemo: "#",
-    linkCode: "",
-    isComingSoon: true
+    linkCode: "https://github.com/rayyanbabab/artilia",
+    isComingSoon: false
   },
 
   {
@@ -392,9 +316,9 @@ const projectsData = [
     judul: "islamic",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
+    linkDemo: "https://dev-islamic-ten.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/islamic",
+    isComingSoon: false
   },
   {
     id: 4,
@@ -402,9 +326,9 @@ const projectsData = [
     judul: "next task",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
+    linkDemo: "https://nexttask-livid.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/nextTask",
+    isComingSoon: false
   },
 
   {
@@ -414,8 +338,8 @@ const projectsData = [
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
+    linkCode: "https://github.com/rayyanbabab/AbsensiQR",
+    isComingSoon: false
   },
 
   {
@@ -424,9 +348,9 @@ const projectsData = [
     judul: "RuangGaya",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
+    linkDemo: "https://ruanggaya.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/RuangGaya",
+    isComingSoon: false
   },
 
   {
@@ -435,43 +359,57 @@ const projectsData = [
     judul: "Al-Quran App",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
-  },
-
-{
-    id: 8,
-    gambar: "CashierV1.png",
-    judul: "CashierV1 App",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
-    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
+    linkDemo: "aplikasi-quran-eta.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/Al-Qu-ran-Digital",
+    isComingSoon: false
   },
 
   {
-    id: 9,
+    id: 8,
     gambar: "Ngasir.png",
     judul: "Ngasir Apps",
     parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
-    isComingSoon: true
+    linkDemo: "https://ngasir-ten.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/ngasir.git",
+    isComingSoon: false
   },
 
   {
+    id: 9,
+    gambar: "kas.png",
+    judul: "Kas RT",
+    parag: "Cash Flow Apps",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "https://cash-flow-app-blond.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/cash-flow-app",
+    isComingSoon: false
+  },
+
+   {
     id: 10,
-    gambar: "coming-soon.png",
-    judul: "WarbuPay",
-    parag: "Coming soon",
-    isComingSoon: true
+    gambar: "kampus.png",
+    judul: "Campus Registration",
+    parag: "Campus Registration Apps",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "student-portal-app-teal.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-kampus",
+    isComingSoon: false
   },
 
   {
     id: 11,
+    gambar: "kegiatan sekolah.png",
+    judul: "Sistem aplikasi kegiatan sekolah",
+    parag: "aplikasi kegiatan sekolah",
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "sistem-kegiatan-sekolah-app.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/sistem-kegiatan-sekolah-app",
+    isComingSoon: false
+  },
+
+  {
+    id: 12,
     gambar: "coming-soon.png",
     judul: "LaundryApp",
     parag: "Coming soon",
@@ -483,7 +421,7 @@ const dataCerti = [
   {
     id: 1,
     gambar: "machung.webp",
-    judul: "SERTI GUA ILAMG SEMUA JEMBUT",
+    judul: "coming soon",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 

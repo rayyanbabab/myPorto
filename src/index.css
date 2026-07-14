@@ -71,6 +71,10 @@ body {
   scroll-behavior: smooth;
 }
 
+:target {
+  scroll-margin-top: 120px;
+}
+
 /* Screen reader only utility */
 .sr-only {
   position: absolute;

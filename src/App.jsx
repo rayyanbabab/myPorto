@@ -60,22 +60,22 @@ function App() {
             <Hero />
             <About />
             <TechStack />
-            <LazyMount height={600}>
+            <LazyMount id="gallery" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Gallery /> </Suspense>
             </LazyMount>
-            <LazyMount height={600}>
+            <LazyMount id="educations" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Educations /> </Suspense>
             </LazyMount>
-            <LazyMount height={600}>
+            <LazyMount id="projects" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Projetcs /> </Suspense>
             </LazyMount>
-            <LazyMount height={420}>
+            <LazyMount id="github" height={420}>
               <GitHubContributions />
             </LazyMount>
-            <LazyMount height={600}>
+            <LazyMount id="achievements" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Achievements /> </Suspense>
             </LazyMount>
-            <LazyMount height={400}>
+            <LazyMount id="contact" height={400}>
               <Suspense fallback={<div style={{height:400}} />}> <Footer /> </Suspense>
             </LazyMount>
           </>
