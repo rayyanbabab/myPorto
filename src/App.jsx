@@ -9,6 +9,7 @@ import CustomCursor from './components/CustomCursor';
 import NotFound from './components/NotFound';
 import LazyMount from './components/LazyMount';
 import GitHubContributions from './components/GitHubContributions';
+const InteractiveScene = lazy(() => import('./components/InteractiveScene'));
 const Gallery = lazy(() => import('./components/Gallery'));
 const Educations = lazy(() => import('./components/Educations'));
 const Projetcs = lazy(() => import('./components/Projetcs'));
@@ -58,6 +59,9 @@ function App() {
           <>
             <Navbar />
             <Hero />
+            <Suspense fallback={<div style={{height: '80vh'}} />}>
+              <InteractiveScene />
+            </Suspense>
             <About />
             <TechStack />
             <LazyMount id="gallery" height={600}>

@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, lazy, Suspense } from "react";
+import Hero3DBackground from "./Hero3DBackground";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
@@ -86,9 +87,9 @@ const Hero = () => {
         const seconds = Math.floor(audio.duration % 60);
         setDuration(`${minutes}:${seconds.toString().padStart(2, '0')}`);
       };
-      
+
       audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-      
+
       return () => {
         audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       };
@@ -107,14 +108,14 @@ const Hero = () => {
 
     const createTypewriterLoop = (chars, speed) => {
       const tl = gsap.timeline({ repeat: -1, repeatDelay: 3 });
-      
-      gsap.set(chars, { 
-        opacity: 0, 
+
+      gsap.set(chars, {
+        opacity: 0,
         y: 40,
         scale: 0.95,
         transformOrigin: "50% 50%",
       });
-      
+
       // Enter animation - Smooth fade and slide up
       tl.to(chars, {
         opacity: 1,
@@ -127,20 +128,20 @@ const Hero = () => {
           from: "start"
         }
       })
-      .to({}, { duration: 2.5 })
-      // Exit animation - Smooth fade and slide out
-      .to(chars, {
-        opacity: 0,
-        y: -20,
-        scale: 0.95,
-        duration: 0.5,
-        ease: "expo.in",
-        stagger: {
-          each: speed * 0.6,
-          from: "end"
-        },
-      });
-      
+        .to({}, { duration: 2.5 })
+        // Exit animation - Smooth fade and slide out
+        .to(chars, {
+          opacity: 0,
+          y: -20,
+          scale: 0.95,
+          duration: 0.5,
+          ease: "expo.in",
+          stagger: {
+            each: speed * 0.6,
+            from: "end"
+          },
+        });
+
       return tl;
     };
 
@@ -153,35 +154,35 @@ const Hero = () => {
         duration: 1.5,
         ease: "power3.out",
       })
-      .to(".hero-description", {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power3.out",
-      }, "-=1")
-      .to(".github-container", {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1,
-        ease: "back.out(1.7)",
-      }, "-=0.8")
-      .add(() => {
-        const chars = gsap.utils.toArray("#nama .char");
-        const typewriterTl = createTypewriterLoop(chars, 0.09);
-      }, "-=0.5")
-      .to(".scroll-text", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      }, "-=0.3")
-      .to(".scroll-arrow", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "back.out(1.7)",
-      }, "-=0.5");
+        .to(".hero-description", {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power3.out",
+        }, "-=1")
+        .to(".github-container", {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "back.out(1.7)",
+        }, "-=0.8")
+        .add(() => {
+          const chars = gsap.utils.toArray("#nama .char");
+          const typewriterTl = createTypewriterLoop(chars, 0.09);
+        }, "-=0.5")
+        .to(".scroll-text", {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+        }, "-=0.3")
+        .to(".scroll-arrow", {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "back.out(1.7)",
+        }, "-=0.5");
     });
 
     mm.add("(max-width: 767px)", () => {
@@ -224,15 +225,101 @@ const Hero = () => {
       ref={sectionRef}
       id="home"
       role="banner"
-      style={{ 
+      style={{
         color: themeStyles[theme].accent
       }}
       className={`font-sans flex flex-col items-center justify-center relative min-h-screen overflow-hidden pt-20 theme-${theme}`}
     >
-      {/* Elegant Background - keep halo, drop vignette to avoid section edge darkening */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0" style={{ background: themeStyles[theme].halo }} />
+      {/* Animated Gradient Mesh / Aurora Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Base background — matches app's main gradient */}
+        <div className="absolute inset-0" style={{
+          background: theme === 'dark'
+            ? 'linear-gradient(135deg, #040507 0%, #0a0d12 50%, #050608 100%)'
+            : 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #e0e7ff 100%)'
+        }} />
+
+        {/* Aurora Blob 1 — top-left, warm tone */}
+        <div
+          className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
+          style={{
+            width: '45vw',
+            height: '45vw',
+            maxWidth: '600px',
+            maxHeight: '600px',
+            top: '-10%',
+            left: '-5%',
+            background: theme === 'dark'
+              ? 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(59,130,246,0.08) 50%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.06) 50%, transparent 70%)',
+            animation: 'aurora-drift-1 18s ease-in-out infinite',
+          }}
+        />
+
+        {/* Aurora Blob 2 — center-right, cool tone */}
+        <div
+          className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
+          style={{
+            width: '40vw',
+            height: '40vw',
+            maxWidth: '550px',
+            maxHeight: '550px',
+            top: '20%',
+            right: '-8%',
+            background: theme === 'dark'
+              ? 'radial-gradient(circle, rgba(6,182,212,0.12) 0%, rgba(34,211,238,0.06) 50%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(6,182,212,0.10) 0%, rgba(34,211,238,0.05) 50%, transparent 70%)',
+            animation: 'aurora-drift-2 22s ease-in-out infinite',
+          }}
+        />
+
+        {/* Aurora Blob 3 — bottom-center, warm accent */}
+        <div
+          className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
+          style={{
+            width: '50vw',
+            height: '35vw',
+            maxWidth: '700px',
+            maxHeight: '500px',
+            bottom: '-5%',
+            left: '25%',
+            background: theme === 'dark'
+              ? 'radial-gradient(circle, rgba(251,146,60,0.10) 0%, rgba(245,158,11,0.05) 50%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(251,146,60,0.08) 0%, rgba(245,158,11,0.04) 50%, transparent 70%)',
+            animation: 'aurora-drift-3 25s ease-in-out infinite',
+          }}
+        />
+
+        {/* Aurora Blob 4 — top-right accent, smaller */}
+        <div
+          className="aurora-blob absolute rounded-full blur-[80px] sm:blur-[120px]"
+          style={{
+            width: '25vw',
+            height: '25vw',
+            maxWidth: '350px',
+            maxHeight: '350px',
+            top: '5%',
+            right: '15%',
+            background: theme === 'dark'
+              ? 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, rgba(219,39,119,0.04) 50%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(236,72,153,0.06) 0%, rgba(219,39,119,0.03) 50%, transparent 70%)',
+            animation: 'aurora-drift-4 20s ease-in-out infinite',
+          }}
+        />
+
+        {/* Subtle noise/grain overlay for texture */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '128px 128px',
+          }}
+        />
       </div>
+
+      {/* 3D Interactive Background Layer */}
+      <Hero3DBackground theme={theme} />
 
       {/* Music Player Button - Desktop Only */}
       <button
@@ -243,19 +330,18 @@ const Hero = () => {
         <div className="relative">
           {/* Glow Effect */}
           <div className="absolute -inset-3 bg-white/5 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
+
           {/* Button Container */}
           <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#0c1118]/95 to-[#0c0f14]/95 backdrop-blur-xl border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:border-white/20 shadow-lg">
             {/* Animated Ring */}
-            <div className={`absolute inset-0 rounded-full border-2 ${
-              isPlaying ? 'border-white/30 animate-ping' : 'border-white/15'
-            }`} style={{ animationDuration: '2s' }} />
-            
+            <div className={`absolute inset-0 rounded-full border-2 ${isPlaying ? 'border-white/30 animate-ping' : 'border-white/15'
+              }`} style={{ animationDuration: '2s' }} />
+
             {/* Secondary Ring when playing */}
             {isPlaying && (
               <div className="absolute inset-0 rounded-full border border-white/15 animate-spin" style={{ animationDuration: '10s' }} />
             )}
-            
+
             {/* Icon */}
             {isPlaying ? (
               <div className="relative z-10 flex items-center justify-center gap-1">
@@ -275,28 +361,28 @@ const Hero = () => {
                 </div>
               </div>
             )}
-            
+
             {/* Pulse Effect when playing */}
             {isPlaying && (
               <div className="absolute inset-0 rounded-full bg-white/8 animate-pulse" />
             )}
           </div>
-          
+
           {/* Enhanced Tooltip with Song Info */}
           <div className="absolute top-full right-0 mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none transform group-hover:translate-y-0 translate-y-2">
             <div className="relative">
               {/* Arrow */}
               <div className="absolute -top-2 right-6 w-4 h-4 bg-white/95 backdrop-blur-sm border-l border-t border-amber-200/30 transform rotate-45" />
-              
+
               {/* Card */}
               <div className="relative bg-gradient-to-br from-white/95 to-amber-50/95 backdrop-blur-xl rounded-xl border border-white/40 shadow-2xl w-64 overflow-hidden">
                 {/* Elegant Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-100/20 to-white/20 opacity-50" />
-                
+
                 {/* Album Art */}
                 <div className="relative w-full h-40 overflow-hidden rounded-t-xl">
-                  <img 
-                    src="/img/gemilang.jpg" 
+                  <img
+                    src="/img/gemilang.jpg"
                     alt="Album Cover"
                     className="w-full h-full object-cover object-center"
                     width="256" height="160"
@@ -309,13 +395,13 @@ const Hero = () => {
                   {/* Fallback gradient if image not found */}
                   <div className="hidden w-full h-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500 items-center justify-center">
                     <svg className="w-16 h-16 text-white/80" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                     </svg>
                   </div>
-                  
+
                   {/* Overlay Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  
+
                   {/* Play/Pause Status */}
                   <div className="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-amber-300/40">
                     <p className="text-[10px] text-gray-800 font-semibold flex items-center gap-1.5">
@@ -333,7 +419,7 @@ const Hero = () => {
                     </p>
                   </div>
                 </div>
-                
+
                 {/* Song Info */}
                 <div className="relative p-4 space-y-2">
                   {/* Title */}
@@ -345,10 +431,10 @@ const Hero = () => {
                       Perunggu
                     </p>
                   </div>
-                  
+
                   {/* Divider */}
                   <div className="h-px bg-gradient-to-r from-transparent via-amber-300/40 to-transparent" />
-                  
+
                   {/* Duration & Album */}
                   <div className="flex items-center justify-between text-[10px]">
                     <div className="flex items-center gap-1.5 text-gray-600">
@@ -364,7 +450,7 @@ const Hero = () => {
                       <span>Talk That Talk</span>
                     </div>
                   </div>
-                  
+
                   {/* Action Hint */}
                   <div className="pt-1 flex items-center justify-center gap-1.5 text-[10px] text-amber-600 font-medium">
                     <span>Click to {isPlaying ? 'pause' : 'play'}</span>
@@ -373,10 +459,10 @@ const Hero = () => {
                     </svg>
                   </div>
                 </div>
-                
+
                 {/* Animated Border */}
                 <div className="absolute inset-0 rounded-xl opacity-50">
-                  <div className="absolute inset-0 rounded-xl border border-transparent bg-gradient-to-r from-amber-300/30 via-white/30 to-amber-300/30 bg-clip-border animate-pulse" style={{animationDuration: '3s'}} />
+                  <div className="absolute inset-0 rounded-xl border border-transparent bg-gradient-to-r from-amber-300/30 via-white/30 to-amber-300/30 bg-clip-border animate-pulse" style={{ animationDuration: '3s' }} />
                 </div>
               </div>
             </div>
@@ -428,11 +514,11 @@ const Hero = () => {
                   color: 'transparent'
                 }}
               >
-                Full Stack Developer - DevOps Engineer - UI/UX & Graphic Designer - Artist  
+                Full Stack Developer - DevOps Engineer - UI/UX & Graphic Designer - Artist
               </span>
             </h2>
           </div>
-          
+
           {/* Hobby */}
           <div className="relative mt-2">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-relaxed font-medium tracking-[0.08em]">
@@ -449,12 +535,12 @@ const Hero = () => {
               </span>
             </p>
           </div>
-          
-           <p
-             className="text-base sm:text-lg mt-6 max-w-2xl mx-auto italic"
-             style={{ color: themeStyles[theme].secondary }}
-           >
-             “Jika kamu tidak tahan lelahnya belajar, maka kamu harus tahan menanggung perihnya kebodohan.”
+
+          <p
+            className="text-base sm:text-lg mt-6 max-w-2xl mx-auto italic"
+            style={{ color: themeStyles[theme].secondary }}
+          >
+            “Jika kamu tidak tahan lelahnya belajar, maka kamu harus tahan menanggung perihnya kebodohan.”
           </p>
         </div>
 
@@ -470,10 +556,9 @@ const Hero = () => {
           >
             <div className="relative">
               {/* Glow effect */}
-              <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
-                isHovered ? 'bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl' : 'bg-white/20 blur-lg'
-              }`} />
-              
+              <div className={`absolute inset-0 rounded-full transition-all duration-500 ${isHovered ? 'bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl' : 'bg-white/20 blur-lg'
+                }`} />
+
               {/* Main button */}
               <div className="relative w-16 h-16 bg-gradient-to-br from-gray-900 to-black rounded-full flex items-center justify-center 
                             border border-white/20 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 
@@ -489,14 +574,13 @@ const Hero = () => {
                   <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.111.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.084-.73.084-.73 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.47-2.381 1.235-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.804 5.624-5.475 5.921.43.372.823 1.103.823 2.222 0 1.606-.014 2.896-.014 3.286 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z" />
                 </svg>
                 {/* Ring animation */}
-                <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${
-                  isHovered 
-                    ? 'border-cyan-400/50 animate-ping-slow' 
+                <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${isHovered
+                    ? 'border-cyan-400/50 animate-ping-slow'
                     : 'border-transparent'
-                }`} />
+                  }`} />
               </div>
             </div>
-            
+
             {/* Tooltip */}
             <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="bg-black/80 backdrop-blur-sm text-white text-sm px-3 py-2 rounded-lg border border-white/10 whitespace-nowrap">
@@ -517,24 +601,50 @@ const Hero = () => {
           Explore My Work
         </h1>
         <div className="scroll-arrow group cursor-pointer">
-          <div className={`w-7 h-12 border-2 rounded-full flex justify-center pt-2 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-cyan-500/20 ${
-            theme === 'light'
+          <div className={`w-7 h-12 border-2 rounded-full flex justify-center pt-2 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-cyan-500/20 ${theme === 'light'
               ? 'border-slate-300/80 bg-white/50 group-hover:border-cyan-300/70'
               : 'border-white/30 bg-white/5 group-hover:border-cyan-400/60'
-          }`}>
-            <div className={`w-1.5 h-3 rounded-full animate-bounce ${
-              theme === 'light'
+            }`}>
+            <div className={`w-1.5 h-3 rounded-full animate-bounce ${theme === 'light'
                 ? 'bg-gradient-to-b from-cyan-300 to-cyan-500'
                 : 'bg-gradient-to-b from-white to-cyan-200'
-            }`} />
+              }`} />
           </div>
-          <div className={`absolute -inset-4 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-            theme === 'light' ? 'bg-cyan-400/15' : 'bg-cyan-500/10'
-          }`} />
+          <div className={`absolute -inset-4 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${theme === 'light' ? 'bg-cyan-400/15' : 'bg-cyan-500/10'
+            }`} />
         </div>
       </div>
 
       <style jsx>{`
+        @keyframes aurora-drift-1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(5vw, 3vh) scale(1.05); }
+          50% { transform: translate(2vw, 6vh) scale(0.95); }
+          75% { transform: translate(-3vw, 2vh) scale(1.08); }
+        }
+
+        @keyframes aurora-drift-2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(-4vw, 5vh) scale(1.06); }
+          50% { transform: translate(-7vw, -2vh) scale(0.97); }
+          75% { transform: translate(3vw, 4vh) scale(1.03); }
+        }
+
+        @keyframes aurora-drift-3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(6vw, -4vh) scale(1.04); }
+          66% { transform: translate(-4vw, -6vh) scale(0.96); }
+        }
+
+        @keyframes aurora-drift-4 {
+          0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+          50% { transform: translate(-5vw, 5vh) scale(1.1) rotate(10deg); }
+        }
+
+        .aurora-blob {
+          will-change: transform;
+        }
+
         @keyframes float {
           0%, 100% { 
             transform: translateY(0) translateX(0) rotate(0deg); 
@@ -647,6 +757,17 @@ const Hero = () => {
           opacity: 0.3;
         }
       `}</style>
+
+      {/* Bottom gradient fade — seamless transition to next section */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
+        style={{
+          height: '120px',
+          background: theme === 'dark'
+            ? 'linear-gradient(to bottom, transparent 0%, rgba(4,5,7,0.5) 40%, rgba(10,13,18,0.9) 80%, #0a0d12 100%)'
+            : 'linear-gradient(to bottom, transparent 0%, rgba(248,250,252,0.5) 40%, rgba(238,242,255,0.9) 80%, #eef2ff 100%)',
+        }}
+      />
     </header>
   );
 };
