@@ -508,7 +508,7 @@ const Hero = () => {
             className="hero-description text-base sm:text-lg mt-6 max-w-2xl mx-auto italic"
             style={{ color: themeStyles[theme].secondary }}
           >
-            “Jika kamu tidak tahan lelahnya belajar, maka kamu harus tahan menanggung perihnya kebodohan.”
+            “If you cannot stand the fatigue of learning, then you must stand the pain of ignorance.”
           </p>
         </div>
 

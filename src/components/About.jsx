@@ -176,12 +176,12 @@ const About = () => {
 
                 <div className={`space-y-6 text-base md:text-lg leading-relaxed ${isLight ? 'text-gray-700' : 'text-gray-300'}`}>
                     <p>
-                        Halo! Saya Rayyan Ammar Fadhillah, seorang Full Stack Developer dengan passion dalam menciptakan solusi digital yang inovatif dan efisien. 
-                        Dengan pengalaman lebih dari 2 tahun, saya fokus membangun aplikasi web yang fungsional dengan antarmuka yang bersih.
+                        Hello! I am Rayyan Ammar Fadhillah, a Full Stack Developer with a passion for creating innovative and efficient digital solutions. 
+                        With over 2 years of experience, I focus on building functional web applications with clean interfaces.
                     </p>
                     <p>
-                        Saat ini saya berusia 18 tahun dan sedang menempuh pendidikan di <span className={`font-semibold ${isLight ? 'text-black' : 'text-white'}`}>SMKS Telekomunikasi Telesandi Bekasi</span>, 
-                        jurusan Rekayasa Perangkat Lunak. Saya juga aktif berkontribusi pada proyek open-source untuk terus mengasah skill.
+                        I am currently 18 years old and studying Software Engineering at <span className={`font-semibold ${isLight ? 'text-black' : 'text-white'}`}>SMKS Telekomunikasi Telesandi Bekasi</span>. 
+                        I am also active in contributing to open-source projects to continuously hone my skills.
                     </p>
                 </div>
 

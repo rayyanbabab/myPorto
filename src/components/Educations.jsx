@@ -22,38 +22,38 @@ const Educations = () => {
     {
       year: "2007",
       title: "The Genesis",
-      subtitle: "Kelahiran",
-      description: "Awal perjalanan hidup saya dimulai. Lembaran pertama dari sebuah cerita panjang.",
+      subtitle: "Birth",
+      description: "The beginning of my life journey. The first page of a long and exciting story.",
       type: "milestone",
 
     },
     {
       year: "2014 - 2015",
       title: "TKIT Nurul Falah",
-      subtitle: "Masa Bermain & Belajar",
-      description: "Mengenal dunia di luar rumah, belajar bersosialisasi, dan membangun pondasi karakter sejak dini.",
+      subtitle: "Play & Learn Era",
+      description: "Getting to know the world outside, learning to socialize, and building a foundation of character early on.",
 
     },
     {
       year: "2015 - 2020",
       title: "SDIT Al-Fath Cibitung",
-      subtitle: "Sekolah Dasar",
-      description: "Masa eksplorasi selama 6 tahun. Belajar disiplin, tanggung jawab, dan dasar ilmu pengetahuan.",
+      subtitle: "Elementary School",
+      description: "Six years of exploration. Learning discipline, responsibility, and the core fundamentals of science.",
       logo: "/img/alpat.png",
     },
     {
       year: "2020 - 2023",
       title: "SMPIT Ulil Albab",
-      subtitle: "Pencarian Jati Diri",
-      description: "Mulai aktif berorganisasi dan menemukan minat dalam bidang teknologi dan olahraga.",
+      subtitle: "Self-Discovery",
+      description: "Beginning to participate in organizations and discovering active interests in technology and sports.",
       logo: "/img/ulil.png",
       tags: ["English Club", "Futsal"]
     },
     {
       year: "2023 - 2026",
       title: "SMK Telekomunikasi Telesandi Bekasi",
-      subtitle: "Rekayasa Perangkat Lunak",
-      description: "Terjun ke dunia IT. Mempelajari coding, manajemen server, dan membangun masa depan sebagai Developer.",
+      subtitle: "Software Engineering",
+      description: "Stepping into the IT world. Learning coding, server management, and building a future career as a developer.",
       logo: "/img/tels.png",
       current: true,
       tags: ["Syntax", "Volly", "Futsal", "Football"]
@@ -61,8 +61,8 @@ const Educations = () => {
      {
       year: "2026 - Now",
       title: "ASTRA TECH",
-      subtitle: "D4-Rekayasa Perangkat Lunak",
-      description: "Menempuh pendidikan tinggi vokasi untuk memperdalam keahlian di bidang rekayasa perangkat lunak tingkat lanjut, manajemen proyek IT, serta pengembangan solusi skala industri.",
+      subtitle: "Applied Bachelor in Software Engineering",
+      description: "Pursuing higher vocational education to deepen advanced software engineering skills, IT project management, and industrial-grade solution development.",
       logo: "/img/astra.jpg",
       tags: ["College", "Software Engineering", "Astra Tech"]
     },

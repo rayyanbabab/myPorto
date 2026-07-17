@@ -1,7 +1,4 @@
 @import "tailwindcss";
-/* Fonts are imported via index.html */
-
-/* Minecraft Font Removed */
 
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
@@ -18,7 +15,6 @@ body {
   font-family: var(--font-code);
 }
 
-/* Logo R'e Styling */
 .logo-minecraft {
   font-family: var(--font-heading);
   font-weight: 900;
@@ -75,7 +71,6 @@ body {
   scroll-margin-top: 120px;
 }
 
-/* Screen reader only utility */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -138,7 +133,6 @@ body {
   text-align: center;
 }
 
-/* ===== CUSTOM SCROLLBAR - ELEGANT CREAM/WHITE THEME ===== */
 ::-webkit-scrollbar {
   width: 16px;
 }
@@ -176,13 +170,11 @@ body {
   display: none;
 }
 
-/* Firefox */
 * {
   scrollbar-width: thick;
   scrollbar-color: #f8ecde #0a0d12;
 }
 
-/* Smooth scrolling untuk textarea di form */
 textarea::-webkit-scrollbar {
   width: 10px;
 }
@@ -199,7 +191,6 @@ textarea::-webkit-scrollbar-thumb {
   border: 2px solid rgba(10, 13, 18, 0.5);
 }
 
-/* Custom scrollbar untuk elemen spesifik dengan class scrollbar-cyberpunk */
 .scrollbar-cyberpunk::-webkit-scrollbar {
   width: 12px;
 }
@@ -217,7 +208,6 @@ textarea::-webkit-scrollbar-thumb {
   box-shadow: 0 0 8px rgba(248, 236, 222, 0.3);
 }
 
-/* Animasi untuk scrollbar thumb */
 @keyframes scrollbar-glow {
   0%,
   100% {
@@ -232,14 +222,12 @@ textarea::-webkit-scrollbar-thumb {
   animation: scrollbar-glow 3s ease-in-out infinite;
 }
 
-/* Untuk browser yang mendukung scrollbar styling di dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     scrollbar-color: #f8ecde #0a0d12;
   }
 }
 
-/* Responsive scrollbar untuk mobile */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
     width: 12px;
