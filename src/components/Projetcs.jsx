@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { projectsData } from "../../constant";
 import { useNavigate } from "react-router-dom";
+import ProjectModal from "./assets/ProjectModal";
 
-const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon, isLight }) => {
+const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon, isLight, onClick }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -21,6 +22,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
 
   const handle404 = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     navigate('/next-demo');
   };
 
@@ -28,7 +30,8 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`group relative h-full flex flex-col rounded-2xl border transition-all duration-500 overflow-hidden ${
+      onClick={onClick}
+      className={`group relative h-full flex flex-col rounded-2xl border transition-all duration-500 overflow-hidden cursor-pointer ${
         isLight
           ? "bg-white/70 border-gray-100 hover:border-gray-300 hover:shadow-lg backdrop-blur-sm"
           : "bg-neutral-900/60 border-white/5 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md"
@@ -134,6 +137,13 @@ const Projects = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
@@ -304,7 +314,11 @@ const Projects = () => {
                             className="w-[85vw] sm:w-[350px] md:w-[380px] lg:w-[420px] flex-shrink-0"
                             style={{ scrollSnapAlign: 'start' }}
                         >
-                            <ProjectCard {...data} isLight={isLight} />
+                            <ProjectCard 
+                              {...data} 
+                              isLight={isLight} 
+                              onClick={() => handleOpenModal(data)}
+                            />
                         </motion.div>
                     ))}
                     
@@ -337,6 +351,13 @@ const Projects = () => {
         </div>
 
       </div>
+
+      <ProjectModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        project={selectedProject}
+        isLight={isLight}
+      />
 
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {

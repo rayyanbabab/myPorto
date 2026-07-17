@@ -161,7 +161,9 @@ const projectsData = [
     parag: "LonIk is a web-based application designed to facilitate clinic ticketing and operations for hospitals.",
     tech: ["TypeScript", "Blade", "JavaScript", "PHP", "Vite"],
     linkDemo: "#",
-    linkCode: "https://github.com/rayyanbabab/Loket-klinik"
+    linkCode: "https://github.com/rayyanbabab/Loket-klinik",
+    features: ["Queue Ticket Issuing", "Active Counter Display", "Multi-counter Administration", "Real-time Queue Updates"],
+    overview: "LonIk is designed for healthcare centers to manage daily patient flow. By digitalizing the ticket queue system, clinic operations become more organized and patient waiting times are significantly reduced."
   },
 
   {
@@ -172,7 +174,9 @@ const projectsData = [
     tech: ["Laravel", "MySQL", "Tailwind", "Vite", "Blade"],
     linkDemo: "#",
     linkCode: "https://github.com/rayyanbabab/artilia",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Asset Registration & Tracking", "Low-Stock Notifications", "Role-based Administrative Access", "Historical Movement Audits"],
+    overview: "Artilia Inventory provides corporations with complete visibility over their logistics and assets. It features interactive tables, stock monitoring indicators, and robust CRUD functionalities to manage equipment lifecycle."
   },
 
   {
@@ -183,102 +187,125 @@ const projectsData = [
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "https://dev-islamic-ten.vercel.app",
     linkCode: "https://github.com/rayyanbabab/islamic",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Full Digital Surahs", "Active Prayer Times Scheduler", "Daily Hadith Feed", "Clean Modern UI"],
+    overview: "A feature-rich web app for Muslim users containing digital Quran, automated offline prayer times calculation based on coordinates, and a collection of daily supplications."
   },
   {
     id: 4,
     gambar: "nextt.jpeg",
     judul: "next task",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    parag: "A minimalist project task organizer featuring kanban drag-and-drop boards, task prioritization tags, and progress trackers.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "https://nexttask-livid.vercel.app",
     linkCode: "https://github.com/rayyanbabab/nextTask",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Kanban Task Board", "Task Priority Sorting", "Progress Completion Analytics", "Offline LocalStorage Backup"],
+    overview: "Next Task is a daily productivity app designed to keep developer workflows structured. Users can easily group, drag, edit, and archive tasks to maintain peak output."
   },
 
   {
     id: 5,
     gambar: "absensi.png",
     judul: "absensi siswa QR Code",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    parag: "An administrative web application to track student attendance in real time using scan QR Codes, streamlining school presence logs.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "#",
     linkCode: "https://github.com/rayyanbabab/AbsensiQR",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["QR Code Generator & Scanner", "Real-Time Log Updates", "CSV Data Export", "Student Administration Panel"],
+    overview: "This web application simplifies tracking student attendance in educational institutions. Using generated QR codes on student IDs, teachers can quickly record entry and exit times, and compile monthly statistics easily."
   },
 
   {
     id: 6,
     gambar: "RuangGaya.png",
     judul: "RuangGaya",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    parag: "A modern, highly-responsive fashion e-commerce storefront featuring interactive product catalogs and clothing customization previews.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "https://ruanggaya.vercel.app",
     linkCode: "https://github.com/rayyanbabab/RuangGaya",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Dynamic Shopping Cart", "Interactive Product Detail Pages", "Sleek Filtering & Search", "Responsive Checkout Flow"],
+    overview: "RuangGaya is a front-end showcase for a premium fashion boutique. Designed with sleek monochrome aesthetics, smooth transitions, and high-fidelity product layout systems to provide a premium shopping experience."
   },
 
   {
     id: 7,
     gambar: "Al-quran.png",
     judul: "Al-Quran App",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    parag: "A clean digital Al-Quran platform providing full surah translations, audio recitation streaming, and custom reading bookmark tools.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "aplikasi-quran-eta.vercel.app",
+    linkDemo: "https://aplikasi-quran-eta.vercel.app",
     linkCode: "https://github.com/rayyanbabab/Al-Qu-ran-Digital",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Surah & Juz Categorization", "Multi-Translator Support", "Audio Reciters Streamer", "Bookmark & Last Read Tracker"],
+    overview: "A fast, accessible digital companion for reading and listening to the Holy Al-Quran. It leverages open-source APIs to deliver clear text, translations, and high-quality audio files with an ad-free user interface."
   },
 
   {
     id: 8,
     gambar: "Ngasir.png",
     judul: "Ngasir Apps",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    parag: "A lightweight POS (Point of Sale) cash register system optimized for small businesses to manage sales, products, and checkout logs.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "https://ngasir-ten.vercel.app",
     linkCode: "https://github.com/rayyanbabab/ngasir.git",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Product Inventory Tracker", "Dynamic Billing Calculator", "History Transaction Logger", "Printable Receipts Generation"],
+    overview: "Ngasir is a web-based cashier tool designed to help micro-businesses run day-to-day sales transactions. It is designed to be highly intuitive, enabling fast billing, automatic stock reductions, and sales summary reports."
   },
 
   {
     id: 9,
     gambar: "kas.png",
     judul: "Kas RT",
-    parag: "Cash Flow Apps",
+    parag: "An administrative web application to track neighborhood cash flow (Kas RT) with transparent receipt logging.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "https://cash-flow-app-blond.vercel.app",
     linkCode: "https://github.com/rayyanbabab/cash-flow-app",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Income & Expense Tracking", "Monthly Balance Reporting", "Printable Transaction Logs", "Interactive Charts"],
+    overview: "A financial tool built for local community administrators (RT) to report cash statements transparently. Members can view balance logs, category summaries, and monthly statements in real time."
   },
 
-   {
+  {
     id: 10,
     gambar: "kampus.png",
     judul: "Campus Registration",
-    parag: "Campus Registration Apps",
+    parag: "A student registration portal featuring data submission forms, status check dashboards, and intake tracking.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "student-portal-app-teal.vercel.app",
+    linkDemo: "https://student-portal-app-teal.vercel.app",
     linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-kampus",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Multi-step Admission Form", "Real-time Verification Status", "Dashboard Analytics", "PDF Admission Ticket Export"],
+    overview: "This student portal simplifies the college registration workflow. Applicants can submit document scans, monitor their review status, and receive registration credentials dynamically."
   },
 
   {
     id: 11,
     gambar: "kegiatan sekolah.png",
     judul: "Sistem aplikasi kegiatan sekolah",
-    parag: "aplikasi kegiatan sekolah",
+    parag: "A school events portal designed to publish student schedules, activities, and extracurricular registration logs.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "sistem-kegiatan-sekolah-app.vercel.app",
+    linkDemo: "https://sistem-kegiatan-sekolah-app.vercel.app",
     linkCode: "https://github.com/rayyanbabab/sistem-kegiatan-sekolah-app",
-    isComingSoon: false
+    isComingSoon: false,
+    features: ["Dynamic Event Calendar", "Registration for Extra-curriculars", "Announcement Board", "Admin Event Scheduler"],
+    overview: "A centralization hub for secondary school activities. Students can browse up-coming events, sign up for programs, and get notifications regarding schedule updates."
   },
 
   {
     id: 12,
     gambar: "coming-soon.png",
     judul: "LaundryApp",
-    parag: "Coming soon",
-    isComingSoon: true
+    parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
+    isComingSoon: true,
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "#",
+    linkCode: "#",
+    features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
+    overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
   }
 ]
 
