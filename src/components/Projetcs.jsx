@@ -31,28 +31,25 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onClick={onClick}
-      className={`group relative h-full flex flex-col rounded-2xl border transition-all duration-500 overflow-hidden cursor-pointer ${
-        isLight
+      className={`group relative h-full flex flex-col rounded-2xl border transition-all duration-500 overflow-hidden cursor-pointer ${isLight
           ? "bg-white/70 border-gray-100 hover:border-gray-300 hover:shadow-lg backdrop-blur-sm"
           : "bg-neutral-900/60 border-white/5 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md"
-      }`}
+        }`}
     >
-      
-      <div 
+
+      <div
         className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
         style={{
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${
-                isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)'
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)'
             }, transparent 40%)`
         }}
       />
 
       <div className="relative h-48 sm:h-52 overflow-hidden z-10 border-b border-white/5">
-        <div className={`absolute inset-0 z-10 transition-colors duration-500 ${
-            isLight ? 'bg-black/5 group-hover:bg-transparent' : 'bg-black/20 group-hover:bg-transparent'
-        }`} />
-        <img 
-          src={`/img/${gambar}`} 
+        <div className={`absolute inset-0 z-10 transition-colors duration-500 ${isLight ? 'bg-black/5 group-hover:bg-transparent' : 'bg-black/20 group-hover:bg-transparent'
+          }`} />
+        <img
+          src={`/img/${gambar}`}
           alt={judul}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
@@ -61,34 +58,32 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
 
       <div className="flex-1 p-6 flex flex-col z-10">
         <div className="mb-5">
-            <div className="flex justify-between items-start gap-2 mb-2">
-                <h3 className={`text-lg font-semibold tracking-tight group-hover:translate-x-1 transition-transform duration-300 ${isLight ? "text-gray-900" : "text-white"}`}>
-                {judul}
-                </h3>
-                {isComingSoon && (
-                  <span className={`shrink-0 px-3 py-1 rounded-full text-[10px] font-medium tracking-wider uppercase border ${
-                    isLight 
-                        ? 'bg-black/10 text-black border-black/10' 
-                        : 'bg-white/10 text-white border-white/10'
-                  }`}>
-                    Coming Soon
-                  </span>
-                )}
-            </div>
-            <p className={`text-sm line-clamp-3 leading-relaxed font-normal ${isLight ? "text-gray-600" : "text-gray-400"}`}>
+          <div className="flex justify-between items-start gap-2 mb-2">
+            <h3 className={`text-lg font-semibold tracking-tight group-hover:translate-x-1 transition-transform duration-300 ${isLight ? "text-gray-900" : "text-white"}`}>
+              {judul}
+            </h3>
+            {isComingSoon && (
+              <span className={`shrink-0 px-3 py-1 rounded-full text-[10px] font-medium tracking-wider uppercase border ${isLight
+                  ? 'bg-black/10 text-black border-black/10'
+                  : 'bg-white/10 text-white border-white/10'
+                }`}>
+                Coming Soon
+              </span>
+            )}
+          </div>
+          <p className={`text-sm line-clamp-3 leading-relaxed font-normal ${isLight ? "text-gray-600" : "text-gray-400"}`}>
             {parag}
-            </p>
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-6">
           {tech?.map((t, i) => (
-            <span 
+            <span
               key={i}
-              className={`px-2 py-0.5 text-[10px] font-medium rounded-md transition-colors duration-300 ${
-                isLight
+              className={`px-2 py-0.5 text-[10px] font-medium rounded-md transition-colors duration-300 ${isLight
                   ? "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
                   : "bg-white/5 text-gray-400 group-hover:bg-white/10 group-hover:text-white"
-              }`}
+                }`}
             >
               {t}
             </span>
@@ -101,9 +96,8 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
             onClick={(!linkDemo || linkDemo === "#") ? handle404 : (e) => e.stopPropagation()}
             target={(!linkDemo || linkDemo === "#") ? "_self" : "_blank"}
             rel="noopener noreferrer"
-            className={`group/link flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
-              isLight ? "text-black hover:text-gray-600" : "text-white hover:text-gray-300"
-            }`}
+            className={`group/link flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${isLight ? "text-black hover:text-gray-600" : "text-white hover:text-gray-300"
+              }`}
           >
             <span>Preview</span>
             <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform duration-300" />
@@ -114,11 +108,10 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
             onClick={(!linkCode || linkCode === "#") ? handle404 : (e) => e.stopPropagation()}
             target={(!linkCode || linkCode === "#") ? "_self" : "_blank"}
             rel="noopener noreferrer"
-            className={`p-2 rounded-full transition-all duration-300 ${
-              isLight
+            className={`p-2 rounded-full transition-all duration-300 ${isLight
                 ? "text-gray-400 hover:text-black hover:bg-gray-100"
                 : "text-gray-500 hover:text-white hover:bg-white/5"
-            }`}
+              }`}
             title="Source Code"
           >
             <Github size={18} />
@@ -151,7 +144,7 @@ const Projects = () => {
 
   useEffect(() => {
     const updateTheme = () => {
-        setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
+      setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
     };
     updateTheme();
     const observer = new MutationObserver(updateTheme);
@@ -188,9 +181,9 @@ const Projects = () => {
     setIsDragging(false);
     document.body.style.cursor = 'default';
     if (scrollContainerRef.current) {
-        setTimeout(() => {
-             if (scrollContainerRef.current) scrollContainerRef.current.style.scrollSnapType = 'x mandatory';
-        }, 50);
+      setTimeout(() => {
+        if (scrollContainerRef.current) scrollContainerRef.current.style.scrollSnapType = 'x mandatory';
+      }, 50);
     }
   };
 
@@ -216,143 +209,140 @@ const Projects = () => {
   };
 
   return (
-    <section 
-      id="projects" 
-      ref={sectionRef} 
+    <section
+      id="projects"
+      ref={sectionRef}
       className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden scroll-mt-24 font-sans"
     >
-      
+
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
-        <div 
-            className="absolute inset-0 opacity-[0.05]" 
-            style={{ 
-                backgroundImage: `linear-gradient(${isLight ? '#000' : '#fff'} 1px, transparent 1px), linear-gradient(90deg, ${isLight ? '#000' : '#fff'} 1px, transparent 1px)`, 
-                backgroundSize: '40px 40px' 
-            }} 
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: `linear-gradient(${isLight ? '#000' : '#fff'} 1px, transparent 1px), linear-gradient(90deg, ${isLight ? '#000' : '#fff'} 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}
         />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
 
         <div className="flex flex-col md:flex-row items-end justify-between mb-12 md:mb-20 gap-6">
-            <div className="text-center md:text-left w-full md:w-auto">
-                <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading"
-                >
-                    <span className={`bg-clip-text text-transparent ${
-                        isLight 
-                            ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500' 
-                            : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
-                    }`}>
-                        Featured Projects
-                    </span>
-                </motion.h1>
-                <motion.div 
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    className={`h-1 w-24 rounded-full ${isLight ? 'bg-black' : 'bg-white'} mx-auto md:mx-0`} 
-                />
-            </div>
+          <div className="text-center md:text-left w-full md:w-auto">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading"
+            >
+              <span className={`bg-clip-text text-transparent ${isLight
+                  ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500'
+                  : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
+                }`}>
+                Featured Projects
+              </span>
+            </motion.h1>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              className={`h-1 w-24 rounded-full ${isLight ? 'bg-black' : 'bg-white'} mx-auto md:mx-0`}
+            />
+          </div>
 
-            <div className="hidden md:flex gap-3">
-                <button
-                    onClick={() => scrollTo('left')}
-                    disabled={!canScrollLeft}
-                    className={`p-4 rounded-full border transition-all duration-300 ${
-                        isLight 
-                            ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30" 
-                            : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
-                    }`}
-                >
-                    <ArrowRight className="rotate-180" size={24} />
-                </button>
-                <button
-                    onClick={() => scrollTo('right')}
-                    disabled={!canScrollRight}
-                    className={`p-4 rounded-full border transition-all duration-300 ${
-                        isLight 
-                            ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30" 
-                            : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
-                    }`}
-                >
-                    <ArrowRight size={24} />
-                </button>
-            </div>
+          <div className="hidden md:flex gap-3">
+            <button
+              onClick={() => scrollTo('left')}
+              disabled={!canScrollLeft}
+              className={`p-4 rounded-full border transition-all duration-300 ${isLight
+                  ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30"
+                  : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
+                }`}
+            >
+              <ArrowRight className="rotate-180" size={24} />
+            </button>
+            <button
+              onClick={() => scrollTo('right')}
+              disabled={!canScrollRight}
+              className={`p-4 rounded-full border transition-all duration-300 ${isLight
+                  ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30"
+                  : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
+                }`}
+            >
+              <ArrowRight size={24} />
+            </button>
+          </div>
         </div>
 
         <div className="relative">
-            
-            <div 
-                ref={scrollContainerRef}
-                onMouseDown={(e) => { e.preventDefault(); handleDragStart(e.clientX); }}
-                onMouseMove={(e) => handleDragMove(e.clientX)}
-                onMouseUp={handleDragEnd}
-                onMouseLeave={handleDragEnd}
-                onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-                onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
-                onTouchEnd={handleDragEnd}
-                className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-12 -mx-4 px-4 sm:mx-0 sm:px-0"
-                style={{ 
-                    cursor: isDragging ? 'grabbing' : 'grab',
-                    scrollSnapType: 'x mandatory',
-                    scrollPaddingLeft: '0px'
-                }}
-            >
-                <div className="flex gap-6 sm:gap-8 w-max">
-                    {projectsData.map((data, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="w-[85vw] sm:w-[350px] md:w-[380px] lg:w-[420px] flex-shrink-0"
-                            style={{ scrollSnapAlign: 'start' }}
-                        >
-                            <ProjectCard 
-                              {...data} 
-                              isLight={isLight} 
-                              onClick={() => handleOpenModal(data)}
-                            />
-                        </motion.div>
-                    ))}
-                    
-                    <div className="w-4 sm:w-0" /> 
-                </div>
-            </div>
 
-            <div className="md:hidden flex justify-center gap-4 mt-4">
-                 <button onClick={() => scrollTo('left')} disabled={!canScrollLeft} className={`p-3 rounded-full border ${isLight ? 'border-black/20 text-black disabled:opacity-30' : 'border-white/20 text-white disabled:opacity-30'}`}>
-                    <ArrowRight className="rotate-180" size={20} />
-                 </button>
-                 <button onClick={() => scrollTo('right')} disabled={!canScrollRight} className={`p-3 rounded-full border ${isLight ? 'border-black/20 text-black disabled:opacity-30' : 'border-white/20 text-white disabled:opacity-30'}`}>
-                    <ArrowRight size={20} />
-                 </button>
+          <div
+            ref={scrollContainerRef}
+            onMouseDown={(e) => { e.preventDefault(); handleDragStart(e.clientX); }}
+            onMouseMove={(e) => handleDragMove(e.clientX)}
+            onMouseUp={handleDragEnd}
+            onMouseLeave={handleDragEnd}
+            onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+            onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+            onTouchEnd={handleDragEnd}
+            className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-12 -mx-4 px-4 sm:mx-0 sm:px-0"
+            style={{
+              cursor: isDragging ? 'grabbing' : 'grab',
+              scrollSnapType: 'x mandatory',
+              scrollPaddingLeft: '0px'
+            }}
+          >
+            <div className="flex gap-6 sm:gap-8 w-max">
+              {projectsData.map((data, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="w-[85vw] sm:w-[350px] md:w-[380px] lg:w-[420px] flex-shrink-0"
+                  style={{ scrollSnapAlign: 'start' }}
+                >
+                  <ProjectCard
+                    {...data}
+                    isLight={isLight}
+                    onClick={() => handleOpenModal(data)}
+                  />
+                </motion.div>
+              ))}
+
+              <div className="w-4 sm:w-0" />
             </div>
+          </div>
+
+          <div className="md:hidden flex justify-center gap-4 mt-4">
+            <button onClick={() => scrollTo('left')} disabled={!canScrollLeft} className={`p-3 rounded-full border ${isLight ? 'border-black/20 text-black disabled:opacity-30' : 'border-white/20 text-white disabled:opacity-30'}`}>
+              <ArrowRight className="rotate-180" size={20} />
+            </button>
+            <button onClick={() => scrollTo('right')} disabled={!canScrollRight} className={`p-3 rounded-full border ${isLight ? 'border-black/20 text-black disabled:opacity-30' : 'border-white/20 text-white disabled:opacity-30'}`}>
+              <ArrowRight size={20} />
+            </button>
+          </div>
         </div>
 
         <div className="mt-12 hidden md:block">
-            <div className={`relative h-[2px] w-full rounded-full overflow-hidden ${isLight ? 'bg-black/10' : 'bg-white/10'}`}>
-                <motion.div 
-                    className={`absolute left-0 top-0 h-full ${isLight ? 'bg-black' : 'bg-white'}`}
-                    style={{ width: `${scrollProgress}%` }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-            </div>
-            <div className={`flex justify-between mt-2 text-xs font-mono uppercase tracking-widest opacity-50 ${isLight ? 'text-black' : 'text-white'}`}>
-                <span>01</span>
-                <span>0{projectsData.length}</span>
-            </div>
+          <div className={`relative h-[2px] w-full rounded-full overflow-hidden ${isLight ? 'bg-black/10' : 'bg-white/10'}`}>
+            <motion.div
+              className={`absolute left-0 top-0 h-full ${isLight ? 'bg-black' : 'bg-white'}`}
+              style={{ width: `${scrollProgress}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
+          </div>
+          <div className={`flex justify-between mt-2 text-xs font-mono uppercase tracking-widest opacity-50 ${isLight ? 'text-black' : 'text-white'}`}>
+            <span>01</span>
+            <span>0{projectsData.length}</span>
+          </div>
         </div>
 
       </div>
 
-      <ProjectModal 
+      <ProjectModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         project={selectedProject}
