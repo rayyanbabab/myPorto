@@ -13,7 +13,7 @@ function CompetitionCard({ isLight = false }) {
           transformStyle: 'preserve-3d'
         }}
       >
-        {/* Front Side */}
+        
         <div 
           className={`absolute inset-0 flex flex-col justify-center items-center rounded-xl p-6 border shadow-2xl ${isLight ? 'border-amber-200/80' : 'border-white/20'}`}
           style={{ 
@@ -23,7 +23,7 @@ function CompetitionCard({ isLight = false }) {
               : 'linear-gradient(135deg, rgba(30,30,35,0.98) 0%, rgba(15,15,20,0.98) 100%)'
           }}
         >
-          {/* Certificate Image */}
+          
           <div className={`w-full max-w-xs rounded-lg p-3 shadow-lg mb-4 ${isLight ? 'bg-white border border-amber-100' : 'bg-white'}`}>
             <img 
               src="/img/indo.png" 
@@ -34,7 +34,6 @@ function CompetitionCard({ isLight = false }) {
             />
           </div>
 
-          {/* Content */}
           <div className='text-center space-y-3'>
             <h1 className={`${isLight ? 'text-slate-900' : 'text-white'} font-bold text-xl`}>
               ISSC Competition
@@ -56,7 +55,6 @@ function CompetitionCard({ isLight = false }) {
           </div>
         </div>
 
-        {/* Back Side */}
         <div 
           className={`absolute inset-0 flex flex-col justify-center items-center rounded-xl p-6 border shadow-2xl ${isLight ? 'border-amber-200/80' : 'border-white/20'}`}
           style={{ 
@@ -104,7 +102,6 @@ function CompetitionCard({ isLight = false }) {
           </div>
         </div>
       </div>
-
 
     </div>
   )

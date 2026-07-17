@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef } from 'react'
 import CertificateModal from './CertificateModal'
 
@@ -26,7 +27,6 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
           }}
         >
-          {/* Front Face — this one is in normal flow so it sets the height */}
           <div
             className={`relative flex flex-col rounded-2xl p-5 border transition-all duration-500 overflow-hidden ${
                 isLight 
@@ -36,14 +36,12 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             style={{ backfaceVisibility: 'hidden' }}
           >
 
-            {/* Title */}
             <h3 className={`text-sm font-semibold tracking-tight leading-snug text-center mb-5 ${
                 isLight ? 'text-gray-900' : 'text-white'
             }`}>
               {judul}
             </h3>
 
-            {/* Action */}
             <div className="mt-auto flex flex-col items-center gap-2">
               <div className={`px-4 py-2 rounded-lg text-[10px] font-semibold uppercase tracking-widest transition-all duration-300 ${
                   isLight 
@@ -58,7 +56,6 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             </div>
           </div>
 
-          {/* Back Face — absolutely positioned, overlays the front */}
           <div
             className={`absolute inset-0 flex flex-col items-center justify-center rounded-2xl p-6 text-center border transition-all duration-500 ${
                 isLight 
@@ -78,7 +75,6 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
                 {judul}
               </p>
               
-              {/* Open Certificate — now opens modal */}
               <button 
                 onClick={handleOpenCertificate}
                 className={`w-full py-2.5 rounded-xl font-bold text-xs text-center transition-all duration-300 flex items-center justify-center gap-2 ${
@@ -110,7 +106,6 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
         </div>
       </article>
 
-      {/* Certificate Modal */}
       <CertificateModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}

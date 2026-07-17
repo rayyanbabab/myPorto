@@ -1,142 +1,4 @@
-// const navlinks = [
-//   {
-//     id: 1,
-//     text: "Home",
-//     link: "#home",
-//   },
 
-//   {
-//     id: 2,
-//     text: "About",
-//     link: "#about",
-//   },
-
-//   {
-//     id: 3,
-//     text: "Gallery",
-//     link: "#gallery",
-//   },
-
-//   {
-//     id: 4,
-//     text: "Projects",
-//     link: "#projects",
-//   },
-
-//   {
-//     id: 5,
-//     text: "Achievements",
-//     link: "#achievements",
-//   },
-
-//   {
-//     id: 6,
-//     text: "Contact",
-//     link: "#contact",
-//   },
-// ];
-
-// const techstack = [
-//   {
-//     id: 1,
-//     src: "Frame-1.png",
-//   },
-
-//   {
-//     id: 2,
-//     src: "Frame-2.png",
-//   },
-
-//   {
-//     id: 3,
-//     src: "Frame-3.png",
-//   },
-
-//   {
-//     id: 4,
-//     src: "Frame-4.png",
-//   },
-
-//   {
-//     id: 5,
-//     src: "Frame-5.png",
-//   },
-
-//   {
-//     id: 6,
-//     src: "Frame-6.png",
-//   },
-
-//   {
-//     id: 7,
-//     src: "Frame-7.png",
-//   },
-
-//   {
-//     id: 8,
-//     src: "Frame-8.png",
-//   },
-
-//   {
-//     id: 9,
-//     src: "Frame-9.png",
-//   },
-
-//   {
-//     id: 10,
-//     src: "Frame-10.png",
-//   },
-
-//   {
-//     id: 11,
-//     src: "Frame-11.png",
-//   },
-
-//   {
-//     id: 12,
-//     src: "Frame-12.png",
-//   },
-
-//   {
-//     id: 13,
-//     src: "Frame-13.png",
-//   },
-
-//   {
-//     id: 14,
-//     src: "Frame-14.png",
-//   },
-
-//   {
-//     id: 15,
-//     src: "Frame-15.png",
-//   },
-
-//   {
-//     id: 16,
-//     src: "Frame-16.png",
-//   },
-
-//   {
-//     id: 17,
-//     src: "Frame-17.png",
-//   },
-
-//   {
-//     id: 18,
-//     src: "Frame-18.png",
-//   },
-
-//   {
-//     id: 19,
-//     src: "Frame.png",
-//   },
-
-//   {
-//     id: 20,
-//     src: "Vector.png",
-//   },
-// ];
 
 const navlinks = [
   {
@@ -231,7 +93,6 @@ const techstack = [
     src: "Frame-9.png"
   },
 
-
   {
     id: 10,
     src: "Frame-10.png"
@@ -293,7 +154,7 @@ const projectsData = [
     id: 1,
     gambar: "tiket.png",
     judul: "LonIk",
-    parag: "LonIk is a web-based application designed to facilitate for Hospital.",
+    parag: "LonIk is a web-based application designed to facilitate clinic ticketing and operations for hospitals.",
     tech: ["TypeScript", "Blade", "JavaScript", "PHP", "Vite"],
     linkDemo: "#",
     linkCode: "https://github.com/rayyanbabab/Loket-klinik"
@@ -303,8 +164,8 @@ const projectsData = [
     id: 2,
     gambar: "Artilia.png",
     judul: "artilia inventory",
-    parag: "Artilia Inventory is an application for managing inventory in company",
-    tech: ["Laravel", "MySQL", "Tailwind", "Vite", "Blade", "Laravel"],
+    parag: "Artilia Inventory is an application for managing inventory and assets in a company efficiently.",
+    tech: ["Laravel", "MySQL", "Tailwind", "Vite", "Blade"],
     linkDemo: "#",
     linkCode: "https://github.com/rayyanbabab/artilia",
     isComingSoon: false
@@ -314,7 +175,7 @@ const projectsData = [
     id: 3,
     gambar: "islamicBot.png",
     judul: "islamic",
-    parag: "Application designed to track fictional character birthdays, featuring real-time countdowns, a dynamic roster, and QR code sharing capabilities. ",
+    parag: "A web application offering digital Al-Quran features, prayer times, and daily Islamic content to support daily worship.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     linkDemo: "https://dev-islamic-ten.vercel.app",
     linkCode: "https://github.com/rayyanbabab/islamic",
@@ -421,33 +282,30 @@ const dataCerti = [
   {
     id: 1,
     gambar: "machung.webp",
-    judul: "coming soon",
+    judul: "Junior Web Developer - BNSP",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 
   {
     id: 2,
     gambar: "machung.webp",
-    judul: "LUPA NYIMPEN NYA DIMANA",
+    judul: "Responsive Web Design - freeCodeCamp",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 
   {
     id: 3,
     gambar: "machung.webp",
-    judul: "NANTI DAH KALO NEMU LAGSUNG GUA MASUKIN",
+    judul: "JavaScript Algorithms & Data Structures - freeCodeCamp",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
 
   {
     id: 4,
     gambar: "machung.webp",
-    judul: "SABAR YAAA",
+    judul: "IT Support Professional Certificate - Google",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
   },
-
-
-
 ]
 export { navlinks, techstack, projectsData, dataCerti, GITHUB_USERNAME, GITHUB_PROFILE_URL }
 

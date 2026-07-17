@@ -1,8 +1,7 @@
 import { useRef, useMemo, useEffect, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-// ─── Mouse Tracker ───
 const useMousePosition = () => {
   const mouse = useRef({ x: 0, y: 0 });
   useEffect(() => {
@@ -16,7 +15,6 @@ const useMousePosition = () => {
   return mouse;
 };
 
-// ─── Animated Particle Field ───
 const ParticleField = ({ count = 200, isLight }) => {
   const pointsRef = useRef();
   const mouse = useMousePosition();
@@ -36,13 +34,12 @@ const ParticleField = ({ count = 200, isLight }) => {
     return { positions: pos, sizes: sz };
   }, [count]);
 
-  // Store original positions for spring-back
   useEffect(() => {
     originalPositions.current = new Float32Array(positions);
   }, [positions]);
 
   useFrame((state) => {
-    if (!pointsRef.current) return;
+    if (!pointsRef.current || !originalPositions.current) return;
     const t = state.clock.elapsedTime;
     const posAttr = pointsRef.current.geometry.attributes.position;
     const mx = mouse.current.x;
@@ -54,15 +51,12 @@ const ParticleField = ({ count = 200, isLight }) => {
       const oy = originalPositions.current[i3 + 1];
       const oz = originalPositions.current[i3 + 2];
 
-      // Ambient floating motion
       const floatX = Math.sin(t * 0.15 + i * 0.5) * 0.3;
       const floatY = Math.cos(t * 0.12 + i * 0.3) * 0.2;
 
-      // Mouse influence — particles push away gently from cursor
       const mouseInfluenceX = mx * 0.8;
       const mouseInfluenceY = my * 0.5;
 
-      // Lerp toward target
       const targetX = ox + floatX + mouseInfluenceX;
       const targetY = oy + floatY + mouseInfluenceY;
 
@@ -72,7 +66,6 @@ const ParticleField = ({ count = 200, isLight }) => {
     }
     posAttr.needsUpdate = true;
 
-    // Slow global rotation
     pointsRef.current.rotation.y += 0.0003;
   });
 
@@ -95,7 +88,6 @@ const ParticleField = ({ count = 200, isLight }) => {
   );
 };
 
-// ─── Floating Wireframe Ring ───
 const FloatingRing = ({ position, radius = 1.5, isLight, speed = 1 }) => {
   const meshRef = useRef();
   const mouse = useMousePosition();
@@ -110,7 +102,6 @@ const FloatingRing = ({ position, radius = 1.5, isLight, speed = 1 }) => {
     meshRef.current.rotation.y = t * 0.1 * speed + mouse.current.x * 0.3;
     meshRef.current.rotation.z = Math.cos(t * 0.15 * speed) * 0.3;
 
-    // Subtle breathing scale
     const scale = 1 + Math.sin(t * 0.3 * speed) * 0.05;
     meshRef.current.scale.setScalar(scale);
   });
@@ -126,7 +117,6 @@ const FloatingRing = ({ position, radius = 1.5, isLight, speed = 1 }) => {
   );
 };
 
-// ─── Central Sphere with Distortion ───
 const CentralOrb = ({ isLight }) => {
   const meshRef = useRef();
   const wireRef = useRef();
@@ -135,7 +125,6 @@ const CentralOrb = ({ isLight }) => {
 
   const geo = useMemo(() => new THREE.IcosahedronGeometry(1.2, 3), []);
 
-  // Store base positions for vertex displacement
   useEffect(() => {
     basePositions.current = new Float32Array(geo.attributes.position.array);
   }, [geo]);
@@ -144,12 +133,10 @@ const CentralOrb = ({ isLight }) => {
     if (!meshRef.current || !basePositions.current) return;
     const t = state.clock.elapsedTime;
 
-    // Mouse-driven rotation
     meshRef.current.rotation.x += (mouse.current.y * 0.3 - meshRef.current.rotation.x) * 0.01;
     meshRef.current.rotation.y += (mouse.current.x * 0.3 - meshRef.current.rotation.y) * 0.01;
     meshRef.current.rotation.z = t * 0.05;
 
-    // Vertex displacement (breathing/wave effect)
     const posAttr = meshRef.current.geometry.attributes.position;
     for (let i = 0; i < posAttr.count; i++) {
       const i3 = i * 3;
@@ -157,17 +144,14 @@ const CentralOrb = ({ isLight }) => {
       const by = basePositions.current[i3 + 1];
       const bz = basePositions.current[i3 + 2];
 
-      // Calculate displacement based on vertex normal direction
       const len = Math.sqrt(bx * bx + by * by + bz * bz);
       const nx = bx / len;
       const ny = by / len;
       const nz = bz / len;
 
-      // Wave displacement
       const wave = Math.sin(t * 0.5 + bx * 2 + by * 2) * 0.06
                   + Math.sin(t * 0.3 + bz * 3) * 0.04;
 
-      // Mouse proximity influence
       const mouseDist = Math.abs(mouse.current.x - nx) + Math.abs(mouse.current.y - ny);
       const mouseWave = Math.max(0, 1 - mouseDist * 1.5) * 0.08 * Math.sin(t * 2);
 
@@ -179,7 +163,6 @@ const CentralOrb = ({ isLight }) => {
     }
     posAttr.needsUpdate = true;
 
-    // Sync wireframe
     if (wireRef.current) {
       wireRef.current.rotation.copy(meshRef.current.rotation);
       wireRef.current.geometry.attributes.position.array.set(posAttr.array);
@@ -189,7 +172,7 @@ const CentralOrb = ({ isLight }) => {
 
   return (
     <group position={[0, 0, -1]}>
-      {/* Solid fill */}
+      
       <mesh ref={meshRef} geometry={geo.clone()}>
         <meshBasicMaterial
           color={isLight ? "#cbd5e1" : "#0f172a"}
@@ -197,7 +180,7 @@ const CentralOrb = ({ isLight }) => {
           opacity={isLight ? 0.25 : 0.18}
         />
       </mesh>
-      {/* Wireframe overlay */}
+      
       <mesh ref={wireRef} geometry={geo.clone()}>
         <meshBasicMaterial
           color={isLight ? "#475569" : "#ffffff"}
@@ -210,27 +193,22 @@ const CentralOrb = ({ isLight }) => {
   );
 };
 
-// ─── Scene Composition ───
 const HeroScene = ({ isLight }) => {
   return (
     <>
       <ambientLight intensity={0.1} />
 
-      {/* Central breathing orb */}
       <CentralOrb isLight={isLight} />
 
-      {/* Floating rings at different angles */}
       <FloatingRing position={[0, 0, -1]} radius={2.5} isLight={isLight} speed={0.7} />
       <FloatingRing position={[0, 0, -1]} radius={3.5} isLight={isLight} speed={0.5} />
       <FloatingRing position={[0, 0, -1]} radius={4.5} isLight={isLight} speed={0.3} />
 
-      {/* Particle field */}
       <ParticleField count={150} isLight={isLight} />
     </>
   );
 };
 
-// ─── Exported Component ───
 const Hero3DBackground = ({ theme = "dark" }) => {
   const isLight = theme === "light";
   const [isMobile, setIsMobile] = useState(false);

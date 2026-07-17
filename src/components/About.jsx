@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "react-fast-marquee";
@@ -8,7 +9,6 @@ const About = () => {
   const isLight = themeMode === "light";
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect mobile
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -16,7 +16,6 @@ const About = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Theme Sync
   useEffect(() => {
     const updateTheme = () => {
       setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
@@ -27,7 +26,6 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Parallax Effect
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -35,9 +33,8 @@ const About = () => {
 
   const yBg = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
-  // Tech stack data for marquee (Grayscale default)
   const techStack = useMemo(() => [
-    { name: "React", logo: "https://cdn.simpleicons.org/react/000000" }, // Black logos for monochrome vibe
+    { name: "React", logo: "https://cdn.simpleicons.org/react/000000" },
     { name: "JavaScript", logo: "https://cdn.simpleicons.org/javascript/000000" },
     { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript/000000" },
     { name: "Next.js", logo: "https://cdn.simpleicons.org/nextdotjs/000000" },
@@ -47,7 +44,6 @@ const About = () => {
     { name: "Git", logo: "https://cdn.simpleicons.org/git/000000" },
   ], []);
 
-  // Use distinct marquee rows
   const marqueeRows = useMemo(() => [
     { speed: 20, direction: "left", rotate: 2 },
     { speed: 25, direction: "right", rotate: -1 },
@@ -60,7 +56,7 @@ const About = () => {
       id="about" 
       className="relative min-h-screen py-24 sm:py-32 px-4 md:px-8 overflow-hidden font-sans"
     >
-      {/* --- BACKGROUND (Clean Monochrome) --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -72,7 +68,6 @@ const About = () => {
         />
       </div>
 
-      {/* --- MARQUEE BACKGROUND (Parallax) --- */}
       <motion.div 
         style={{ y: yBg }}
         className="absolute inset-0 -z-10 flex flex-col justify-center gap-20 opacity-[0.03] pointer-events-none select-none overflow-hidden"
@@ -89,7 +84,7 @@ const About = () => {
                       <img 
                         src={tech.logo} 
                         alt={tech.name} 
-                        className={`w-16 h-16 object-contain ${!isLight && 'invert'}`} // Invert for dark mode
+                        className={`w-16 h-16 object-contain ${!isLight && 'invert'}`}
                       />
                    </div>
                 ))}
@@ -99,8 +94,7 @@ const About = () => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* --- HEADER --- */}
+
         <div className="text-center mb-16 md:mb-24">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -125,10 +119,8 @@ const About = () => {
           />
         </div>
 
-        {/* --- CONTENT GRID --- */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            
-            {/* PHOTO COLUMN */}
+
             <motion.div 
                 initial={{ opacity: 0, x: isMobile ? 0 : -50, y: isMobile ? 50 : 0 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -137,18 +129,17 @@ const About = () => {
                 className={`order-1 ${isMobile ? 'order-1' : 'lg:order-2'} flex justify-center lg:justify-end`}
             >
                 <div className="relative group">
-                    {/* Frame Border Effect */}
+                    
                     <div className={`absolute -inset-4 border transition-all duration-500 rounded-2xl ${
                         isLight ? 'border-black/5 group-hover:border-black/20' : 'border-white/5 group-hover:border-white/20'
                     }`} />
-                    
-                    {/* Photo Container */}
+
                     <div className={`relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-xl overflow-hidden shadow-2xl transition-all duration-500 transform group-hover:scale-[1.02] ${
                         isLight ? 'shadow-black/10' : 'shadow-white/5'
                     }`}>
-                        {/* Overlay Gradient */}
+                        
                         <div className={`absolute inset-0 z-10 opacity-20 group-hover:opacity-0 transition-opacity duration-500 ${
-                            isLight ? 'bg-black' : 'bg-black' // Subtle dimming
+                            isLight ? 'bg-black' : 'bg-black'
                         }`} />
 
                         <img 
@@ -158,7 +149,6 @@ const About = () => {
                         />
                     </div>
 
-                    {/* Decorative Geometric Shapes (Monochrome) */}
                     <div className={`absolute -bottom-6 -left-6 w-24 h-24 border-b-2 border-l-2 rounded-bl-3xl transition-all duration-500 ${
                         isLight ? 'border-black group-hover:translate-x-2 group-hover:-translate-y-2' : 'border-white group-hover:translate-x-2 group-hover:-translate-y-2'
                     }`} />
@@ -168,7 +158,6 @@ const About = () => {
                 </div>
             </motion.div>
 
-            {/* TEXT COLUMN */}
             <motion.div 
                 initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 50 : 0 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -196,7 +185,6 @@ const About = () => {
                     </p>
                 </div>
 
-                {/* Info Cards (Grid) */}
                 <div className="grid grid-cols-2 gap-4 pt-4">
                     {[
                         { label: "Experience", value: "2+ Years" },
@@ -215,7 +203,6 @@ const About = () => {
                     ))}
                 </div>
 
-                {/* CTA Button */}
                 <div className="pt-6 flex justify-center lg:justify-start">
                     <a
                         href="/file/cv rayyan resmi.pdf"

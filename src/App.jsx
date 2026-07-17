@@ -17,9 +17,6 @@ const Achievements = lazy(() => import('./components/Achievements'));
 const Footer = lazy(() => import('./components/Footer'));
 import { Routes, Route } from 'react-router-dom';
 
-// Removed global GSAP plugin registration to avoid duplicate bytes;
-// components register only what they use locally.
-
 function App() {
   const [showOpening, setShowOpening] = useState(true);
   const [theme, setTheme] = useState(() => {

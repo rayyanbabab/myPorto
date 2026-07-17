@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useState } from "react";
 
 import { GITHUB_PROFILE_URL, GITHUB_USERNAME } from "../../constant";
@@ -29,8 +30,7 @@ const GitHubContributions = () => {
 
   const chartUrl = useMemo(() => {
     if (!username) return "";
-    // Third-party SVG renderer for GitHub contribution heatmap.
-    // Keeps markup light (no extra deps) and matches the “GitHub graph” visual.
+
     return `https://ghchart.rshah.org/${encodeURIComponent(username)}`;
   }, [username]);
 
@@ -111,7 +111,7 @@ const GitHubContributions = () => {
     const maxDate = new Date(`${dates[dates.length - 1]}T00:00:00`);
 
     const start = new Date(minDate);
-    start.setDate(start.getDate() - start.getDay()); // Sunday
+    start.setDate(start.getDate() - start.getDay());
     const end = new Date(maxDate);
     end.setDate(end.getDate() + (6 - end.getDay()));
 
@@ -149,7 +149,6 @@ const GitHubContributions = () => {
       cursor.setDate(cursor.getDate() + 7);
     }
 
-    // Ensure first marker exists
     if (weeks.length > 0) {
       const firstWeekStart = new Date(`${weeks[0][0].date}T00:00:00`);
       monthMarkers.unshift({
@@ -177,12 +176,12 @@ const GitHubContributions = () => {
       id="github"
       className="relative py-24 sm:py-32 px-4 sm:px-6 overflow-hidden font-sans"
     >
-      {/* --- BACKGROUND (Glowing Gradients) --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? "bg-white" : "bg-[#050505]"}`} />
-        {/* Glow Kiri Atas */}
+        
         <div className={`absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-normal filter blur-[100px] opacity-30 ${isLight ? "bg-gray-300" : "bg-emerald-900/30"}`} />
-        {/* Glow Kanan Bawah */}
+        
         <div className={`absolute bottom-0 -right-20 w-[400px] h-[400px] rounded-full mix-blend-normal filter blur-[100px] opacity-30 ${isLight ? "bg-gray-200" : "bg-green-900/20"}`} />
       </div>
 
@@ -227,21 +226,21 @@ const GitHubContributions = () => {
                       {totalsMap[selectedYear] ?? 0} contributions in {selectedYear}
                     </p>
                   </div>
-                {/* Modern calendar (preferred) */}
+                
                 {calendar && !loadError ? (
                   <div
                     className={`rounded-2xl border overflow-hidden ${
                       isLight ? "bg-white/60 border-gray-200" : "bg-black/20 border-white/10"
                     }`}
                     style={{
-                      // shared sizing for month markers
+
                       "--cell": "11px",
                       "--gap": "3px",
                     }}
                   >
                     <div className="w-full overflow-x-auto">
                       <div className="min-w-[860px] px-5 sm:px-6 py-5 sm:py-6">
-                        {/* Month labels */}
+                        
                         <div className="flex items-start gap-3 mb-3">
                           <div className={`w-10 shrink-0 text-[11px] ${isLight ? "text-gray-500" : "text-gray-500"}`}>
                             <span className="sr-only">Weekdays</span>
@@ -260,14 +259,13 @@ const GitHubContributions = () => {
                         </div>
 
                         <div className="flex items-start gap-3">
-                          {/* Day labels (Mon/Wed/Fri) */}
+                          
                           <div className={`w-10 shrink-0 grid grid-rows-7 gap-[var(--gap)] text-[11px] ${isLight ? "text-gray-500" : "text-gray-500"}`}>
                             <span className="row-start-2">Mon</span>
                             <span className="row-start-4">Wed</span>
                             <span className="row-start-6">Fri</span>
                           </div>
 
-                          {/* Calendar grid */}
                           <div className="flex gap-[var(--gap)]">
                             {calendar.weeks.map((week, wi) => (
                               <div key={wi} className="flex flex-col gap-[var(--gap)]">
@@ -308,7 +306,6 @@ const GitHubContributions = () => {
                   </div>
                 ) : null}
 
-                {/* Loading skeleton */}
                 {loading ? (
                   <div
                     className={`rounded-2xl border overflow-hidden animate-pulse ${
@@ -327,7 +324,6 @@ const GitHubContributions = () => {
                   </div>
                 ) : null}
 
-                {/* Fallback image (if API blocked/failed) */}
                 {!calendar || loadError ? (
                   <div className="w-full overflow-x-auto">
                     <div className="min-w-[720px]">
@@ -346,7 +342,6 @@ const GitHubContributions = () => {
                 </p>
                 </div>
 
-                {/* Years Filter */}
                 {!loading && availableYears.length > 0 && (
                   <div className="flex lg:flex-col gap-2 overflow-x-auto shrink-0 pb-2 lg:pb-0">
                     {availableYears.map((year) => (

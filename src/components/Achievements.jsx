@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from "framer-motion";
 
-// Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
@@ -9,10 +9,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 
-// Components
 import CertificationCard from './assets/CertificationCard';
 
-// Data
 import { dataCerti } from '../../constant';
 
 const Achievements = () => {
@@ -21,7 +19,6 @@ const Achievements = () => {
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === 'light';
 
-  // Theme Sync
   useEffect(() => {
     const updateTheme = () => {
         setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
@@ -38,7 +35,7 @@ const Achievements = () => {
       ref={containerRef}
       className="relative min-h-screen py-24 sm:py-32 px-0 sm:px-6 overflow-hidden font-sans" 
     >
-      {/* --- BACKGROUND --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -51,8 +48,7 @@ const Achievements = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-20">
-        
-        {/* --- HEADER --- */}
+
         <div className="text-center mb-16 md:mb-24 px-4">
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
@@ -75,8 +71,7 @@ const Achievements = () => {
                 className={`h-1 w-24 rounded-full ${isLight ? 'bg-black' : 'bg-white'} mx-auto`} 
             />
         </div>
-        
-        {/* --- CERTIFICATION SECTION --- */}
+
         <div className="w-full">
             <motion.div 
                 initial={{ opacity: 0, x: -50 }}
@@ -147,7 +142,7 @@ const Achievements = () => {
         </div>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .swiper-button-next,
         .swiper-button-prev {
             color: ${isLight ? '#000' : '#fff'} !important;

@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Tech stack data
 const techstack = [
   { id: 1, name: "React", category: "Frontend", level: "Intermediate", src: "https://cdn.simpleicons.org/react/61DAFB", color: "#61DAFB" },
   { id: 2, name: "Next.js", category: "Fullstack", level: "Intermediate", src: "https://cdn.simpleicons.org/nextdotjs/000000", color: "#000000" },
@@ -13,7 +13,7 @@ const techstack = [
   { id: 8, name: "Docker", category: "DevOps", level: "Intermediate", src: "https://cdn.simpleicons.org/docker/2496ED", color: "#2496ED" },
   { id: 9, name: "AWS", category: "Cloud", level: "Advanced", src: "https://logo.svgcdn.com/logos/aws.svg", color: "#FF9900" },
   { id: 10, name: "GraphQL", category: "Backend", level: "Intermediate", src: "https://cdn.simpleicons.org/graphql/E10098", color: "#E10098" },
-  { id: 11, name: "Redux", category: "Frontend", level: "Inteermediate", src: "https://cdn.simpleicons.org/redux/764ABC", color: "#764ABC" },
+  { id: 11, name: "Redux", category: "Frontend", level: "Intermediate", src: "https://cdn.simpleicons.org/redux/764ABC", color: "#764ABC" },
   { id: 12, name: "Figma", category: "Design", level: "Intermediate", src: "https://cdn.simpleicons.org/figma/F24E1E", color: "#F24E1E" },
   { id: 13, name: "PostgreSQL", category: "Database", level: "Intermediate", src: "https://cdn.simpleicons.org/postgresql/4169E1", color: "#4169E1" },
   { id: 14, name: "Python", category: "Language", level: "Intermediate", src: "https://cdn.simpleicons.org/python/3776AB", color: "#3776AB" },
@@ -28,8 +28,7 @@ const FALLBACK_PLACEHOLDER =
 const TechStack = () => {
   const [theme, setTheme] = useState("dark");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
-  // State untuk pencarian & animasi loading
+
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(""); 
   const [isSearching, setIsSearching] = useState(false); 
@@ -37,7 +36,6 @@ const TechStack = () => {
   const containerRef = useRef(null);
   const isLight = theme === "light";
 
-  // --- LOGIC DEBOUNCE & LOADING ---
   useEffect(() => {
     setIsSearching(true);
     const handler = setTimeout(() => {
@@ -77,7 +75,7 @@ const TechStack = () => {
       className="relative min-h-screen px-4 sm:px-6 py-24 sm:py-32 overflow-hidden font-sans"
       ref={containerRef}
     >
-      {/* --- BACKGROUND (Clean Monochrome) --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -90,8 +88,7 @@ const TechStack = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* Header */}
+
         <div className="text-center mb-16">
           <h1 
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading"
@@ -109,7 +106,6 @@ const TechStack = () => {
           </p>
         </div>
 
-        {/* Search Bar */}
         <div className="relative max-w-md mx-auto mb-10 z-20">
           <div className="relative group">
              <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
@@ -158,7 +154,6 @@ const TechStack = () => {
           </div>
         </div>
 
-        {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((category) => (
             <button
@@ -179,7 +174,6 @@ const TechStack = () => {
           ))}
         </div>
 
-        {/* "Mungkin ini yang Anda maksud" Text */}
         {!isSearching && debouncedQuery && filteredTech.length > 0 && (
           <div className="max-w-6xl mx-auto mb-8 px-2 animate-fade-in-up">
              <div className="flex items-center gap-2">
@@ -199,9 +193,8 @@ const TechStack = () => {
           </div>
         )}
 
-        {/* CONTENT AREA */}
         {isSearching ? (
-          // SKELETON LOADING
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 max-w-6xl mx-auto">
             {[...Array(10)].map((_, index) => (
               <div
@@ -223,7 +216,7 @@ const TechStack = () => {
             ))}
           </div>
         ) : filteredTech.length > 0 ? (
-          // REAL DATA
+
           <motion.div 
             layout
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 max-w-6xl mx-auto"
@@ -235,7 +228,7 @@ const TechStack = () => {
             </AnimatePresence>
           </motion.div>
         ) : (
-          // EMPTY STATE
+
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className={`p-4 rounded-full mb-4 ${isLight ? 'bg-gray-100' : 'bg-white/5'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isLight ? 'text-gray-400' : 'text-gray-500'}>
@@ -250,7 +243,6 @@ const TechStack = () => {
           </div>
         )}
 
-        {/* Stats Section */}
         <div className="mt-24 pt-8 border-t border-dashed border-gray-200 dark:border-white/10">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
@@ -278,7 +270,6 @@ const TechStack = () => {
   );
 };
 
-// --- SUB-COMPONENT: TECH CARD (With Spotlight & Monochrome Logic) ---
 const TechCard = ({ tech, isLight }) => {
     const cardRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -306,7 +297,7 @@ const TechCard = ({ tech, isLight }) => {
                   : "bg-neutral-900 border-neutral-800 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5"
             }`}
         >
-            {/* Spotlight Effect */}
+            
             <div 
                 className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                 style={{
@@ -316,7 +307,6 @@ const TechCard = ({ tech, isLight }) => {
                 }}
             />
 
-            {/* Icon Container */}
             <div className="relative w-16 h-16 mb-4 z-10 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1">
                 <img
                     src={tech.src}
@@ -332,14 +322,12 @@ const TechCard = ({ tech, isLight }) => {
                 />
             </div>
 
-            {/* Tech Name */}
             <h3 className={`text-base font-bold text-center mb-2 z-10 transition-colors duration-300 ${
                 isLight ? 'text-black' : 'text-white'
             }`}>
                 {tech.name}
             </h3>
 
-            {/* Level Badge (Monochrome) */}
             <div className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-1 z-10 border ${
                 isLight 
                     ? 'bg-gray-100 text-gray-600 border-gray-200' 
@@ -348,7 +336,6 @@ const TechCard = ({ tech, isLight }) => {
                 {tech.level}
             </div>
 
-            {/* Category */}
             <p className={`text-xs font-medium z-10 ${isLight ? 'text-gray-400' : 'text-gray-600'}`}>
                 {tech.category}
             </p>

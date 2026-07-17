@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { navlinks } from '../../constant'
@@ -26,7 +27,6 @@ const Navbar = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Detect mobile
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
@@ -34,7 +34,6 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Scroll handler
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -43,7 +42,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isSidebarOpen) {
       document.body.style.overflow = 'hidden';
@@ -62,7 +60,6 @@ const Navbar = () => {
     localStorage.setItem('theme', newTheme)
   }, [themeMode])
 
-  // --- DESKTOP NAVBAR ---
   const DesktopNavbar = () => (
     <nav className="hidden md:flex fixed top-6 left-0 right-0 z-50 justify-center px-4">
       <motion.div 
@@ -117,7 +114,6 @@ const Navbar = () => {
     </nav>
   )
 
-  // --- MOBILE HEADER (Floating Minimalist) ---
   const MobileHeader = () => (
     <header 
         className={`md:hidden fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex items-center justify-between transition-all duration-300 ${
@@ -126,24 +122,22 @@ const Navbar = () => {
                 : 'bg-transparent'
         }`}
     >
-        {/* Logo */}
+        
         <a href="#home" className="relative z-[70]">
             <img 
                 src="/img/logo1.png" 
                 alt="Logo" 
                 className={`h-8 w-auto object-contain transition-all duration-300 ${
-                    // Jika menu terbuka, logo menyesuaikan warna background menu (biasanya gelap/terang penuh)
-                    // Jika tidak, ikuti tema
+
                     isSidebarOpen 
-                        ? (isLight ? 'invert' : '') // Di menu fullscreen, sesuaikan juga
+                        ? (isLight ? 'invert' : '')
                         : (isLight ? 'invert' : '') 
                 }`} 
             />
         </a>
 
-        {/* Controls */}
         <div className="flex items-center gap-4 relative z-[70]">
-            {/* Theme Toggle */}
+            
             <button 
                 onClick={toggleThemeMode}
                 className={`p-2 rounded-full transition-all active:scale-90 ${
@@ -157,7 +151,6 @@ const Navbar = () => {
                 )}
             </button>
 
-            {/* Hamburger Button (Modern) */}
             <button 
                 onClick={toggleSidebar}
                 className={`p-2 rounded-full transition-all active:scale-90 ${
@@ -174,7 +167,6 @@ const Navbar = () => {
     </header>
   )
 
-  // --- MOBILE FULLSCREEN MENU ---
   const MobileMenu = () => (
     <AnimatePresence>
         {isSidebarOpen && (
@@ -189,7 +181,7 @@ const Navbar = () => {
                         : 'bg-black/95 backdrop-blur-xl'
                 }`}
             >
-                {/* Decorative Background */}
+                
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className={`absolute -top-[20%] -left-[20%] w-[70%] h-[70%] rounded-full blur-[100px] opacity-10 ${isLight ? 'bg-black' : 'bg-white'}`} />
                     <div className={`absolute top-[40%] -right-[20%] w-[60%] h-[60%] rounded-full blur-[100px] opacity-10 ${isLight ? 'bg-black' : 'bg-white'}`} />

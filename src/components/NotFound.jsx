@@ -60,7 +60,7 @@ const NotFound = () => {
       className="flex items-center justify-center px-6 font-sans"
     >
       <div className="text-center max-w-2xl">
-        {/* 404 */}
+        
         <h1
           className="text-[120px] sm:text-[160px] md:text-[200px] font-bold leading-none mb-4"
           style={{
@@ -79,7 +79,6 @@ const NotFound = () => {
           404
         </h1>
 
-        {/* Title */}
         <h2
           className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 font-heading"
           style={{ color: themeStyles[theme].text }}
@@ -87,7 +86,6 @@ const NotFound = () => {
           Halaman Tidak Ditemukan
         </h2>
 
-        {/* Description */}
         <p
           className="text-base sm:text-lg mb-8"
           style={{ color: themeStyles[theme].secondary }}
@@ -95,7 +93,6 @@ const NotFound = () => {
           Oops.. Sepertinya fitur ini belum tersedia.
         </p>
 
-        {/* Button */}
         <button
           type="button"
           onClick={() => navigate("/")}

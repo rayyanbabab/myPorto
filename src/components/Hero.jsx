@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, lazy, Suspense } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import Hero3DBackground from "./Hero3DBackground";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -46,10 +46,6 @@ const Hero = () => {
     }
   }, [theme]);
 
-  const toggleThemeMode = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
   const toggleMusic = () => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -61,7 +57,6 @@ const Hero = () => {
     }
   };
 
-  // Sync theme with global html[data-theme] so light mode text doesn't stay white
   useEffect(() => {
     if (typeof document === 'undefined') return;
     const saved = localStorage.getItem('theme');
@@ -78,7 +73,6 @@ const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Load audio metadata to get duration
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
@@ -98,7 +92,7 @@ const Hero = () => {
 
   useGSAP(() => {
     gsap.set("#nama", { overflow: "hidden" });
-    // Keep hero text visible by default; animations will still run when gsap timelines play
+
     gsap.set([".hero-subtitle", ".hero-description", ".scroll-text", ".scroll-arrow", ".github-container"], {
       opacity: 1,
       y: 0
@@ -116,7 +110,6 @@ const Hero = () => {
         transformOrigin: "50% 50%",
       });
 
-      // Enter animation - Smooth fade and slide up
       tl.to(chars, {
         opacity: 1,
         y: 0,
@@ -129,7 +122,7 @@ const Hero = () => {
         }
       })
         .to({}, { duration: 2.5 })
-        // Exit animation - Smooth fade and slide out
+
         .to(chars, {
           opacity: 0,
           y: -20,
@@ -169,7 +162,7 @@ const Hero = () => {
         }, "-=0.8")
         .add(() => {
           const chars = gsap.utils.toArray("#nama .char");
-          const typewriterTl = createTypewriterLoop(chars, 0.09);
+          createTypewriterLoop(chars, 0.09);
         }, "-=0.5")
         .to(".scroll-text", {
           opacity: 1,
@@ -191,7 +184,7 @@ const Hero = () => {
       mainTl.to(".hero-subtitle", { opacity: 1, y: 0, duration: 1 })
         .add(() => {
           const chars = gsap.utils.toArray("#nama .char");
-          const typewriterTl = createTypewriterLoop(chars, 0.07);
+          createTypewriterLoop(chars, 0.07);
         }, "-=0.4")
         .to(".hero-description", { opacity: 1, y: 0, duration: 1 }, "-=0.6")
         .to(".github-container", { opacity: 1, y: 0, scale: 1, duration: 0.8 }, "-=0.4")
@@ -199,7 +192,6 @@ const Hero = () => {
         .to(".scroll-arrow", { opacity: 1, y: 0, duration: 0.8 }, "-=0.4");
     });
 
-    // Enhanced scroll arrow animation
     gsap.to(".scroll-arrow", {
       y: -15,
       duration: 2,
@@ -230,16 +222,15 @@ const Hero = () => {
       }}
       className={`font-sans flex flex-col items-center justify-center relative min-h-screen overflow-hidden pt-20 theme-${theme}`}
     >
-      {/* Animated Gradient Mesh / Aurora Background */}
+      
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Base background — matches app's main gradient */}
+        
         <div className="absolute inset-0" style={{
           background: theme === 'dark'
             ? 'linear-gradient(135deg, #040507 0%, #0a0d12 50%, #050608 100%)'
             : 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #e0e7ff 100%)'
         }} />
 
-        {/* Aurora Blob 1 — top-left, warm tone */}
         <div
           className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
           style={{
@@ -256,7 +247,6 @@ const Hero = () => {
           }}
         />
 
-        {/* Aurora Blob 2 — center-right, cool tone */}
         <div
           className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
           style={{
@@ -273,7 +263,6 @@ const Hero = () => {
           }}
         />
 
-        {/* Aurora Blob 3 — bottom-center, warm accent */}
         <div
           className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
           style={{
@@ -290,7 +279,6 @@ const Hero = () => {
           }}
         />
 
-        {/* Aurora Blob 4 — top-right accent, smaller */}
         <div
           className="aurora-blob absolute rounded-full blur-[80px] sm:blur-[120px]"
           style={{
@@ -307,7 +295,6 @@ const Hero = () => {
           }}
         />
 
-        {/* Subtle noise/grain overlay for texture */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -318,31 +305,26 @@ const Hero = () => {
         />
       </div>
 
-      {/* 3D Interactive Background Layer */}
       <Hero3DBackground theme={theme} />
 
-      {/* Music Player Button - Desktop Only */}
       <button
         onClick={toggleMusic}
         className="hidden md:block fixed top-6 right-6 z-50 group"
         aria-label="Toggle music"
       >
         <div className="relative">
-          {/* Glow Effect */}
+          
           <div className="absolute -inset-3 bg-white/5 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Button Container */}
           <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#0c1118]/95 to-[#0c0f14]/95 backdrop-blur-xl border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:border-white/20 shadow-lg">
-            {/* Animated Ring */}
+            
             <div className={`absolute inset-0 rounded-full border-2 ${isPlaying ? 'border-white/30 animate-ping' : 'border-white/15'
               }`} style={{ animationDuration: '2s' }} />
 
-            {/* Secondary Ring when playing */}
             {isPlaying && (
               <div className="absolute inset-0 rounded-full border border-white/15 animate-spin" style={{ animationDuration: '10s' }} />
             )}
 
-            {/* Icon */}
             {isPlaying ? (
               <div className="relative z-10 flex items-center justify-center gap-1">
                 <div className="w-1 h-5 bg-white/80 rounded-full shadow-lg shadow-white/30 animate-pulse" style={{ animationDuration: '1.2s' }} />
@@ -353,7 +335,7 @@ const Hero = () => {
                 <svg className="w-5 h-5 text-white/80 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5.14v14l11-7-11-7z" />
                 </svg>
-                {/* Play Icon Glow */}
+                
                 <div className="absolute inset-0 blur-md">
                   <svg className="w-5 h-5 text-white/40" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5.14v14l11-7-11-7z" />
@@ -362,24 +344,20 @@ const Hero = () => {
               </div>
             )}
 
-            {/* Pulse Effect when playing */}
             {isPlaying && (
               <div className="absolute inset-0 rounded-full bg-white/8 animate-pulse" />
             )}
           </div>
 
-          {/* Enhanced Tooltip with Song Info */}
           <div className="absolute top-full right-0 mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none transform group-hover:translate-y-0 translate-y-2">
             <div className="relative">
-              {/* Arrow */}
+              
               <div className="absolute -top-2 right-6 w-4 h-4 bg-white/95 backdrop-blur-sm border-l border-t border-amber-200/30 transform rotate-45" />
 
-              {/* Card */}
               <div className="relative bg-gradient-to-br from-white/95 to-amber-50/95 backdrop-blur-xl rounded-xl border border-white/40 shadow-2xl w-64 overflow-hidden">
-                {/* Elegant Glow Effect */}
+                
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-100/20 to-white/20 opacity-50" />
 
-                {/* Album Art */}
                 <div className="relative w-full h-40 overflow-hidden rounded-t-xl">
                   <img
                     src="/img/gemilang.jpg"
@@ -392,17 +370,15 @@ const Hero = () => {
                       e.target.nextSibling.style.display = 'flex';
                     }}
                   />
-                  {/* Fallback gradient if image not found */}
+                  
                   <div className="hidden w-full h-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500 items-center justify-center">
                     <svg className="w-16 h-16 text-white/80" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                     </svg>
                   </div>
 
-                  {/* Overlay Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                  {/* Play/Pause Status */}
                   <div className="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-amber-300/40">
                     <p className="text-[10px] text-gray-800 font-semibold flex items-center gap-1.5">
                       {isPlaying ? (
@@ -420,9 +396,8 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Song Info */}
                 <div className="relative p-4 space-y-2">
-                  {/* Title */}
+                  
                   <div>
                     <h4 className="text-sm font-bold text-gray-900 leading-tight">
                       Gemilang
@@ -432,10 +407,8 @@ const Hero = () => {
                     </p>
                   </div>
 
-                  {/* Divider */}
                   <div className="h-px bg-gradient-to-r from-transparent via-amber-300/40 to-transparent" />
 
-                  {/* Duration & Album */}
                   <div className="flex items-center justify-between text-[10px]">
                     <div className="flex items-center gap-1.5 text-gray-600">
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -451,7 +424,6 @@ const Hero = () => {
                     </div>
                   </div>
 
-                  {/* Action Hint */}
                   <div className="pt-1 flex items-center justify-center gap-1.5 text-[10px] text-amber-600 font-medium">
                     <span>Click to {isPlaying ? 'pause' : 'play'}</span>
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -460,7 +432,6 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Animated Border */}
                 <div className="absolute inset-0 rounded-xl opacity-50">
                   <div className="absolute inset-0 rounded-xl border border-transparent bg-gradient-to-r from-amber-300/30 via-white/30 to-amber-300/30 bg-clip-border animate-pulse" style={{ animationDuration: '3s' }} />
                 </div>
@@ -470,14 +441,12 @@ const Hero = () => {
         </div>
       </button>
 
-      {/* Audio Element */}
       <audio ref={audioRef} loop preload="none">
         <source src="/music/Perunggu - Gemilang (Official Lyric Video).mp3" type="audio/mp3" />
       </audio>
 
-      {/* Main Content Container - Adjusted spacing */}
-      <div ref={containerRef} className="relative z-20 w-full max-w-6xl mx-auto px-6 mt-10"> {/* Added mt-10 */}
-        {/* Konten */}
+      <div ref={containerRef} className="relative z-20 w-full max-w-6xl mx-auto px-6 mt-10"> 
+        
         <div className="text-center">
           <h1
             className="text-2xl sm:text-5xl md:text-6xl lg:text-[70px] xl:text-[80px] font-bold leading-tight mb-6 tracking-tight px-4 font-heading"
@@ -502,7 +471,7 @@ const Hero = () => {
               Hi, I'm
             </span>
           </p>
-          {/* Role */}
+          
           <div className="relative mt-6">
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-relaxed font-semibold tracking-[0.12em] uppercase">
               <span
@@ -519,7 +488,6 @@ const Hero = () => {
             </h2>
           </div>
 
-          {/* Hobby */}
           <div className="relative mt-2">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-relaxed font-medium tracking-[0.08em]">
               <span
@@ -537,14 +505,13 @@ const Hero = () => {
           </div>
 
           <p
-            className="text-base sm:text-lg mt-6 max-w-2xl mx-auto italic"
+            className="hero-description text-base sm:text-lg mt-6 max-w-2xl mx-auto italic"
             style={{ color: themeStyles[theme].secondary }}
           >
             “Jika kamu tidak tahan lelahnya belajar, maka kamu harus tahan menanggung perihnya kebodohan.”
           </p>
         </div>
 
-        {/* Enhanced GitHub Button */}
         <div className="github-container flex items-center justify-center relative z-25 mt-8 lg:mt-12">
           <a
             href="https://github.com/rayyanbabab"
@@ -555,15 +522,14 @@ const Hero = () => {
             onMouseLeave={() => setIsHovered(false)}
           >
             <div className="relative">
-              {/* Glow effect */}
+              
               <div className={`absolute inset-0 rounded-full transition-all duration-500 ${isHovered ? 'bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl' : 'bg-white/20 blur-lg'
                 }`} />
 
-              {/* Main button */}
               <div className="relative w-16 h-16 bg-gradient-to-br from-gray-900 to-black rounded-full flex items-center justify-center 
                             border border-white/20 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 
                             group-hover:border-cyan-400/50 group-hover:shadow-2xl group-hover:shadow-cyan-500/25">
-                {/* Inline GitHub SVG - crisp at all sizes; fill controlled via Tailwind classes */}
+                
                 <svg
                   role="img"
                   aria-label="GitHub"
@@ -573,7 +539,7 @@ const Hero = () => {
                 >
                   <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.111.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.084-.73.084-.73 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.47-2.381 1.235-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.804 5.624-5.475 5.921.43.372.823 1.103.823 2.222 0 1.606-.014 2.896-.014 3.286 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z" />
                 </svg>
-                {/* Ring animation */}
+                
                 <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${isHovered
                     ? 'border-cyan-400/50 animate-ping-slow'
                     : 'border-transparent'
@@ -581,7 +547,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Tooltip */}
             <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="bg-black/80 backdrop-blur-sm text-white text-sm px-3 py-2 rounded-lg border border-white/10 whitespace-nowrap">
                 Visit my GitHub
@@ -592,7 +557,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Enhanced Scroll Indicator - Moved down */}
       <div className="mt-8 lg:mt-12 flex flex-col items-center gap-4 lg:gap-6 relative z-20">
         <h1
           className="scroll-text text-lg sm:text-xl lg:text-2xl font-light tracking-wide"
@@ -615,7 +579,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes aurora-drift-1 {
           0%, 100% { transform: translate(0, 0) scale(1); }
           25% { transform: translate(5vw, 3vh) scale(1.05); }
@@ -758,7 +722,6 @@ const Hero = () => {
         }
       `}</style>
 
-      {/* Bottom gradient fade — seamless transition to next section */}
       <div
         className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
         style={{

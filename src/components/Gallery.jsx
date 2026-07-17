@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
@@ -7,15 +8,13 @@ const Gallery = () => {
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
 
-  // --- Scroll Physics ---
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
   const yParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  
-  // Images Data
+
   const images = [
     { src: "/img/ist.png", title: "Interior View", description: "Istiqlal Mosque" },
     { src: "/img/mount.png", title: "Mountain View", description: "Prau Mountain" },
@@ -25,7 +24,6 @@ const Gallery = () => {
     { src: "/img/city.png", title: "Night Vibe", description: "City Light at Jakarta" },
   ];
 
-  // Theme Sync
   useEffect(() => {
     const updateTheme = () => {
       setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
@@ -36,7 +34,6 @@ const Gallery = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Lightbox Logic
   useEffect(() => {
     if (selectedImage !== null) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
@@ -52,7 +49,6 @@ const Gallery = () => {
     setSelectedImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Keyboard Navigation
   useEffect(() => {
     const handleKey = (e) => {
       if (selectedImage === null) return;
@@ -70,7 +66,7 @@ const Gallery = () => {
       ref={containerRef} 
       className="relative min-h-screen py-24 sm:py-32 px-4 md:px-8 overflow-hidden font-sans"
     >
-      {/* --- BACKGROUND (Clean Monochrome) --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -83,8 +79,7 @@ const Gallery = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* --- HEADER --- */}
+
         <motion.div 
             style={{ y: yParallax }}
             className="text-center mb-12 md:mb-24"
@@ -112,10 +107,8 @@ const Gallery = () => {
           />
         </motion.div>
 
-        {/* --- GRID LAYOUT (Responsive Bento Grid) --- */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[300px]">
-          
-          {/* Euphoria - Big Feature */}
+
           <GalleryCard 
             image={images[4]} 
             index={4} 
@@ -124,7 +117,6 @@ const Gallery = () => {
             className="col-span-2 row-span-2" 
           />
 
-          {/* Istiqlal */}
           <GalleryCard 
             image={images[0]} 
             index={0} 
@@ -132,8 +124,7 @@ const Gallery = () => {
             isLight={isLight} 
             className="col-span-1 row-span-1" 
           />
-          
-          {/* Bus */}
+
           <GalleryCard 
             image={images[2]} 
             index={2} 
@@ -142,7 +133,6 @@ const Gallery = () => {
             className="col-span-1 row-span-1" 
           />
 
-          {/* Sunset */}
           <GalleryCard 
             image={images[3]} 
             index={3} 
@@ -150,8 +140,7 @@ const Gallery = () => {
             isLight={isLight} 
             className="col-span-1 row-span-1" 
           />
-          
-          {/* City */}
+
           <GalleryCard 
             image={images[5]} 
             index={5} 
@@ -160,7 +149,6 @@ const Gallery = () => {
             className="col-span-1 row-span-1" 
           />
 
-          {/* Mountain - Landscape */}
           <GalleryCard 
             image={images[1]} 
             index={1} 
@@ -168,8 +156,7 @@ const Gallery = () => {
             isLight={isLight} 
             className="col-span-2 row-span-1" 
           />
-          
-          {/* Instagram Card */}
+
           <InstagramCard 
             isLight={isLight} 
             className="col-span-2 row-span-1" 
@@ -178,7 +165,6 @@ const Gallery = () => {
         </div>
       </div>
 
-      {/* --- LIGHTBOX (Clean) --- */}
       <AnimatePresence>
         {selectedImage !== null && (
           <motion.div
@@ -188,7 +174,7 @@ const Gallery = () => {
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4"
             onClick={() => setSelectedImage(null)}
           >
-            {/* Controls */}
+            
             <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" onClick={() => setSelectedImage(null)}>
                <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
@@ -199,7 +185,6 @@ const Gallery = () => {
                <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
             </button>
 
-            {/* Image Container */}
             <motion.div 
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -224,7 +209,6 @@ const Gallery = () => {
   );
 };
 
-// --- SUB-COMPONENT: GALLERY CARD ---
 const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
     const cardRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -250,7 +234,7 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
                 isLight ? 'bg-white border-gray-200' : 'bg-neutral-900 border-neutral-800'
             }`}
         >
-            {/* Spotlight Effect (Desktop Only) */}
+            
             <div 
                 className={`hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                 style={{
@@ -260,7 +244,6 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
                 }}
             />
 
-            {/* Image */}
             <div className="w-full h-full overflow-hidden">
                 <img 
                     src={image.src} 
@@ -270,7 +253,6 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
                 />
             </div>
 
-            {/* Overlay Text */}
             <div className={`absolute inset-0 z-10 flex flex-col justify-end p-4 md:p-6 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-all duration-300`}>
                 <h3 className="text-white font-bold text-sm md:text-lg translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     {image.title}
@@ -283,7 +265,6 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
     );
 };
 
-// --- SUB-COMPONENT: INSTAGRAM CARD ---
 const InstagramCard = ({ isLight, className = "" }) => {
     return (
         <a

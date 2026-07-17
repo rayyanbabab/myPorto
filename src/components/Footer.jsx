@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from '@emailjs/browser';
-// UPDATE: Menambahkan import ikon sosial media dari lucide-react
+
 import { Send, Check, AlertCircle, X, Mail, Instagram, Youtube, Linkedin } from "lucide-react";
 
 const Footer = () => {
@@ -16,7 +17,6 @@ const Footer = () => {
     const [themeMode, setThemeMode] = useState("dark");
     const isLight = themeMode === 'light';
 
-    // EmailJS Config
     const EMAILJS_SERVICE_ID = "service_kkmzp89";
     const EMAILJS_TEMPLATE_ID = "template_gl1shr7";
     const EMAILJS_PUBLIC_KEY = "EG9qC9jkGx6_xS4cu";
@@ -86,7 +86,6 @@ const Footer = () => {
         }
     };
 
-    // Data Social Media dengan komponen Ikon
     const socialLinks = [
         {
             href: "https://www.instagram.com/rayyanmarf_",
@@ -94,12 +93,12 @@ const Footer = () => {
             label: "Instagram"
         },
         {
-            href: "https://www.youtube.com/@",
+            href: "https://www.youtube.com",
             icon: <Youtube size={22} />,
             label: "YouTube"
         },
         {
-            href: "https://www.linkedin.com/in/rayyan ammar/",
+            href: "https://www.linkedin.com/in/rayyan-ammar/",
             icon: <Linkedin size={20} />,
             label: "LinkedIn"
         },
@@ -108,7 +107,6 @@ const Footer = () => {
     return (
         <footer id="contact" className="relative pt-24 pb-12 overflow-hidden scroll-mt-24 font-sans">
 
-            {/* --- TOAST NOTIFICATION --- */}
             <AnimatePresence>
                 {toast.show && (
                     <motion.div
@@ -138,7 +136,6 @@ const Footer = () => {
                 )}
             </AnimatePresence>
 
-            {/* --- BACKGROUND --- */}
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
                 <div className="absolute inset-0 opacity-[0.05]"
@@ -149,16 +146,13 @@ const Footer = () => {
                 />
             </div>
 
-            {/* --- SEPARATOR LINE --- */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                    {/* --- LEFT SECTION: Info & Social --- */}
                     <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
 
-                        {/* Availability Status Badge */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -175,7 +169,6 @@ const Footer = () => {
                             Available for freelance work
                         </motion.div>
 
-                        {/* Logo Area */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -198,7 +191,6 @@ const Footer = () => {
                             </div>
                         </motion.div>
 
-                        {/* Quick Stats */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -221,7 +213,6 @@ const Footer = () => {
                             ))}
                         </motion.div>
 
-                        {/* Contact Details */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -236,7 +227,6 @@ const Footer = () => {
                             <span className="font-mono text-sm">rayyanammar276@gmail.com</span>
                         </motion.div>
 
-                        {/* Social Links */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -264,7 +254,6 @@ const Footer = () => {
                         </motion.div>
                     </div>
 
-                    {/* --- RIGHT SECTION: Form --- */}
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -275,7 +264,7 @@ const Footer = () => {
                                 : 'bg-white/5 border-white/5 shadow-2xl shadow-black/50'
                             }`}
                     >
-                        {/* Form Header */}
+                        
                         <div className="mb-8">
                             <h3 className={`text-xl font-bold mb-1 ${isLight ? 'text-black' : 'text-white'}`}>Send a Message</h3>
                             <p className={`text-sm ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>I usually reply within 24 hours.</p>
@@ -283,7 +272,6 @@ const Footer = () => {
 
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
 
-                            {/* Name + Email side by side */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
                                     <label className={`block text-[10px] font-bold uppercase tracking-widest mb-2 ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -374,7 +362,6 @@ const Footer = () => {
 
                 </div>
 
-                {/* --- COPYRIGHT --- */}
                 <div className="mt-20 pt-8 border-t border-dashed border-gray-200 dark:border-white/10 text-center">
                     <p className={`text-sm font-medium ${isLight ? 'text-gray-500' : 'text-gray-500'}`}>
                         © 2026 CipHunk. All rights reserved.

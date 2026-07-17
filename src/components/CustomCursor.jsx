@@ -21,7 +21,6 @@ const CustomCursor = () => {
     return () => window.removeEventListener('gallery-modal', handleGalleryModal);
   }, []);
 
-  // Observe global theme changes
   useEffect(() => {
     if (typeof document === 'undefined') return;
     const observer = new MutationObserver((mutations) => {
@@ -75,11 +74,10 @@ const CustomCursor = () => {
     };
 
     const animateCursor = () => {
-      // Smooth follow for outer circle
+
       cursorX += (mouseX - cursorX) * 0.15;
       cursorY += (mouseY - cursorY) * 0.15;
-      
-      // Faster follow for inner dot
+
       dotX += (mouseX - dotX) * 0.25;
       dotY += (mouseY - dotY) * 0.25;
 
@@ -109,21 +107,19 @@ const CustomCursor = () => {
     };
   }, []);
 
-  // Hide custom cursor on mobile devices
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
 
   if (isMobile) {
     return null;
   }
   if (isGalleryModal) {
-    // Saat modal gallery aktif, sembunyikan custom cursor dan munculkan cursor default hanya di overlay
+
     return <style>{`.gallery-modal-overlay, .gallery-modal-overlay * { cursor: default !important; }`}</style>;
   }
 
   return (
     <>
-      {/* Outer Circle */}
+      
       <div
         ref={cursorRef}
         className={`fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-200 ${
@@ -154,7 +150,6 @@ const CustomCursor = () => {
         }}
       />
 
-      {/* Inner Dot */}
       <div
         ref={cursorDotRef}
         className={`fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-100 ${
@@ -184,7 +179,6 @@ const CustomCursor = () => {
         }}
       />
 
-      {/* Hide default cursor kecuali saat modal gallery aktif */}
       <style>{`
         * {
           cursor: none !important;

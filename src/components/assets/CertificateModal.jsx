@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,7 +15,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
   const MIN_SCALE = 1;
   const MAX_SCALE = 5;
 
-  // Reset state when modal opens/closes
   useEffect(() => {
     if (isOpen) {
       setScale(1);
@@ -28,7 +28,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
     };
   }, [isOpen]);
 
-  // Mouse wheel zoom — must use non-passive listener so preventDefault works
   useEffect(() => {
     const el = containerRef.current;
     if (!el || !isOpen) return;
@@ -48,7 +47,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
     return () => el.removeEventListener('wheel', onWheel);
   }, [isOpen]);
 
-  // Mouse drag for panning
   const handleMouseDown = (e) => {
     if (scale <= 1) return;
     e.preventDefault();
@@ -68,7 +66,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
     setIsDragging(false);
   }, []);
 
-  // Touch events for mobile pinch-to-zoom and pan
   const getTouchDistance = (touches) => {
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
@@ -110,7 +107,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
     setIsDragging(false);
   }, []);
 
-  // Double-click/tap to toggle zoom
   const handleDoubleClick = (e) => {
     e.preventDefault();
     if (scale > 1) {
@@ -121,7 +117,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
     }
   };
 
-  // Keyboard: Escape to close, +/- to zoom
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isOpen) return;
@@ -141,7 +136,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Zoom button handlers
   const zoomIn = () => setScale(prev => Math.min(MAX_SCALE, prev + 0.5));
   const zoomOut = () => {
     setScale(prev => {
@@ -168,13 +162,11 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
           className="fixed inset-0 z-[9999] flex flex-col"
           style={{ touchAction: 'none' }}
         >
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/90 backdrop-blur-xl"
             onClick={onClose}
           />
 
-          {/* Top Bar */}
           <motion.div
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -185,7 +177,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent)',
             }}
           >
-            {/* Title */}
             <div className="flex-1 min-w-0 mr-4">
               <h3 className="text-white text-sm sm:text-base font-semibold truncate">
                 {judul}
@@ -193,7 +184,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               <p className="text-white/40 text-[10px] sm:text-xs mt-0.5">Certificate Preview</p>
             </div>
 
-            {/* Close */}
             <button
               onClick={onClose}
               className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 border border-white/10 flex items-center justify-center transition-all duration-200 group"
@@ -205,7 +195,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
             </button>
           </motion.div>
 
-          {/* Image Container */}
           <div
             ref={containerRef}
             className="relative flex-1 flex items-center justify-center"
@@ -224,7 +213,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               padding: '8px 16px',
             }}
           >
-            {/* Entrance animation wrapper */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -232,7 +220,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               transition={{ duration: 0.3 }}
               style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              {/* Zoom & Pan wrapper */}
               <div
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
@@ -266,7 +253,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
             </motion.div>
           </div>
 
-          {/* Bottom Controls */}
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -277,7 +263,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
             }}
           >
-            {/* Zoom Out */}
             <button
               onClick={zoomOut}
               disabled={scale <= MIN_SCALE}
@@ -289,7 +274,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               </svg>
             </button>
 
-            {/* Zoom Percentage */}
             <button
               onClick={resetZoom}
               className="h-10 sm:h-11 px-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-all duration-200 min-w-[80px]"
@@ -298,7 +282,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               <span className="text-white text-xs sm:text-sm font-mono font-medium">{zoomPercent}%</span>
             </button>
 
-            {/* Zoom In */}
             <button
               onClick={zoomIn}
               disabled={scale >= MAX_SCALE}
@@ -310,10 +293,8 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               </svg>
             </button>
 
-            {/* Divider */}
             <div className="w-px h-6 bg-white/10 mx-1 hidden sm:block" />
 
-            {/* Fit to screen */}
             <button
               onClick={resetZoom}
               className="hidden sm:flex w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 items-center justify-center transition-all duration-200"
@@ -325,7 +306,6 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
             </button>
           </motion.div>
 
-          {/* Hint text */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

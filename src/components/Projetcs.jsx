@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { projectsData } from "../../constant";
 import { useNavigate } from "react-router-dom";
 
-// --- PROJECT CARD COMPONENT (Monochrome & Spotlight) ---
 const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon, isLight }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
@@ -34,7 +34,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
           : "bg-neutral-900/60 border-white/5 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md"
       }`}
     >
-      {/* Spotlight Effect */}
+      
       <div 
         className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
         style={{
@@ -44,7 +44,6 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
         }}
       />
 
-      {/* Image Section */}
       <div className="relative h-48 sm:h-52 overflow-hidden z-10 border-b border-white/5">
         <div className={`absolute inset-0 z-10 transition-colors duration-500 ${
             isLight ? 'bg-black/5 group-hover:bg-transparent' : 'bg-black/20 group-hover:bg-transparent'
@@ -57,7 +56,6 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
         />
       </div>
 
-      {/* Content Section */}
       <div className="flex-1 p-6 flex flex-col z-10">
         <div className="mb-5">
             <div className="flex justify-between items-start gap-2 mb-2">
@@ -79,7 +77,6 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
             </p>
         </div>
 
-        {/* Tech Stack - cleaner pills */}
         <div className="flex flex-wrap gap-1.5 mb-6">
           {tech?.map((t, i) => (
             <span 
@@ -95,7 +92,6 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
           ))}
         </div>
 
-        {/* Links - Minimalist actions */}
         <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
           <a
             href={(!linkDemo || linkDemo === "#") ? "/next-demo" : linkDemo}
@@ -130,7 +126,6 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
   );
 };
 
-// --- MAIN PROJECTS COMPONENT ---
 const Projects = () => {
   const sectionRef = useRef(null);
   const scrollContainerRef = useRef(null);
@@ -140,12 +135,10 @@ const Projects = () => {
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
 
-  // Drag State
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
   const scrollStartLeft = useRef(0);
 
-  // Theme Sync
   useEffect(() => {
     const updateTheme = () => {
         setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
@@ -156,7 +149,6 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Update Scroll UI
   const updateScrollState = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -168,7 +160,6 @@ const Projects = () => {
     }
   };
 
-  // Drag Logic
   const handleDragStart = (clientX) => {
     setIsDragging(true);
     dragStartX.current = clientX;
@@ -193,7 +184,6 @@ const Projects = () => {
     }
   };
 
-  // Scroll Listener
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -202,14 +192,12 @@ const Projects = () => {
     return () => container.removeEventListener('scroll', updateScrollState);
   }, []);
 
-  // Mouse Up Global
   useEffect(() => {
     const handleUp = () => isDragging && handleDragEnd();
     window.addEventListener('mouseup', handleUp);
     return () => window.removeEventListener('mouseup', handleUp);
   }, [isDragging]);
 
-  // Button Scroll
   const scrollTo = (direction) => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
@@ -223,7 +211,7 @@ const Projects = () => {
       ref={sectionRef} 
       className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden scroll-mt-24 font-sans"
     >
-      {/* --- BACKGROUND (Clean Monochrome) --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -236,8 +224,7 @@ const Projects = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* --- HEADER --- */}
+
         <div className="flex flex-col md:flex-row items-end justify-between mb-12 md:mb-20 gap-6">
             <div className="text-center md:text-left w-full md:w-auto">
                 <motion.h1 
@@ -262,7 +249,6 @@ const Projects = () => {
                 />
             </div>
 
-            {/* Navigation Buttons (Desktop) - FIXED VISIBILITY */}
             <div className="hidden md:flex gap-3">
                 <button
                     onClick={() => scrollTo('left')}
@@ -288,10 +274,9 @@ const Projects = () => {
                 </button>
             </div>
         </div>
-          
-        {/* --- PROJECTS SLIDER --- */}
+
         <div className="relative">
-            {/* Scroll Container */}
+            
             <div 
                 ref={scrollContainerRef}
                 onMouseDown={(e) => { e.preventDefault(); handleDragStart(e.clientX); }}
@@ -322,12 +307,11 @@ const Projects = () => {
                             <ProjectCard {...data} isLight={isLight} />
                         </motion.div>
                     ))}
-                    {/* Spacer di akhir agar kartu terakhir tidak mepet */}
+                    
                     <div className="w-4 sm:w-0" /> 
                 </div>
             </div>
 
-            {/* Mobile Nav Buttons (Overlay) - FIXED VISIBILITY */}
             <div className="md:hidden flex justify-center gap-4 mt-4">
                  <button onClick={() => scrollTo('left')} disabled={!canScrollLeft} className={`p-3 rounded-full border ${isLight ? 'border-black/20 text-black disabled:opacity-30' : 'border-white/20 text-white disabled:opacity-30'}`}>
                     <ArrowRight className="rotate-180" size={20} />
@@ -338,7 +322,6 @@ const Projects = () => {
             </div>
         </div>
 
-        {/* --- PROGRESS BAR --- */}
         <div className="mt-12 hidden md:block">
             <div className={`relative h-[2px] w-full rounded-full overflow-hidden ${isLight ? 'bg-black/10' : 'bg-white/10'}`}>
                 <motion.div 
@@ -355,7 +338,7 @@ const Projects = () => {
 
       </div>
 
-      <style jsx>{`
+      <style>{`
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
@@ -6,7 +7,6 @@ const Educations = () => {
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
 
-  // Physics untuk Scroll yang sangat halus
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end center"],
@@ -18,7 +18,6 @@ const Educations = () => {
     restDelta: 0.001
   });
 
-  // Data Timeline
   const timelineData = [
     {
       year: "2007",
@@ -63,13 +62,12 @@ const Educations = () => {
       year: "2026 - Now",
       title: "ASTRA TECH",
       subtitle: "D4-Rekayasa Perangkat Lunak",
-      description: "Mulai aktif berorganisasi dan menemukan minat dalam bidang teknologi dan olahraga.",
+      description: "Menempuh pendidikan tinggi vokasi untuk memperdalam keahlian di bidang rekayasa perangkat lunak tingkat lanjut, manajemen proyek IT, serta pengembangan solusi skala industri.",
       logo: "/img/astra.jpg",
-      tags: ["English Club", "Futsal"]
+      tags: ["College", "Software Engineering", "Astra Tech"]
     },
   ];
 
-  // Theme Sync
   useEffect(() => {
     const updateTheme = () => {
       setThemeMode(document.documentElement.getAttribute("data-theme") || "dark");
@@ -86,11 +84,10 @@ const Educations = () => {
       ref={containerRef}
       className="relative py-24 sm:py-32 overflow-hidden font-sans"
     >
-      {/* --- BACKGROUND (Clean Monochrome) --- */}
+      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
 
-        {/* Subtle Grid Pattern */}
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -99,20 +96,18 @@ const Educations = () => {
           }}
         />
 
-        {/* Very Subtle Gradient Spot (Gray) */}
         <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 ${isLight ? 'bg-gray-200' : 'bg-white/10'}`} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
-        {/* --- TITLE SECTION --- */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           className="text-center mb-24"
         >
-          {/* Judul dengan Font Asli "Sensei Biased" Style jika ada, atau fallback ke Sans */}
+          
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
             <span className={`bg-clip-text text-transparent ${isLight
                 ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500'
@@ -124,13 +119,10 @@ const Educations = () => {
           <div className={`h-1 w-20 mx-auto rounded-full ${isLight ? 'bg-black' : 'bg-white'}`} />
         </motion.div>
 
-        {/* --- MAIN TIMELINE --- */}
         <div className="relative">
 
-          {/* Static Vertical Line */}
           <div className={`absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] -translate-x-1/2 md:translate-x-0 ${isLight ? 'bg-gray-300' : 'bg-neutral-800'}`} />
 
-          {/* Animated Scroll Beam (Black/White) */}
           <motion.div
             className={`absolute left-4 md:left-1/2 top-0 w-[2px] -translate-x-1/2 md:translate-x-0 origin-top ${isLight
                 ? 'bg-gradient-to-b from-black via-gray-800 to-transparent'
@@ -139,14 +131,12 @@ const Educations = () => {
             style={{ scaleY: smoothProgress, height: "100%" }}
           />
 
-          {/* Traveling Square/Dot */}
           <motion.div
             className={`absolute left-4 md:left-1/2 -translate-x-[calc(50%-0.5px)] md:-translate-x-1/2 w-3 h-3 rotate-45 z-20 pointer-events-none ${isLight ? 'bg-black shadow-[0_0_10px_rgba(0,0,0,0.5)]' : 'bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]'
               }`}
             style={{ top: useTransform(smoothProgress, [0, 1], ["0%", "100%"]) }}
           />
 
-          {/* Items */}
           <div className="space-y-16 md:space-y-32 pt-10 pb-20">
             {timelineData.map((item, index) => (
               <TimelineCard key={index} data={item} index={index} isLight={isLight} isEven={index % 2 === 0} />
@@ -158,7 +148,6 @@ const Educations = () => {
   );
 };
 
-// --- SUB-COMPONENT: MONOCHROME CARD ---
 const TimelineCard = ({ data, index, isEven, isLight }) => {
   const cardRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -179,11 +168,11 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
       transition={{ duration: 0.6, delay: index * 0.1, type: "spring" }}
       className={`relative flex items-center ${isEven ? "md:flex-row-reverse" : "md:flex-row"}`}
     >
-      {/* Center Dot */}
+      
       <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
         <div className={`w-4 h-4 rounded-full border-[3px] transition-all duration-300 ${data.current
-            ? (isLight ? 'bg-black border-gray-400' : 'bg-white border-gray-500') // Active: Solid
-            : (isLight ? 'bg-white border-black' : 'bg-black border-white') // Normal: Hollow-ish
+            ? (isLight ? 'bg-black border-gray-400' : 'bg-white border-gray-500')
+            : (isLight ? 'bg-white border-black' : 'bg-black border-white')
           }`}>
           {data.current && (
             <span className={`absolute inset-0 rounded-full animate-ping opacity-30 ${isLight ? 'bg-black' : 'bg-white'}`} />
@@ -193,7 +182,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
 
       <div className="hidden md:block w-1/2" />
 
-      {/* Card Content Area */}
       <div className={`w-full md:w-1/2 pl-12 md:pl-0 flex ${isEven ? "md:pr-12 md:justify-end" : "md:pl-12 md:justify-start"}`}>
         <motion.div
           ref={cardRef}
@@ -205,7 +193,7 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
               : "bg-neutral-900 border-neutral-800 hover:border-white/50 shadow-lg hover:shadow-white/5"
             }`}
         >
-          {/* Mouse Spotlight Glow (Grayscale) */}
+          
           <div
             className={`absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 ${isLight ? 'bg-gray-100/50' : 'bg-white/5'
               }`}
@@ -216,7 +204,7 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
           />
 
           <div className="relative z-10">
-            {/* Year Badge */}
+            
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 border ${isLight
                 ? 'bg-black text-white border-transparent'
                 : 'bg-white text-black border-transparent'
@@ -242,12 +230,10 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
               </div>
             </div>
 
-            {/* Description */}
             <p className={`text-sm sm:text-base leading-relaxed mb-6 ${isLight ? 'text-gray-600' : 'text-gray-400'}`}>
               {data.description}
             </p>
 
-            {/* PHOTOS (Polaroid Style - B&W) */}
             {data.childhoodPhotos && (
               <div className={`group/photos relative h-32 w-full mt-4 flex items-center ${isEven ? "md:justify-end" : "justify-start"}`}>
                 {data.childhoodPhotos.map((photo, i) => (
@@ -277,7 +263,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
               </div>
             )}
 
-            {/* TAGS (High Contrast) */}
             {data.tags && (
               <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "justify-start"}`}>
                 {data.tags.map((tag, i) => (
