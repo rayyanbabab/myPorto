@@ -13,8 +13,8 @@ const navlinks = [
   },
   {
     id: 3,
-    text: "Gallery",
-    link: "#gallery"
+    text: "Experiences",
+    link: "#experiences"
   },
   {
     id: 4,
@@ -23,25 +23,29 @@ const navlinks = [
   },
   {
     id: 5,
+    text: "Gallery",
+    link: "#gallery"
+  },
+  {
+    id: 6,
     text: "Featured Projects",
     link: "#projects"
   },
   {
-    id: 6,
+    id: 7,
     text: "GitHub",
     link: "#github"
   },
   {
-    id: 7,
+    id: 8,
     text: "Achievements",
     link: "#achievements"
   },
   {
-    id: 8,
+    id: 9,
     text: "Contact Me",
     link: "#contact"
   },
-
 ]
 
 const GITHUB_USERNAME = "rayyanbabab";
@@ -305,7 +309,30 @@ const dataCerti = [
     gambar: "machung.webp",
     judul: "IT Support Professional Certificate - Google",
     link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
+  }
+];
+const experiencesData = [
+  {
+    id: 1,
+    role: "Full Stack Developer",
+    company: "Freelance",
+    type: "Contract",
+    period: "2024 - Present",
+    description: "Developing custom web applications, e-commerce platforms, and management systems for various local clients using React, Laravel, and Tailwind CSS.",
+    skills: ["React", "Laravel", "MySQL", "Tailwind CSS", "Vite"],
+    logo: "/img/freelance.png"
   },
-]
-export { navlinks, techstack, projectsData, dataCerti, GITHUB_USERNAME, GITHUB_PROFILE_URL }
+  {
+    id: 2,
+    role: "Full Stack Intern",
+    company: "Tech Solutions",
+    type: "Internship",
+    period: "2025",
+    description: "Contributed to building clinic ticketing systems and QR code attendance tracking software. Assisted in database design and server-side optimizations.",
+    skills: ["PHP", "JavaScript", "TypeScript", "MySQL"],
+    logo: "/img/internship.png"
+  }
+];
+
+export { navlinks, techstack, projectsData, dataCerti, experiencesData, GITHUB_USERNAME, GITHUB_PROFILE_URL }
 

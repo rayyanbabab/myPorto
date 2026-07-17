@@ -11,6 +11,7 @@ import LazyMount from './components/LazyMount';
 import GitHubContributions from './components/GitHubContributions';
 const InteractiveScene = lazy(() => import('./components/InteractiveScene'));
 const Gallery = lazy(() => import('./components/Gallery'));
+const Experiences = lazy(() => import('./components/Experiences'));
 const Educations = lazy(() => import('./components/Educations'));
 const Projetcs = lazy(() => import('./components/Projetcs'));
 const Achievements = lazy(() => import('./components/Achievements'));
@@ -61,11 +62,14 @@ function App() {
             </Suspense>
             <About />
             <TechStack />
-            <LazyMount id="gallery" height={600}>
-              <Suspense fallback={<div style={{height:600}} />}> <Gallery /> </Suspense>
+            <LazyMount id="experiences" height={600}>
+              <Suspense fallback={<div style={{height:600}} />}> <Experiences /> </Suspense>
             </LazyMount>
             <LazyMount id="educations" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Educations /> </Suspense>
+            </LazyMount>
+            <LazyMount id="gallery" height={600}>
+              <Suspense fallback={<div style={{height:600}} />}> <Gallery /> </Suspense>
             </LazyMount>
             <LazyMount id="projects" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Projetcs /> </Suspense>
