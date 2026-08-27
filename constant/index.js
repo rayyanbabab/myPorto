@@ -160,7 +160,7 @@ const projectsData = [
     judul: "LonIk",
     parag: "LonIk is a web-based application designed to facilitate clinic ticketing and operations for hospitals.",
     tech: ["TypeScript", "Blade", "JavaScript", "PHP", "Vite"],
-    linkDemo: "#",
+    linkDemo: "https://loket-klinik.vercel.app",
     linkCode: "https://github.com/rayyanbabab/Loket-klinik",
     features: ["Queue Ticket Issuing", "Active Counter Display", "Multi-counter Administration", "Real-time Queue Updates"],
     overview: "LonIk is designed for healthcare centers to manage daily patient flow. By digitalizing the ticket queue system, clinic operations become more organized and patient waiting times are significantly reduced."
@@ -197,7 +197,7 @@ const projectsData = [
     judul: "next task",
     parag: "A minimalist project task organizer featuring kanban drag-and-drop boards, task prioritization tags, and progress trackers.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "https://nexttask-livid.vercel.app",
+    linkDemo: "nexttask-livid.vercel.app",
     linkCode: "https://github.com/rayyanbabab/nextTask",
     isComingSoon: false,
     features: ["Kanban Task Board", "Task Priority Sorting", "Progress Completion Analytics", "Offline LocalStorage Backup"],
@@ -249,7 +249,7 @@ const projectsData = [
     judul: "Ngasir Apps",
     parag: "A lightweight POS (Point of Sale) cash register system optimized for small businesses to manage sales, products, and checkout logs.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "https://ngasir-ten.vercel.app",
+    linkDemo: "ngasir-ten.vercel.app",
     linkCode: "https://github.com/rayyanbabab/ngasir.git",
     isComingSoon: false,
     features: ["Product Inventory Tracker", "Dynamic Billing Calculator", "History Transaction Logger", "Printable Receipts Generation"],
@@ -275,7 +275,7 @@ const projectsData = [
     judul: "Campus Registration",
     parag: "A student registration portal featuring data submission forms, status check dashboards, and intake tracking.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "https://student-portal-app-teal.vercel.app",
+    linkDemo: "student-portal-app-teal.vercel.app",
     linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-kampus",
     isComingSoon: false,
     features: ["Multi-step Admission Form", "Real-time Verification Status", "Dashboard Analytics", "PDF Admission Ticket Export"],
@@ -297,13 +297,39 @@ const projectsData = [
 
   {
     id: 12,
-    gambar: "coming-soon.png",
-    judul: "LaundryApp",
+    gambar: "kataruma.png",
+    judul: "Kataruma RW 10",
     parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
-    isComingSoon: true,
+    isComingSoon: false,
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "#",
-    linkCode: "#",
+    linkDemo: "kataruma-rw-10.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/kataruma",
+    features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
+    overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
+  },
+
+  {
+    id: 13,
+    gambar: "tur.png",
+    judul: "Online Tournament Registration",
+    parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
+    isComingSoon: false,
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "https://online-tournament-registration.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/Tournament-Game",
+    features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
+    overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
+  },
+
+  {
+    id: 14,
+    gambar: "agus.png",
+    judul: "pendaftaran lomba 17 agustus",
+    parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
+    isComingSoon: false,
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "https://pendaftaran-lomba.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-lomba-rw",
     features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
     overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
   }
