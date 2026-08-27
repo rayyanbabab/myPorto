@@ -332,6 +332,19 @@ const projectsData = [
     linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-lomba-rw",
     features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
     overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
+  },
+
+  {
+    id: 15,
+    gambar: "pos.png",
+    judul: "POS minimarket UMKM",
+    parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
+    isComingSoon: false,
+    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
+    linkDemo: "https://pos-minimarket-umkm.vercel.app",
+    linkCode: "https://github.com/rayyanbabab/POS-minimarket-UMKM",
+    features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
+    overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
   }
 ]
 
