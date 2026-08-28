@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useState } from "react";
-
 import { GITHUB_PROFILE_URL, GITHUB_USERNAME } from "../../constant";
+import { useLanguage } from "../context/LanguageContext";
 
 const GitHubContributions = () => {
+  const { t } = useLanguage();
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
 
@@ -30,7 +31,6 @@ const GitHubContributions = () => {
 
   const chartUrl = useMemo(() => {
     if (!username) return "";
-
     return `https://ghchart.rshah.org/${encodeURIComponent(username)}`;
   }, [username]);
 
@@ -118,43 +118,44 @@ const GitHubContributions = () => {
     const weeks = [];
     const monthMarkers = [];
     let cursor = new Date(start);
-    let prevMonth = null;
+    let currentWeek = [];
+    let lastMonth = null;
+    let weekIndex = 0;
+
     while (cursor <= end) {
-      const weekStart = new Date(cursor);
-      const week = [];
-      for (let i = 0; i < 7; i += 1) {
-        const d = new Date(weekStart);
-        d.setDate(weekStart.getDate() + i);
-        const key = d.toISOString().slice(0, 10);
-        const inRange = d >= minDate && d <= maxDate;
-        week.push({
-          date: key,
-          count: byDate.get(key) ?? 0,
-          inRange,
-        });
-      }
-      weeks.push(week);
+      const year = cursor.getFullYear();
+      const month = String(cursor.getMonth() + 1).padStart(2, "0");
+      const day = String(cursor.getDate()).padStart(2, "0");
+      const key = `${year}-${month}-${day}`;
+      const count = byDate.get(key) || 0;
+      const inRange = cursor >= minDate && cursor <= maxDate;
 
-      const month = weekStart.getMonth();
-      if (prevMonth === null) {
-        prevMonth = month;
-      } else if (month !== prevMonth && weekStart.getDate() <= 7) {
-        monthMarkers.push({
-          index: weeks.length - 1,
-          label: weekStart.toLocaleString("en-US", { month: "short" }),
-        });
-        prevMonth = month;
+      if (cursor.getDay() === 0 && inRange) {
+        const monthIndex = cursor.getMonth();
+        if (monthIndex !== lastMonth) {
+          const monthLabel = cursor.toLocaleString("en-US", { month: "short" });
+          monthMarkers.push({ index: weekIndex, label: monthLabel });
+          lastMonth = monthIndex;
+        }
       }
 
-      cursor.setDate(cursor.getDate() + 7);
+      currentWeek.push({
+        date: key,
+        count,
+        inRange,
+      });
+
+      if (currentWeek.length === 7) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+        weekIndex += 1;
+      }
+
+      cursor.setDate(cursor.getDate() + 1);
     }
 
-    if (weeks.length > 0) {
-      const firstWeekStart = new Date(`${weeks[0][0].date}T00:00:00`);
-      monthMarkers.unshift({
-        index: 0,
-        label: firstWeekStart.toLocaleString("en-US", { month: "short" }),
-      });
+    if (currentWeek.length > 0) {
+      weeks.push(currentWeek);
     }
 
     return {
@@ -176,12 +177,9 @@ const GitHubContributions = () => {
       id="github"
       className="relative py-24 sm:py-32 px-4 sm:px-6 overflow-hidden font-sans"
     >
-      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? "bg-white" : "bg-[#050505]"}`} />
-        
         <div className={`absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-normal filter blur-[100px] opacity-30 ${isLight ? "bg-gray-300" : "bg-emerald-900/30"}`} />
-        
         <div className={`absolute bottom-0 -right-20 w-[400px] h-[400px] rounded-full mix-blend-normal filter blur-[100px] opacity-30 ${isLight ? "bg-gray-200" : "bg-green-900/20"}`} />
       </div>
 
@@ -195,7 +193,7 @@ const GitHubContributions = () => {
                   : "bg-gradient-to-r from-white via-gray-200 to-gray-500"
               }`}
             >
-              GitHub Contributions
+              {t.github.title}
             </span>
           </h1>
           <div className={`h-1 w-24 rounded-full ${isLight ? "bg-black" : "bg-white"} mx-auto`} />
@@ -213,7 +211,7 @@ const GitHubContributions = () => {
                   {username ? `@${username}` : "GitHub"}
                 </h2>
                 <p className={`${isLight ? "text-gray-600" : "text-gray-400"} text-sm`}>
-                  Daily contribution heatmap
+                  {t.github.badge}
                 </p>
               </div>
             </div>
@@ -223,7 +221,7 @@ const GitHubContributions = () => {
                 <div className="flex-1 min-w-0">
                   <div className="mb-4">
                     <p className={`text-sm ${isLight ? "text-gray-700" : "text-gray-300"}`}>
-                      {totalsMap[selectedYear] ?? 0} contributions in {selectedYear}
+                      {totalsMap[selectedYear] ?? 0} {t.github.totalContributions} ({selectedYear})
                     </p>
                   </div>
                 
@@ -233,14 +231,12 @@ const GitHubContributions = () => {
                       isLight ? "bg-white/60 border-gray-200" : "bg-black/20 border-white/10"
                     }`}
                     style={{
-
                       "--cell": "11px",
                       "--gap": "3px",
                     }}
                   >
                     <div className="w-full overflow-x-auto">
                       <div className="min-w-[860px] px-5 sm:px-6 py-5 sm:py-6">
-                        
                         <div className="flex items-start gap-3 mb-3">
                           <div className={`w-10 shrink-0 text-[11px] ${isLight ? "text-gray-500" : "text-gray-500"}`}>
                             <span className="sr-only">Weekdays</span>
@@ -259,7 +255,6 @@ const GitHubContributions = () => {
                         </div>
 
                         <div className="flex items-start gap-3">
-                          
                           <div className={`w-10 shrink-0 grid grid-rows-7 gap-[var(--gap)] text-[11px] ${isLight ? "text-gray-500" : "text-gray-500"}`}>
                             <span className="row-start-2">Mon</span>
                             <span className="row-start-4">Wed</span>
@@ -337,9 +332,21 @@ const GitHubContributions = () => {
                   </div>
                 ) : null}
 
-                <p className={`mt-3 text-xs ${isLight ? "text-gray-500" : "text-gray-500"}`}>
-                  Data source: GitHub contribution graph
-                </p>
+                <div className="mt-4 flex items-center justify-between">
+                  <p className={`text-xs ${isLight ? "text-gray-500" : "text-gray-500"}`}>
+                    Data source: GitHub API
+                  </p>
+                  {profileUrl && (
+                    <a
+                      href={profileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-xs font-semibold hover:underline ${isLight ? "text-black" : "text-white"}`}
+                    >
+                      {t.github.viewProfile} →
+                    </a>
+                  )}
+                </div>
                 </div>
 
                 {!loading && availableYears.length > 0 && (
@@ -369,7 +376,7 @@ const GitHubContributions = () => {
                 }`}
               >
                 <p className="text-sm">
-                  Set <span className="font-bold">GITHUB_USERNAME</span> di <span className="font-bold">constant/index.js</span> untuk menampilkan grafik kontribusi.
+                  Set <span className="font-bold">GITHUB_USERNAME</span> in <span className="font-bold">constant/index.js</span> to show GitHub contribution graph.
                 </p>
               </div>
             )}

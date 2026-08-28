@@ -3,10 +3,12 @@ import Hero3DBackground from "./Hero3DBackground";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
+import { useLanguage } from "../context/LanguageContext";
 
 gsap.registerPlugin(SplitText);
 
 const Hero = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const audioRef = useRef(null);
@@ -384,12 +386,12 @@ const Hero = () => {
                       {isPlaying ? (
                         <>
                           <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse" />
-                          Now Playing
+                          {t.hero.nowPlaying}
                         </>
                       ) : (
                         <>
                           <span className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                          Paused
+                          {t.hero.paused}
                         </>
                       )}
                     </p>
@@ -425,7 +427,7 @@ const Hero = () => {
                   </div>
 
                   <div className="pt-1 flex items-center justify-center gap-1.5 text-[10px] text-amber-600 font-medium">
-                    <span>Click to {isPlaying ? 'pause' : 'play'}</span>
+                    <span>{isPlaying ? t.hero.clickToPause : t.hero.clickToPlay}</span>
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
                     </svg>
@@ -458,7 +460,7 @@ const Hero = () => {
           >
             {renderNameWithSpans()}
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl hero-subtitle font-semibold tracking-[0.08em] uppercase mb-4" aria-label="Hi, I'm">
+          <p className="text-xl sm:text-2xl lg:text-3xl hero-subtitle font-semibold tracking-[0.08em] uppercase mb-4" aria-label="Greeting">
             <span
               className="inline-block bg-clip-text text-transparent"
               style={{
@@ -468,7 +470,7 @@ const Hero = () => {
                 color: 'transparent'
               }}
             >
-              Hi, I'm
+              {t.hero.greeting}
             </span>
           </p>
           
@@ -483,7 +485,7 @@ const Hero = () => {
                   color: 'transparent'
                 }}
               >
-                Full Stack Developer - DevOps Engineer - UI/UX & Graphic Designer - Artist
+                {t.hero.roles}
               </span>
             </h2>
           </div>
@@ -499,7 +501,7 @@ const Hero = () => {
                   color: 'transparent'
                 }}
               >
-                Photography Enthusiast
+                {t.hero.photography}
               </span>
             </p>
           </div>
@@ -508,7 +510,7 @@ const Hero = () => {
             className="hero-description text-base sm:text-lg mt-6 max-w-2xl mx-auto italic"
             style={{ color: themeStyles[theme].secondary }}
           >
-            “If you cannot stand the fatigue of learning, then you must stand the pain of ignorance.”
+            {t.hero.quote}
           </p>
         </div>
 
@@ -549,7 +551,7 @@ const Hero = () => {
 
             <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="bg-black/80 backdrop-blur-sm text-white text-sm px-3 py-2 rounded-lg border border-white/10 whitespace-nowrap">
-                Visit my GitHub
+                {t.hero.visitGithub}
                 <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-l border-t border-white/10" />
               </div>
             </div>
@@ -562,7 +564,7 @@ const Hero = () => {
           className="scroll-text text-lg sm:text-xl lg:text-2xl font-light tracking-wide"
           style={{ color: themeStyles[theme].accent }}
         >
-          Explore My Work
+          {t.hero.exploreWork}
         </h1>
         <div className="scroll-arrow group cursor-pointer">
           <div className={`w-7 h-12 border-2 rounded-full flex justify-center pt-2 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-cyan-500/20 ${theme === 'light'

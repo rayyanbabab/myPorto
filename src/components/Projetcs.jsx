@@ -5,8 +5,9 @@ import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { projectsData } from "../../constant";
 import { useNavigate } from "react-router-dom";
 import ProjectModal from "./assets/ProjectModal";
+import { useLanguage } from "../context/LanguageContext";
 
-const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon, isLight, onClick }) => {
+const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon, isLight, onClick, t }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -36,7 +37,6 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
           : "bg-neutral-900/60 border-white/5 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md"
         }`}
     >
-
       <div
         className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
         style={{
@@ -67,7 +67,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
                   ? 'bg-black/10 text-black border-black/10'
                   : 'bg-white/10 text-white border-white/10'
                 }`}>
-                Coming Soon
+                {t?.projects?.comingSoon || "Coming Soon"}
               </span>
             )}
           </div>
@@ -77,7 +77,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-6">
-          {tech?.map((t, i) => (
+          {tech?.map((tItem, i) => (
             <span
               key={i}
               className={`px-2 py-0.5 text-[10px] font-medium rounded-md transition-colors duration-300 ${isLight
@@ -85,7 +85,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
                   : "bg-white/5 text-gray-400 group-hover:bg-white/10 group-hover:text-white"
                 }`}
             >
-              {t}
+              {tItem}
             </span>
           ))}
         </div>
@@ -99,7 +99,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
             className={`group/link flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${isLight ? "text-black hover:text-gray-600" : "text-white hover:text-gray-300"
               }`}
           >
-            <span>Preview</span>
+            <span>{t?.projects?.viewDetails || "Preview"}</span>
             <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform duration-300" />
           </a>
 
@@ -112,7 +112,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
                 ? "text-gray-400 hover:text-black hover:bg-gray-100"
                 : "text-gray-500 hover:text-white hover:bg-white/5"
               }`}
-            title="Source Code"
+            title={t?.projects?.viewCode || "Source Code"}
           >
             <Github size={18} />
           </a>
@@ -123,6 +123,7 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
 };
 
 const Projects = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -132,6 +133,8 @@ const Projects = () => {
   const isLight = themeMode === "light";
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const projectsList = t.projects?.items || projectsData;
 
   const handleOpenModal = (project) => {
     setSelectedProject(project);
@@ -214,7 +217,6 @@ const Projects = () => {
       ref={sectionRef}
       className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden scroll-mt-24 font-sans"
     >
-
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div
@@ -227,7 +229,6 @@ const Projects = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-
         <div className="flex flex-col md:flex-row items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="text-center md:text-left w-full md:w-auto">
             <motion.h1
@@ -240,7 +241,7 @@ const Projects = () => {
                   ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500'
                   : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
                 }`}>
-                Featured Projects
+                {t.projects.title}
               </span>
             </motion.h1>
             <motion.div
@@ -276,7 +277,6 @@ const Projects = () => {
         </div>
 
         <div className="relative">
-
           <div
             ref={scrollContainerRef}
             onMouseDown={(e) => { e.preventDefault(); handleDragStart(e.clientX); }}
@@ -294,7 +294,7 @@ const Projects = () => {
             }}
           >
             <div className="flex gap-6 sm:gap-8 w-max">
-              {projectsData.map((data, index) => (
+              {projectsList.map((data, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: 50 }}
@@ -308,6 +308,7 @@ const Projects = () => {
                     {...data}
                     isLight={isLight}
                     onClick={() => handleOpenModal(data)}
+                    t={t}
                   />
                 </motion.div>
               ))}
@@ -336,10 +337,9 @@ const Projects = () => {
           </div>
           <div className={`flex justify-between mt-2 text-xs font-mono uppercase tracking-widest opacity-50 ${isLight ? 'text-black' : 'text-white'}`}>
             <span>01</span>
-            <span>0{projectsData.length}</span>
+            <span>0{projectsList.length}</span>
           </div>
         </div>
-
       </div>
 
       <ProjectModal

@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef } from 'react'
 import CertificateModal from './CertificateModal'
+import { useLanguage } from '../../context/LanguageContext'
 
 const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
+  const { t } = useLanguage();
   const [flipped, setFlipped] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const wrapRef = useRef(null);
@@ -28,15 +30,27 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
           }}
         >
           <div
-            className={`relative flex flex-col rounded-2xl p-5 border transition-all duration-500 overflow-hidden ${
+            className={`relative flex flex-col rounded-2xl p-4 sm:p-5 border transition-all duration-500 overflow-hidden ${
                 isLight 
-                    ? 'bg-white/80 border-gray-100 hover:border-gray-300 hover:shadow-lg backdrop-blur-sm' 
-                    : 'bg-neutral-900/60 border-white/5 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md'
+                    ? 'bg-white/90 border-gray-200 hover:border-gray-400 hover:shadow-xl backdrop-blur-sm' 
+                    : 'bg-neutral-900/80 border-white/10 hover:border-white/25 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md'
             }`}
             style={{ backfaceVisibility: 'hidden' }}
           >
+            {/* Image Thumbnail */}
+            <div className={`w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 relative ${
+                isLight ? 'bg-gray-100 border border-gray-200' : 'bg-neutral-800/80 border border-white/5'
+            }`}>
+              <img
+                src={`/img/${gambar}`}
+                alt={judul}
+                loading="lazy"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            </div>
 
-            <h3 className={`text-sm font-semibold tracking-tight leading-snug text-center mb-5 ${
+            <h3 className={`text-sm font-semibold tracking-tight leading-snug text-center mb-4 line-clamp-2 ${
                 isLight ? 'text-gray-900' : 'text-white'
             }`}>
               {judul}
@@ -45,13 +59,13 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             <div className="mt-auto flex flex-col items-center gap-2">
               <div className={`px-4 py-2 rounded-lg text-[10px] font-semibold uppercase tracking-widest transition-all duration-300 ${
                   isLight 
-                      ? 'bg-black text-white hover:bg-gray-800' 
-                      : 'bg-white/10 text-white border border-white/10 hover:bg-white/20'
+                      ? 'bg-black text-white group-hover:bg-gray-800' 
+                      : 'bg-white/10 text-white border border-white/10 group-hover:bg-white/20'
               }`}>
-                View Details
+                {t.achievements.viewDetails}
               </div>
-              <span className={`text-[9px] uppercase tracking-[0.2em] opacity-30 ${isLight ? 'text-black' : 'text-white'}`}>
-                Tap to flip
+              <span className={`text-[9px] uppercase tracking-[0.2em] opacity-40 ${isLight ? 'text-black' : 'text-white'}`}>
+                {t.achievements.tapToFlip}
               </span>
             </div>
           </div>
@@ -68,7 +82,7 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
               <div className={`h-1 w-16 rounded-full mb-6 ${isLight ? 'bg-black/10' : 'bg-white/10'}`} />
               
               <h2 className={`text-base font-bold mb-3 tracking-tight ${isLight ? 'text-gray-900' : 'text-white'}`}>
-                Certificate Info
+                {t.achievements.certificateInfo}
               </h2>
               
               <p className={`text-xs mb-8 leading-relaxed ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
@@ -87,7 +101,7 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-                View Certificate
+                {t.achievements.viewCertificate}
               </button>
 
               <button
@@ -99,7 +113,7 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
                     isLight ? 'text-black' : 'text-white'
                 }`}
               >
-                Go Back
+                {t.achievements.goBack}
               </button>
             </div>
           </div>

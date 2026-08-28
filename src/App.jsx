@@ -9,6 +9,7 @@ import CustomCursor from './components/CustomCursor';
 import NotFound from './components/NotFound';
 import LazyMount from './components/LazyMount';
 import GitHubContributions from './components/GitHubContributions';
+const WakaTimeStats = lazy(() => import('./components/WakaTimeStats'));
 const InteractiveScene = lazy(() => import('./components/InteractiveScene'));
 const Gallery = lazy(() => import('./components/Gallery'));
 const Experiences = lazy(() => import('./components/Experiences'));
@@ -17,6 +18,7 @@ const Projetcs = lazy(() => import('./components/Projetcs'));
 const Achievements = lazy(() => import('./components/Achievements'));
 const Footer = lazy(() => import('./components/Footer'));
 import { Routes, Route } from 'react-router-dom';
+
 
 function App() {
   const [showOpening, setShowOpening] = useState(true);
@@ -76,6 +78,11 @@ function App() {
             </LazyMount>
             <LazyMount id="github" height={420}>
               <GitHubContributions />
+            </LazyMount>
+            <LazyMount id="wakatime" height={500}>
+              <Suspense fallback={<div style={{height:500}} />}>
+                <WakaTimeStats />
+              </Suspense>
             </LazyMount>
             <LazyMount id="achievements" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Achievements /> </Suspense>

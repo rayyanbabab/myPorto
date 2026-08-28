@@ -2,8 +2,11 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Github, ExternalLink, Cpu, Layers } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";
 
 const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -47,6 +50,7 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                   ? "bg-gray-50 border-gray-200 text-black hover:bg-gray-200 active:scale-90"
                   : "bg-neutral-900 border-neutral-800 text-white hover:bg-neutral-800 active:scale-90"
               }`}
+              aria-label={t.projects.closeModal}
             >
               <X size={18} />
             </button>
@@ -64,7 +68,7 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                 </h2>
                 {project.isComingSoon && (
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase border border-white/20 bg-white/10 text-white">
-                    Coming Soon
+                    {t.projects.comingSoon}
                   </span>
                 )}
               </div>
@@ -75,7 +79,7 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                 <h3 className={`text-base font-bold flex items-center gap-2 ${
                   isLight ? "text-gray-800" : "text-gray-200"
                 }`}>
-                  <Cpu size={16} /> Project Overview
+                  <Cpu size={16} /> {t.projects.overview}
                 </h3>
                 <p className={`text-sm sm:text-base leading-relaxed ${
                   isLight ? "text-gray-600" : "text-gray-400"
@@ -89,7 +93,7 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                   <h3 className={`text-base font-bold flex items-center gap-2 ${
                     isLight ? "text-gray-800" : "text-gray-200"
                   }`}>
-                    <Layers size={16} /> Key Features
+                    <Layers size={16} /> {t.projects.keyFeatures}
                   </h3>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                     {project.features.map((feature, idx) => (
@@ -113,10 +117,10 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                 <h4 className={`text-xs font-bold uppercase tracking-wider ${
                   isLight ? "text-gray-500" : "text-gray-400"
                 }`}>
-                  Technologies Applied
+                  {t.projects.techUsed}
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.tech?.map((t, i) => (
+                  {project.tech?.map((tItem, i) => (
                     <span
                       key={i}
                       className={`px-3 py-1 text-xs font-semibold rounded-md border ${
@@ -125,7 +129,7 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                           : "bg-neutral-900 border-neutral-800 text-gray-300"
                       }`}
                     >
-                      {t}
+                      {tItem}
                     </span>
                   ))}
                 </div>
@@ -145,14 +149,14 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                         : "bg-white text-black hover:bg-gray-200 active:scale-95"
                     }`}
                   >
-                    <span>Visit Live Site</span>
+                    <span>{t.projects.liveDemo}</span>
                     <ExternalLink size={16} />
                   </a>
                 ) : (
                   <span className={`text-xs font-medium tracking-wide ${
                     isLight ? "text-gray-400" : "text-gray-500"
                   }`}>
-                    Live site demo is not available.
+                    {project.isComingSoon ? t.projects.comingSoon : "Live demo not available"}
                   </span>
                 )}
 
@@ -166,7 +170,7 @@ const ProjectModal = ({ isOpen, onClose, project, isLight }) => {
                     }`}
                   >
                     <Github size={18} />
-                    <span>View Repository</span>
+                    <span>{t.projects.viewCode}</span>
                   </a>
                 )}
               </div>

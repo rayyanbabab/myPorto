@@ -10,10 +10,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 
 import CertificationCard from './assets/CertificationCard';
-
 import { dataCerti } from '../../constant';
+import { useLanguage } from '../context/LanguageContext';
 
 const Achievements = () => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [themeMode, setThemeMode] = useState("dark");
@@ -35,7 +36,6 @@ const Achievements = () => {
       ref={containerRef}
       className="relative min-h-screen py-24 sm:py-32 px-0 sm:px-6 overflow-hidden font-sans" 
     >
-      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -48,7 +48,6 @@ const Achievements = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-20">
-
         <div className="text-center mb-16 md:mb-24 px-4">
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
@@ -61,7 +60,7 @@ const Achievements = () => {
                         ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500' 
                         : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
                 }`}>
-                    Achievements
+                    {t.achievements.title}
                 </span>
             </motion.h1>
             <motion.div 
@@ -81,7 +80,7 @@ const Achievements = () => {
             >
                 <div className={`h-10 w-1 ${isLight ? 'bg-black' : 'bg-white'}`} />
                 <h2 className={`text-2xl md:text-3xl font-bold tracking-wide ${isLight ? 'text-black' : 'text-white'}`}>
-                    Certifications
+                    {t.achievements.certifications}
                 </h2>
                 <div className={`flex-1 h-px ${isLight ? 'bg-gray-200' : 'bg-gray-800'}`} />
             </motion.div>
@@ -192,4 +191,4 @@ const Achievements = () => {
   );
 }
 
-export default Achievements;
+export default Achievements;

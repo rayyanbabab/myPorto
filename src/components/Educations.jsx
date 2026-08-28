@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const Educations = () => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
@@ -18,55 +20,7 @@ const Educations = () => {
     restDelta: 0.001
   });
 
-  const timelineData = [
-    {
-      year: "2007",
-      title: "The Genesis",
-      subtitle: "Birth",
-      description: "The beginning of my life journey. The first page of a long and exciting story.",
-      type: "milestone",
-
-    },
-    {
-      year: "2014 - 2015",
-      title: "TKIT Nurul Falah",
-      subtitle: "Play & Learn Era",
-      description: "Getting to know the world outside, learning to socialize, and building a foundation of character early on.",
-
-    },
-    {
-      year: "2015 - 2020",
-      title: "SDIT Al-Fath Cibitung",
-      subtitle: "Elementary School",
-      description: "Six years of exploration. Learning discipline, responsibility, and the core fundamentals of science.",
-      logo: "/img/alpat.png",
-    },
-    {
-      year: "2020 - 2023",
-      title: "SMPIT Ulil Albab",
-      subtitle: "Self-Discovery",
-      description: "Beginning to participate in organizations and discovering active interests in technology and sports.",
-      logo: "/img/ulil.png",
-      tags: ["English Club", "Futsal"]
-    },
-    {
-      year: "2023 - 2026",
-      title: "SMK Telekomunikasi Telesandi Bekasi",
-      subtitle: "Software Engineering",
-      description: "Stepping into the IT world. Learning coding, server management, and building a future career as a developer.",
-      logo: "/img/tels.png",
-      current: true,
-      tags: ["Syntax", "Volly", "Futsal", "Football"]
-    },
-     {
-      year: "2026 - Now",
-      title: "ASTRA TECH",
-      subtitle: "Applied Bachelor in Software Engineering",
-      description: "Pursuing higher vocational education to deepen advanced software engineering skills, IT project management, and industrial-grade solution development.",
-      logo: "/img/astra.jpg",
-      tags: ["College", "Software Engineering", "Astra Tech"]
-    },
-  ];
+  const timelineData = t.educations?.items || [];
 
   useEffect(() => {
     const updateTheme = () => {
@@ -84,7 +38,6 @@ const Educations = () => {
       ref={containerRef}
       className="relative py-24 sm:py-32 overflow-hidden font-sans"
     >
-      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
 
@@ -100,27 +53,24 @@ const Educations = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           className="text-center mb-24"
         >
-          
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
             <span className={`bg-clip-text text-transparent ${isLight
                 ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500'
                 : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
               }`}>
-              My Educations
+              {t.educations.title}
             </span>
           </h1>
           <div className={`h-1 w-20 mx-auto rounded-full ${isLight ? 'bg-black' : 'bg-white'}`} />
         </motion.div>
 
         <div className="relative">
-
           <div className={`absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] -translate-x-1/2 md:translate-x-0 ${isLight ? 'bg-gray-300' : 'bg-neutral-800'}`} />
 
           <motion.div
@@ -168,7 +118,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
       transition={{ duration: 0.6, delay: index * 0.1, type: "spring" }}
       className={`relative flex items-center ${isEven ? "md:flex-row-reverse" : "md:flex-row"}`}
     >
-      
       <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
         <div className={`w-4 h-4 rounded-full border-[3px] transition-all duration-300 ${data.current
             ? (isLight ? 'bg-black border-gray-400' : 'bg-white border-gray-500')
@@ -193,7 +142,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
               : "bg-neutral-900 border-neutral-800 hover:border-white/50 shadow-lg hover:shadow-white/5"
             }`}
         >
-          
           <div
             className={`absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 ${isLight ? 'bg-gray-100/50' : 'bg-white/5'
               }`}
@@ -204,7 +152,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
           />
 
           <div className="relative z-10">
-            
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 border ${isLight
                 ? 'bg-black text-white border-transparent'
                 : 'bg-white text-black border-transparent'
@@ -234,35 +181,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
               {data.description}
             </p>
 
-            {data.childhoodPhotos && (
-              <div className={`group/photos relative h-32 w-full mt-4 flex items-center ${isEven ? "md:justify-end" : "justify-start"}`}>
-                {data.childhoodPhotos.map((photo, i) => (
-                  <motion.div
-                    key={i}
-                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 p-1 pb-3 rounded shadow-md origin-bottom bg-white border border-gray-200`}
-                    style={{ zIndex: i }}
-                    initial={{ rotate: (i - 1) * 6, x: i * 5 }}
-                    whileInView={{ rotate: (i - 1) * 6, x: i * 5 }}
-                    whileHover={{ zIndex: 50, scale: 1.1, rotate: 0 }}
-                    variants={{
-                      hoverContainer: {
-                        x: (i - 1) * 85,
-                        rotate: (i - 1) * 8,
-                        scale: 1.1,
-                        zIndex: i + 10
-                      }
-                    }}
-                  >
-                    <img src={photo} alt="Memories" className="w-full h-full object-cover rounded-sm md:grayscale group-hover/photos:grayscale-0 transition-all duration-500" />
-                  </motion.div>
-                ))}
-                <motion.div
-                  className="absolute inset-0 z-30"
-                  whileHover="hoverContainer"
-                />
-              </div>
-            )}
-
             {data.tags && (
               <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "justify-start"}`}>
                 {data.tags.map((tag, i) => (
@@ -282,7 +200,6 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
                 ))}
               </div>
             )}
-
           </div>
         </motion.div>
       </div>

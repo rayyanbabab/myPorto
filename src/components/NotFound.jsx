@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const NotFound = () => {
+  const { t } = useLanguage();
   const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
@@ -60,7 +62,6 @@ const NotFound = () => {
       className="flex items-center justify-center px-6 font-sans"
     >
       <div className="text-center max-w-2xl">
-        
         <h1
           className="text-[120px] sm:text-[160px] md:text-[200px] font-bold leading-none mb-4"
           style={{
@@ -83,14 +84,14 @@ const NotFound = () => {
           className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 font-heading"
           style={{ color: themeStyles[theme].text }}
         >
-          Halaman Tidak Ditemukan
+          {t.notFound.title}
         </h2>
 
         <p
           className="text-base sm:text-lg mb-8"
           style={{ color: themeStyles[theme].secondary }}
         >
-          Oops.. Sepertinya fitur ini belum tersedia.
+          {t.notFound.description}
         </p>
 
         <button
@@ -106,7 +107,7 @@ const NotFound = () => {
           }}
         >
           <svg 
-            className="w-5 h-5"
+            className="w-5 h-5" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -116,7 +117,7 @@ const NotFound = () => {
           <span 
             className="font-semibold"
           >
-            Kembali lagi
+            {t.notFound.backHome}
           </span>
         </button>
       </div>

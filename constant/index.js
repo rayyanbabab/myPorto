@@ -38,11 +38,16 @@ const navlinks = [
   },
   {
     id: 8,
+    text: "WakaTime",
+    link: "#wakatime"
+  },
+  {
+    id: 9,
     text: "Achievements",
     link: "#achievements"
   },
   {
-    id: 9,
+    id: 10,
     text: "Contact Me",
     link: "#contact"
   },
@@ -197,7 +202,7 @@ const projectsData = [
     judul: "next task",
     parag: "A minimalist project task organizer featuring kanban drag-and-drop boards, task prioritization tags, and progress trackers.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "nexttask-livid.vercel.app",
+    linkDemo: "https://nexttask-livid.vercel.app",
     linkCode: "https://github.com/rayyanbabab/nextTask",
     isComingSoon: false,
     features: ["Kanban Task Board", "Task Priority Sorting", "Progress Completion Analytics", "Offline LocalStorage Backup"],
@@ -249,7 +254,7 @@ const projectsData = [
     judul: "Ngasir Apps",
     parag: "A lightweight POS (Point of Sale) cash register system optimized for small businesses to manage sales, products, and checkout logs.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "ngasir-ten.vercel.app",
+    linkDemo: "https://ngasir-ten.vercel.app",
     linkCode: "https://github.com/rayyanbabab/ngasir.git",
     isComingSoon: false,
     features: ["Product Inventory Tracker", "Dynamic Billing Calculator", "History Transaction Logger", "Printable Receipts Generation"],
@@ -275,7 +280,7 @@ const projectsData = [
     judul: "Campus Registration",
     parag: "A student registration portal featuring data submission forms, status check dashboards, and intake tracking.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "student-portal-app-teal.vercel.app",
+    linkDemo: "https://student-portal-app-teal.vercel.app",
     linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-kampus",
     isComingSoon: false,
     features: ["Multi-step Admission Form", "Real-time Verification Status", "Dashboard Analytics", "PDF Admission Ticket Export"],
@@ -302,7 +307,7 @@ const projectsData = [
     parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
     isComingSoon: false,
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "kataruma-rw-10.vercel.app",
+    linkDemo: "https://kataruma-rw-10.vercel.app",
     linkCode: "https://github.com/rayyanbabab/kataruma",
     features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
     overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
@@ -332,49 +337,51 @@ const projectsData = [
     linkCode: "https://github.com/rayyanbabab/aplikasi-pendaftaran-lomba-rw",
     features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
     overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
-  },
-
-  {
-    id: 15,
-    gambar: "pos.png",
-    judul: "POS minimarket UMKM",
-    parag: "A modern commercial laundry service administration system to track orders, customers, and payment statuses.",
-    isComingSoon: false,
-    tech: ["React", "Tailwind", "Framer Motion", "Vite"],
-    linkDemo: "https://pos-minimarket-umkm.vercel.app",
-    linkCode: "https://github.com/rayyanbabab/POS-minimarket-UMKM",
-    features: ["Order Intake & Receipt Generator", "Automatic Price Calculator", "Customer Profile Manager", "WhatsApp Notification Integration"],
-    overview: "LaundryApp provides small laundry businesses with a clear billing system. Operators can register weight or piece orders, track wash/dry/iron steps, and update status instantly."
   }
+
 ]
 
 const dataCerti = [
   {
     id: 1,
-    gambar: "machung.webp",
+    gambar: "eskul.jpeg",
     judul: "Junior Web Developer - BNSP",
-    link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
+    link: "https://drive.google.com/file/d/12et8KqvzuzYgXQ1qTxRGBy66GojrVDgJ/view?usp=sharing"
   },
 
   {
     id: 2,
-    gambar: "machung.webp",
+    gambar: "ksr.jpeg",
     judul: "Responsive Web Design - freeCodeCamp",
-    link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
+    link: "https://drive.google.com/file/d/12tW56COk-eD6s_1jMk033J3errL2ZFJe/view?usp=sharing"
   },
 
   {
     id: 3,
-    gambar: "machung.webp",
+    gambar: "sopskil.jpeg",
     judul: "JavaScript Algorithms & Data Structures - freeCodeCamp",
-    link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
+    link: "https://drive.google.com/file/d/1gvUm9EdyQh7RmI5KHDRckKtt4p5NwzZR/view?usp=sharing"
   },
 
   {
     id: 4,
-    gambar: "machung.webp",
+    gambar: "TOIC.jpeg",
     judul: "IT Support Professional Certificate - Google",
-    link: "https://drive.google.com/drive/folders/1lQhCp73UNCH-Ky69UEpVG6vwcLmMPa2v"
+    link: "https://drive.google.com/file/d/1LjMyjFY-VKjuhkz2cHonJgT7vHJr_F-E/view?usp=sharing"
+  },
+
+  {
+    id: 5,
+    gambar: "ukom.jpeg",
+    judul: "IT Support Professional Certificate - Google",
+    link: "https://drive.google.com/file/d/1K2nyey4QpHSdJRnGFl4krbnK7uN3wUuf/view?usp=sharing"
+  },
+
+  {
+    id: 6,
+    gambar: "UL.jpeg",
+    judul: "IT Support Professional Certificate - Google",
+    link: "https://drive.google.com/file/d/1kjk9IGxMXmBp-BuObrc_DM0yDHAxbr0W/view?usp=sharing"
   }
 ];
 const experiencesData = [

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const techstack = [
   { id: 1, name: "React", category: "Frontend", level: "Intermediate", src: "https://cdn.simpleicons.org/react/61DAFB", color: "#61DAFB" },
@@ -26,6 +27,7 @@ const FALLBACK_PLACEHOLDER =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23222'/><path d='M20 36h24v4H20zm0-8h24v4H20z' fill='%23fff' opacity='0.85'/></svg>";
 
 const TechStack = () => {
+  const { t } = useLanguage();
   const [theme, setTheme] = useState("dark");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -75,7 +77,6 @@ const TechStack = () => {
       className="relative min-h-screen px-4 sm:px-6 py-24 sm:py-32 overflow-hidden font-sans"
       ref={containerRef}
     >
-      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -88,7 +89,6 @@ const TechStack = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-
         <div className="text-center mb-16">
           <h1 
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading"
@@ -98,11 +98,11 @@ const TechStack = () => {
                     ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500' 
                     : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
             }`}>
-                Tech Stack
+                {t.techStack.title}
             </span>
           </h1>
           <p className={`text-sm font-medium tracking-widest uppercase ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-            My Weapons of Choice
+            {t.techStack.badge}
           </p>
         </div>
 
@@ -128,7 +128,7 @@ const TechStack = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search technology..."
+                placeholder={t.techStack.searchPlaceholder}
                 className={`w-full py-4 pl-12 pr-12 rounded-full border outline-none backdrop-blur-md transition-all duration-300 shadow-sm ${
                    isLight 
                     ? 'bg-gray-50 border-gray-200 text-black placeholder-gray-400 focus:border-black focus:ring-1 focus:ring-black'
@@ -169,32 +169,12 @@ const TechStack = () => {
                     : "bg-transparent text-gray-400 border-white/10 hover:border-white/30 hover:text-white"
               }`}
             >
-              {category}
+              {t.techStack.categories[category] || category}
             </button>
           ))}
         </div>
 
-        {!isSearching && debouncedQuery && filteredTech.length > 0 && (
-          <div className="max-w-6xl mx-auto mb-8 px-2 animate-fade-in-up">
-             <div className="flex items-center gap-2">
-                <span className={`text-sm ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-                   Found result for:
-                </span>
-                <span className={`text-sm font-bold px-2 py-0.5 rounded-md ${
-                   isLight ? 'bg-gray-100 text-black border border-gray-200' : 'bg-white/10 text-white border border-white/10'
-                }`}>
-                   "{debouncedQuery}"
-                </span>
-                <span className={`text-xs ml-auto ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>
-                   {filteredTech.length} results
-                </span>
-             </div>
-             <div className={`h-px w-full mt-3 ${isLight ? 'bg-gray-200' : 'bg-white/10'}`} />
-          </div>
-        )}
-
         {isSearching ? (
-
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 max-w-6xl mx-auto">
             {[...Array(10)].map((_, index) => (
               <div
@@ -216,19 +196,17 @@ const TechStack = () => {
             ))}
           </div>
         ) : filteredTech.length > 0 ? (
-
           <motion.div 
             layout
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 max-w-6xl mx-auto"
           >
             <AnimatePresence>
                 {filteredTech.map((tech) => (
-                    <TechCard key={tech.id} tech={tech} isLight={isLight} />
+                    <TechCard key={tech.id} tech={tech} isLight={isLight} t={t} />
                 ))}
             </AnimatePresence>
           </motion.div>
         ) : (
-
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className={`p-4 rounded-full mb-4 ${isLight ? 'bg-gray-100' : 'bg-white/5'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isLight ? 'text-gray-400' : 'text-gray-500'}>
@@ -236,41 +214,15 @@ const TechStack = () => {
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
             </div>
-            <h3 className={`text-lg font-bold mb-1 ${isLight ? 'text-black' : 'text-white'}`}>No result found</h3>
-            <p className={`text-sm ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-              Try searching for something else.
-            </p>
+            <h3 className={`text-lg font-bold mb-1 ${isLight ? 'text-black' : 'text-white'}`}>{t.techStack.noResults}</h3>
           </div>
         )}
-
-        <div className="mt-24 pt-8 border-t border-dashed border-gray-200 dark:border-white/10">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {[
-              { label: "Technologies", value: techstack.length },
-              { label: "Categories", value: categories.length - 1 },
-              { label: "Years Exp.", value: "2+" },
-              { label: "Projects", value: "7+" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center"
-              >
-                <div className={`text-3xl font-black mb-1 ${isLight ? "text-black" : "text-white"}`}>
-                  {stat.value}
-                </div>
-                <div className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-gray-500" : "text-gray-500"}`}>
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
 };
 
-const TechCard = ({ tech, isLight }) => {
+const TechCard = ({ tech, isLight, t }) => {
     const cardRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -281,6 +233,9 @@ const TechCard = ({ tech, isLight }) => {
             y: e.clientY - rect.top,
         });
     };
+
+    const translatedLevel = t?.techStack?.levels?.[tech.level] || tech.level;
+    const translatedCategory = t?.techStack?.categories?.[tech.category] || tech.category;
 
     return (
         <motion.div
@@ -297,7 +252,6 @@ const TechCard = ({ tech, isLight }) => {
                   : "bg-neutral-900 border-neutral-800 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5"
             }`}
         >
-            
             <div 
                 className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                 style={{
@@ -333,11 +287,11 @@ const TechCard = ({ tech, isLight }) => {
                     ? 'bg-gray-100 text-gray-600 border-gray-200' 
                     : 'bg-white/10 text-gray-300 border-white/5'
             }`}>
-                {tech.level}
+                {translatedLevel}
             </div>
 
             <p className={`text-xs font-medium z-10 ${isLight ? 'text-gray-400' : 'text-gray-600'}`}>
-                {tech.category}
+                {translatedCategory}
             </p>
         </motion.div>
     );

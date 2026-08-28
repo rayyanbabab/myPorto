@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Calendar } from "lucide-react";
-import { experiencesData } from "../../constant";
+import { useLanguage } from "../context/LanguageContext";
 
 const ExperienceCard = ({ role, company, type, period, description, skills, isLight }) => {
   const cardRef = useRef(null);
@@ -105,6 +105,7 @@ const ExperienceCard = ({ role, company, type, period, description, skills, isLi
 };
 
 const Experiences = () => {
+  const { t } = useLanguage();
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
 
@@ -117,6 +118,8 @@ const Experiences = () => {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     return () => observer.disconnect();
   }, []);
+
+  const items = t.experiences?.items || [];
 
   return (
     <section
@@ -148,14 +151,14 @@ const Experiences = () => {
                 ? "bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500"
                 : "bg-gradient-to-r from-white via-gray-200 to-gray-500"
             }`}>
-              Work Experiences
+              {t.experiences.title}
             </span>
           </h1>
           <div className={`h-1 w-20 mx-auto rounded-full ${isLight ? "bg-black" : "bg-white"}`} />
         </motion.div>
 
         <div className="space-y-8">
-          {experiencesData.map((exp) => (
+          {items.map((exp) => (
             <ExperienceCard key={exp.id} {...exp} isLight={isLight} />
           ))}
         </div>

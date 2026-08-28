@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
 const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) => {
+  const { t } = useLanguage();
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -181,13 +183,13 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               <h3 className="text-white text-sm sm:text-base font-semibold truncate">
                 {judul}
               </h3>
-              <p className="text-white/40 text-[10px] sm:text-xs mt-0.5">Certificate Preview</p>
+              <p className="text-white/40 text-[10px] sm:text-xs mt-0.5">{t.achievements.previewTitle}</p>
             </div>
 
             <button
               onClick={onClose}
               className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 border border-white/10 flex items-center justify-center transition-all duration-200 group"
-              aria-label="Close"
+              aria-label={t.achievements.closeModal}
             >
               <svg className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -312,8 +314,8 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
             transition={{ delay: 0.5, duration: 0.5 }}
             className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 text-white/25 text-[10px] sm:text-xs text-center pointer-events-none select-none"
           >
-            <span className="hidden sm:inline">Scroll to zoom • Double-click to toggle zoom • Drag to pan</span>
-            <span className="sm:hidden">Pinch to zoom • Double-tap to toggle • Drag to pan</span>
+            <span className="hidden sm:inline">{t.achievements.zoomHintDesktop}</span>
+            <span className="sm:hidden">{t.achievements.zoomHintMobile}</span>
           </motion.p>
         </motion.div>
       )}

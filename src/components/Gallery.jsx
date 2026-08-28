@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const Gallery = () => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [themeMode, setThemeMode] = useState("dark");
@@ -15,7 +17,7 @@ const Gallery = () => {
 
   const yParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  const images = [
+  const images = t.gallery?.items || [
     { src: "/img/ist.png", title: "Interior View", description: "Istiqlal Mosque" },
     { src: "/img/mount.png", title: "Mountain View", description: "Prau Mountain" },
     { src: "/img/bis.png", title: "Sigma Cat", description: "The watcher of the void" },
@@ -66,7 +68,6 @@ const Gallery = () => {
       ref={containerRef} 
       className="relative min-h-screen py-24 sm:py-32 px-4 md:px-8 overflow-hidden font-sans"
     >
-      
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
         <div 
@@ -79,7 +80,6 @@ const Gallery = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-
         <motion.div 
             style={{ y: yParallax }}
             className="text-center mb-12 md:mb-24"
@@ -95,7 +95,7 @@ const Gallery = () => {
                     ? 'bg-gradient-to-b from-black to-gray-600' 
                     : 'bg-gradient-to-b from-white to-gray-500'
             }`}>
-              My Gallery
+              {t.gallery.title}
             </span>
           </motion.h1>
           <motion.div 
@@ -108,7 +108,6 @@ const Gallery = () => {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[300px]">
-
           <GalleryCard 
             image={images[4]} 
             index={4} 
@@ -161,7 +160,6 @@ const Gallery = () => {
             isLight={isLight} 
             className="col-span-2 row-span-1" 
           />
-
         </div>
       </div>
 
@@ -174,7 +172,6 @@ const Gallery = () => {
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4"
             onClick={() => setSelectedImage(null)}
           >
-            
             <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" onClick={() => setSelectedImage(null)}>
                <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
@@ -234,7 +231,6 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
                 isLight ? 'bg-white border-gray-200' : 'bg-neutral-900 border-neutral-800'
             }`}
         >
-            
             <div 
                 className={`hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                 style={{

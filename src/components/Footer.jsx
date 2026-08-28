@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import emailjs from '@emailjs/browser';
 
 import { Send, Check, AlertCircle, X, Mail, Instagram, Youtube, Linkedin } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 const Footer = () => {
+    const { t } = useLanguage();
     const formRef = useRef(null);
     const [formData, setFormData] = useState({
         name: "",
@@ -37,25 +39,29 @@ const Footer = () => {
     };
 
     const playSuccessSound = () => {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        oscillator.frequency.value = 800;
-        oscillator.type = 'sine';
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.5);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        } catch (e) {
+            // AudioContext not allowed or supported
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!formData.email.trim() || !formData.message.trim()) {
-            setToast({ show: true, message: "Please fill in all fields", type: 'error' });
+            setToast({ show: true, message: t.footer.fillAllFields, type: 'error' });
             setTimeout(() => setToast({ show: false, message: '', type: '' }), 3000);
             return;
         }
@@ -74,13 +80,13 @@ const Footer = () => {
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
 
             playSuccessSound();
-            setToast({ show: true, message: "Message sent successfully!", type: 'success' });
+            setToast({ show: true, message: t.footer.successMessage, type: 'success' });
             setFormData({ name: "", email: "", message: "", isSubmitting: false });
 
             setTimeout(() => setToast({ show: false, message: '', type: '' }), 4500);
         } catch (error) {
             console.error("Error:", error);
-            setToast({ show: true, message: 'Failed to send message.', type: 'error' });
+            setToast({ show: true, message: t.footer.errorMessage, type: 'error' });
             setFormData(prev => ({ ...prev, isSubmitting: false }));
             setTimeout(() => setToast({ show: false, message: '', type: '' }), 4500);
         }
@@ -106,7 +112,6 @@ const Footer = () => {
 
     return (
         <footer id="contact" className="relative pt-24 pb-12 overflow-hidden scroll-mt-24 font-sans">
-
             <AnimatePresence>
                 {toast.show && (
                     <motion.div
@@ -150,9 +155,7 @@ const Footer = () => {
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-
                     <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
-
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -166,7 +169,7 @@ const Footer = () => {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                             </span>
-                            Available for freelance work
+                            {t.footer.badge}
                         </motion.div>
 
                         <motion.div
@@ -184,9 +187,9 @@ const Footer = () => {
                                 />
                             </div>
                             <div>
-                                <h2 className={`text-3xl font-bold mb-2 ${isLight ? 'text-black' : 'text-white'}`}>Let's Connect</h2>
+                                <h2 className={`text-3xl font-bold mb-2 ${isLight ? 'text-black' : 'text-white'}`}>{t.footer.letsConnect}</h2>
                                 <p className={`max-w-xs mx-auto lg:mx-0 ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-                                    Have a project in mind? Let's build something extraordinary together.
+                                    {t.footer.subtext}
                                 </p>
                             </div>
                         </motion.div>
@@ -202,9 +205,9 @@ const Footer = () => {
                                 }`}
                         >
                             {[
-                                { label: 'Projects', value: '7+' },
-                                { label: 'Response', value: '<24h' },
-                                { label: 'Location', value: 'ID 🇮🇩' },
+                                { label: t.footer.projectsLabel, value: '7+' },
+                                { label: t.footer.responseLabel, value: '<24h' },
+                                { label: t.footer.locationLabel, value: 'ID 🇮🇩' },
                             ].map((stat) => (
                                 <div key={stat.label} className="flex flex-col items-center py-4 px-2">
                                     <span className={`text-xl font-bold tabular-nums ${isLight ? 'text-black' : 'text-white'}`}>{stat.value}</span>
@@ -264,18 +267,16 @@ const Footer = () => {
                                 : 'bg-white/5 border-white/5 shadow-2xl shadow-black/50'
                             }`}
                     >
-                        
                         <div className="mb-8">
-                            <h3 className={`text-xl font-bold mb-1 ${isLight ? 'text-black' : 'text-white'}`}>Send a Message</h3>
-                            <p className={`text-sm ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>I usually reply within 24 hours.</p>
+                            <h3 className={`text-xl font-bold mb-1 ${isLight ? 'text-black' : 'text-white'}`}>{t.footer.sendMessage}</h3>
+                            <p className={`text-sm ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>{t.footer.replyTime}</p>
                         </div>
 
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
                                     <label className={`block text-[10px] font-bold uppercase tracking-widest mb-2 ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>
-                                        Your Name
+                                        {t.footer.yourName}
                                     </label>
                                     <input
                                         type="text"
@@ -288,12 +289,12 @@ const Footer = () => {
                                                 ? 'bg-gray-50 border-gray-200 text-black placeholder-gray-400 focus:border-black focus:bg-white focus:ring-2 focus:ring-black/5'
                                                 : 'bg-black/20 border-white/10 text-white placeholder-gray-600 focus:border-white/40 focus:bg-black/30 focus:ring-2 focus:ring-white/5'
                                             }`}
-                                        placeholder="Rayyan"
+                                        placeholder={t.footer.namePlaceholder}
                                     />
                                 </div>
                                 <div>
                                     <label className={`block text-[10px] font-bold uppercase tracking-widest mb-2 ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>
-                                        Your Email
+                                        {t.footer.yourEmail}
                                     </label>
                                     <input
                                         type="email"
@@ -306,14 +307,14 @@ const Footer = () => {
                                                 ? 'bg-gray-50 border-gray-200 text-black placeholder-gray-400 focus:border-black focus:bg-white focus:ring-2 focus:ring-black/5'
                                                 : 'bg-black/20 border-white/10 text-white placeholder-gray-600 focus:border-white/40 focus:bg-black/30 focus:ring-2 focus:ring-white/5'
                                             }`}
-                                        placeholder="you@example.com"
+                                        placeholder={t.footer.emailPlaceholder}
                                     />
                                 </div>
                             </div>
 
                             <div>
                                 <label className={`block text-[10px] font-bold uppercase tracking-widest mb-2 ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>
-                                    Message
+                                    {t.footer.message}
                                 </label>
                                 <textarea
                                     name="message"
@@ -327,10 +328,10 @@ const Footer = () => {
                                             ? 'bg-gray-50 border-gray-200 text-black placeholder-gray-400 focus:border-black focus:bg-white focus:ring-2 focus:ring-black/5'
                                             : 'bg-black/20 border-white/10 text-white placeholder-gray-600 focus:border-white/40 focus:bg-black/30 focus:ring-2 focus:ring-white/5'
                                         }`}
-                                    placeholder="Tell me about your project, idea, or just say hi..."
+                                    placeholder={t.footer.messagePlaceholder}
                                 />
                                 <div className={`flex justify-between items-center mt-2`}>
-                                    <span className={`text-[10px] ${isLight ? 'text-gray-400' : 'text-gray-600'}`}>Be as detailed as you like!</span>
+                                    <span className={`text-[10px] ${isLight ? 'text-gray-400' : 'text-gray-600'}`}>{t.footer.detailedPrompt}</span>
                                     <span className={`text-[10px] tabular-nums ${formData.message.length > 450 ? 'text-amber-500' : isLight ? 'text-gray-400' : 'text-gray-600'}`}>
                                         {formData.message.length}/500
                                     </span>
@@ -348,23 +349,22 @@ const Footer = () => {
                                 {formData.isSubmitting ? (
                                     <>
                                         <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                        Sending...
+                                        {t.footer.sending}
                                     </>
                                 ) : (
                                     <>
-                                        Send Message
+                                        {t.footer.sendButton}
                                         <Send size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                                     </>
                                 )}
                             </button>
                         </form>
                     </motion.div>
-
                 </div>
 
                 <div className="mt-20 pt-8 border-t border-dashed border-gray-200 dark:border-white/10 text-center">
                     <p className={`text-sm font-medium ${isLight ? 'text-gray-500' : 'text-gray-500'}`}>
-                        © 2026 CipHunk. All rights reserved.
+                        © 2026 CipHunk. {t.footer.allRightsReserved}
                     </p>
                 </div>
             </div>

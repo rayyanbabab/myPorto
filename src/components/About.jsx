@@ -2,8 +2,10 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "react-fast-marquee";
+import { useLanguage } from "../context/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
@@ -107,7 +109,7 @@ const About = () => {
                     ? 'bg-gradient-to-b from-black to-gray-600' 
                     : 'bg-gradient-to-b from-white to-gray-500'
             }`}>
-                About Me
+                {t.about.title}
             </span>
           </motion.h1>
           <motion.div 
@@ -170,27 +172,25 @@ const About = () => {
                         Rayyan Ammar Fadhillah
                     </h2>
                     <p className={`text-lg md:text-xl font-medium tracking-wide ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-                        Full Stack Developer
+                        {t.about.role}
                     </p>
                 </div>
 
                 <div className={`space-y-6 text-base md:text-lg leading-relaxed ${isLight ? 'text-gray-700' : 'text-gray-300'}`}>
                     <p>
-                        Hello! I am Rayyan Ammar Fadhillah, a Full Stack Developer with a passion for creating innovative and efficient digital solutions. 
-                        With over 2 years of experience, I focus on building functional web applications with clean interfaces.
+                        {t.about.bio1}
                     </p>
                     <p>
-                        I am currently 18 years old and studying Software Engineering at <span className={`font-semibold ${isLight ? 'text-black' : 'text-white'}`}>SMKS Telekomunikasi Telesandi Bekasi</span>. 
-                        I am also active in contributing to open-source projects to continuously hone my skills.
+                        {t.about.bio2}
                     </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 pt-4">
                     {[
-                        { label: "Experience", value: "2+ Years" },
-                        { label: "Location", value: "Cibitung, Bekasi, ID" },
-                        { label: "Age", value: "18 Years" },
-                        { label: "Status", value: "Student" }
+                        { label: t.about.stats.experience, value: t.about.stats.experienceVal },
+                        { label: t.about.stats.location, value: t.about.stats.locationVal },
+                        { label: t.about.stats.age, value: t.about.stats.ageVal },
+                        { label: t.about.stats.status, value: t.about.stats.statusVal }
                     ].map((item, idx) => (
                         <div key={idx} className={`p-4 rounded-lg border text-center transition-colors hover:border-current ${
                             isLight 
@@ -214,7 +214,7 @@ const About = () => {
                         }`}
                     >
                         <span className="relative z-10 flex items-center gap-2">
-                            Download CV
+                            {t.about.downloadCv}
                             <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         </span>
                     </a>
