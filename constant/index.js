@@ -345,42 +345,66 @@ const dataCerti = [
   {
     id: 1,
     gambar: "eskul.jpeg",
-    judul: "Junior Web Developer - BNSP",
+    judul: "Desktop Instructor - Syntax Community",
+    issuer: "Syntax Programming Community",
+    period: "2024 - 2025",
+    caption: "Sertifikat penghargaan atas dedikasi dan kontribusi sebagai Desktop Instructor dalam membimbing logika pemrograman dan pengembangan aplikasi desktop di Syntax Community.",
+    captionEn: "Certificate of appreciation for serving as a Desktop Instructor, mentoring programming logic and desktop software development at Syntax Community.",
     link: "https://drive.google.com/file/d/12et8KqvzuzYgXQ1qTxRGBy66GojrVDgJ/view?usp=sharing"
   },
 
   {
     id: 2,
     gambar: "ksr.jpeg",
-    judul: "Responsive Web Design - freeCodeCamp",
+    judul: "Kompetisi Sains Ruangguru (KSR) 2024",
+    issuer: "Ruangguru",
+    period: "2024",
+    caption: "Sertifikat apresiasi partisipasi dalam ajang bergengsi Kompetisi Sains Ruangguru (KSR) 2024 tingkat nasional jenjang SMA/SMK untuk bidang Geografi.",
+    captionEn: "Certificate of appreciation for participating in the national-level Ruangguru Science Competition (KSR) 2024 for High School / Vocational level in Geography.",
     link: "https://drive.google.com/file/d/12tW56COk-eD6s_1jMk033J3errL2ZFJe/view?usp=sharing"
   },
 
   {
     id: 3,
     gambar: "sopskil.jpeg",
-    judul: "JavaScript Algorithms & Data Structures - freeCodeCamp",
+    judul: "Pelatihan Soft Skill Profesional - RPL",
+    issuer: "SMK Telekomunikasi Telesandi Bekasi",
+    period: "2026",
+    caption: "Sertifikat kelulusan pelatihan Soft Skill intensif yang memperkuat komunikasi profesional, kepemimpinan, etika kerja, dan kerja sama tim di bidang rekayasa perangkat lunak.",
+    captionEn: "Certificate of completion for intensive Soft Skills training covering professional communication, leadership, work ethics, and teamwork in software engineering.",
     link: "https://drive.google.com/file/d/1gvUm9EdyQh7RmI5KHDRckKtt4p5NwzZR/view?usp=sharing"
   },
 
   {
     id: 4,
     gambar: "TOIC.jpeg",
-    judul: "IT Support Professional Certificate - Google",
+    judul: "TOEIC® Prediction Test (CEFR Standard)",
+    issuer: "Satukelas & Reallyenglish",
+    period: "2026",
+    caption: "Sertifikat hasil uji kecakapan bahasa Inggris internasional TOEIC standar CEFR dengan evaluasi kemampuan listening dan reading untuk kesiapan lingkungan kerja profesional.",
+    captionEn: "TOEIC Prediction Test certificate evaluating English listening and reading proficiency aligned with global CEFR standards for professional readiness.",
     link: "https://drive.google.com/file/d/1LjMyjFY-VKjuhkz2cHonJgT7vHJr_F-E/view?usp=sharing"
   },
 
   {
     id: 5,
     gambar: "ukom.jpeg",
-    judul: "IT Support Professional Certificate - Google",
+    judul: "Uji Kompetensi Keahlian (UKOM) - RPL",
+    issuer: "SMK Telesandi & PT Akar Solusi Inovatif",
+    period: "2026",
+    caption: "Sertifikat resmi UKOM Rekayasa Perangkat Lunak dengan predikat Kompeten dalam perancangan & pengembangan Aplikasi Berbasis Web dan Desktop bersama asesor industri.",
+    captionEn: "Official Vocational Competency Certificate in Software Engineering with 'Competent' grade in developing Web & Desktop Applications assessed by industry experts.",
     link: "https://drive.google.com/file/d/1K2nyey4QpHSdJRnGFl4krbnK7uN3wUuf/view?usp=sharing"
   },
 
   {
     id: 6,
     gambar: "UL.jpeg",
-    judul: "IT Support Professional Certificate - Google",
+    judul: "Certificate of Expertise Level II - RPL",
+    issuer: "SMK Telekomunikasi Telesandi Bekasi",
+    period: "2025",
+    caption: "Sertifikat Uji Level Keahlian RPL dengan nilai luar biasa 93 (Very Competence) dalam lingkup System Analysis, Design, and Development.",
+    captionEn: "Certificate of Expertise Level II in Software Engineering with an exceptional score of 93 (Very Competence) in System Analysis, Design, and Development.",
     link: "https://drive.google.com/file/d/1kjk9IGxMXmBp-BuObrc_DM0yDHAxbr0W/view?usp=sharing"
   }
 ];

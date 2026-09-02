@@ -127,6 +127,10 @@ const Achievements = () => {
                                 <CertificationCard 
                                     gambar={d.gambar} 
                                     judul={d.judul} 
+                                    issuer={d.issuer}
+                                    period={d.period}
+                                    caption={d.caption}
+                                    captionEn={d.captionEn}
                                     link={d.link} 
                                     isLight={isLight}
                                 />

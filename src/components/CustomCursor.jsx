@@ -61,12 +61,14 @@ const CustomCursor = () => {
 
     const checkHoverElements = (e) => {
       const target = e.target;
+      if (!target) return;
       const isClickable = 
         target.tagName === 'A' || 
         target.tagName === 'BUTTON' || 
         target.type === 'submit' ||
         target.type === 'button' ||
         target.onclick !== null ||
+        (typeof target.closest === 'function' && (target.closest('a') !== null || target.closest('button') !== null || target.closest('[role="button"]') !== null || target.closest('.cursor-pointer') !== null)) ||
         target.classList.contains('cursor-pointer') ||
         window.getComputedStyle(target).cursor === 'pointer';
       
@@ -122,10 +124,11 @@ const CustomCursor = () => {
       
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-200 ${
+        className={`fixed top-0 left-0 pointer-events-none z-[999999] transition-all duration-200 ${
           isHidden ? 'opacity-0' : 'opacity-100'
         }`}
         style={{
+          zIndex: 999999,
           width: isPointer ? '48px' : '36px',
           height: isPointer ? '48px' : '36px',
           marginLeft: isPointer ? '-24px' : '-18px',
@@ -152,10 +155,11 @@ const CustomCursor = () => {
 
       <div
         ref={cursorDotRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-100 ${
+        className={`fixed top-0 left-0 pointer-events-none z-[999999] transition-all duration-100 ${
           isHidden ? 'opacity-0' : 'opacity-100'
         }`}
         style={{
+          zIndex: 999999,
           width: isPointer ? '6px' : '4px',
           height: isPointer ? '6px' : '4px',
           marginLeft: isPointer ? '-3px' : '-2px',

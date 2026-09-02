@@ -3,11 +3,22 @@ import React, { useState, useRef } from 'react'
 import CertificateModal from './CertificateModal'
 import { useLanguage } from '../../context/LanguageContext'
 
-const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
-  const { t } = useLanguage();
+const CertificationCard = ({ 
+  gambar, 
+  judul, 
+  issuer, 
+  period, 
+  caption, 
+  captionEn, 
+  link, 
+  isLight = false 
+}) => {
+  const { t, isEn } = useLanguage();
   const [flipped, setFlipped] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const wrapRef = useRef(null);
+
+  const displayCaption = isEn ? (captionEn || caption) : (caption || captionEn);
 
   const handleOpenCertificate = (e) => {
     e.stopPropagation();
@@ -29,8 +40,9 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
           }}
         >
+          {/* Front Side */}
           <div
-            className={`relative flex flex-col rounded-2xl p-4 sm:p-5 border transition-all duration-500 overflow-hidden ${
+            className={`relative flex flex-col rounded-2xl p-4 sm:p-5 border transition-all duration-500 overflow-hidden min-h-[380px] ${
                 isLight 
                     ? 'bg-white/90 border-gray-200 hover:border-gray-400 hover:shadow-xl backdrop-blur-sm' 
                     : 'bg-neutral-900/80 border-white/10 hover:border-white/25 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md'
@@ -38,7 +50,7 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             style={{ backfaceVisibility: 'hidden' }}
           >
             {/* Image Thumbnail */}
-            <div className={`w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 relative ${
+            <div className={`w-full aspect-[4/3] rounded-xl overflow-hidden mb-3 relative ${
                 isLight ? 'bg-gray-100 border border-gray-200' : 'bg-neutral-800/80 border border-white/5'
             }`}>
               <img
@@ -47,16 +59,34 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
                 loading="lazy"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </div>
 
-            <h3 className={`text-sm font-semibold tracking-tight leading-snug text-center mb-4 line-clamp-2 ${
+            {/* Issuer and Period Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2">
+              {issuer && (
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium truncate max-w-[180px] ${
+                  isLight ? 'bg-gray-100 text-gray-700 border border-gray-200' : 'bg-white/10 text-gray-300 border border-white/10'
+                }`}>
+                  {issuer}
+                </span>
+              )}
+              {period && (
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                  isLight ? 'bg-indigo-50 text-indigo-600 border border-indigo-100' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                }`}>
+                  {period}
+                </span>
+              )}
+            </div>
+
+            <h3 className={`text-sm font-semibold tracking-tight leading-snug text-center mb-3 line-clamp-2 ${
                 isLight ? 'text-gray-900' : 'text-white'
             }`}>
               {judul}
             </h3>
 
-            <div className="mt-auto flex flex-col items-center gap-2">
+            <div className="mt-auto flex flex-col items-center gap-2 pt-2">
               <div className={`px-4 py-2 rounded-lg text-[10px] font-semibold uppercase tracking-widest transition-all duration-300 ${
                   isLight 
                       ? 'bg-black text-white group-hover:bg-gray-800' 
@@ -70,23 +100,34 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
             </div>
           </div>
 
+          {/* Back Side */}
           <div
-            className={`absolute inset-0 flex flex-col items-center justify-center rounded-2xl p-6 text-center border transition-all duration-500 ${
+            className={`absolute inset-0 flex flex-col justify-between rounded-2xl p-5 sm:p-6 text-center border transition-all duration-500 min-h-[380px] ${
                 isLight 
                     ? 'bg-white border-gray-100 shadow-xl' 
                     : 'bg-neutral-900 border-white/10 shadow-2xl backdrop-blur-xl'
             }`}
             style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
           >
-            <div className="flex flex-col items-center w-full">
-              <div className={`h-1 w-16 rounded-full mb-6 ${isLight ? 'bg-black/10' : 'bg-white/10'}`} />
+            <div className="flex flex-col items-center w-full my-auto">
+              <div className={`h-1 w-12 rounded-full mb-3 ${isLight ? 'bg-black/10' : 'bg-white/10'}`} />
               
-              <h2 className={`text-base font-bold mb-3 tracking-tight ${isLight ? 'text-gray-900' : 'text-white'}`}>
-                {t.achievements.certificateInfo}
+              {/* Issuer Tag */}
+              {issuer && (
+                <span className={`text-[10px] uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full mb-2 ${
+                  isLight ? 'bg-gray-100 text-gray-600' : 'bg-white/10 text-gray-300'
+                }`}>
+                  {issuer}
+                </span>
+              )}
+
+              <h2 className={`text-sm sm:text-base font-bold mb-2 tracking-tight line-clamp-2 ${isLight ? 'text-gray-900' : 'text-white'}`}>
+                {judul}
               </h2>
               
-              <p className={`text-xs mb-8 leading-relaxed ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-                {judul}
+              {/* Caption */}
+              <p className={`text-xs mb-4 leading-relaxed line-clamp-5 ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
+                {displayCaption}
               </p>
               
               <button 
@@ -109,7 +150,7 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
                   e.stopPropagation();
                   setFlipped(false);
                 }}
-                className={`mt-4 text-[10px] font-medium uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity ${
+                className={`mt-3 text-[10px] font-medium uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity ${
                     isLight ? 'text-black' : 'text-white'
                 }`}
               >
@@ -125,6 +166,7 @@ const CertificationCard = ({ gambar, judul, link, isLight = false }) => {
         onClose={() => setShowModal(false)}
         gambar={gambar}
         judul={judul}
+        caption={displayCaption}
         isLight={isLight}
       />
     </>

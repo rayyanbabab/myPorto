@@ -3,7 +3,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
-const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) => {
+const CertificateModal = ({ isOpen, onClose, gambar, judul, caption, isLight = false }) => {
   const { t } = useLanguage();
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -183,7 +183,9 @@ const CertificateModal = ({ isOpen, onClose, gambar, judul, isLight = false }) =
               <h3 className="text-white text-sm sm:text-base font-semibold truncate">
                 {judul}
               </h3>
-              <p className="text-white/40 text-[10px] sm:text-xs mt-0.5">{t.achievements.previewTitle}</p>
+              <p className="text-white/70 text-[10px] sm:text-xs mt-0.5 line-clamp-1 sm:line-clamp-2">
+                {caption || t.achievements.previewTitle}
+              </p>
             </div>
 
             <button
