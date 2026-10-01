@@ -1,7 +1,9 @@
-/* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+import ShinyText from "./ui/ShinyText";
+import BorderBeam from "./ui/BorderBeam";
+import Magnetic from "./ui/Magnetic";
 
 const Gallery = () => {
   const { t } = useLanguage();
@@ -82,29 +84,33 @@ const Gallery = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div 
             style={{ y: yParallax }}
-            className="text-center mb-12 md:mb-24"
+            className="text-center mb-12 md:mb-20"
         >
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 font-heading"
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-4 backdrop-blur-md"
+            style={{
+              borderColor: isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.12)",
+              background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.04)",
+            }}
+          >
+            <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+            <ShinyText isLight={isLight} className="text-xs font-semibold tracking-wider uppercase">
+              Photography & Moments
+            </ShinyText>
+          </div>
+
+          <h2 
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading"
           >
             <span className={`bg-clip-text text-transparent ${
                 isLight 
-                    ? 'bg-gradient-to-b from-black to-gray-600' 
-                    : 'bg-gradient-to-b from-white to-gray-500'
+                    ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500' 
+                    : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
             }`}>
               {t.gallery.title}
             </span>
-          </motion.h1>
-          <motion.div 
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className={`h-1 w-24 mx-auto ${isLight ? 'bg-black' : 'bg-white'}`} 
-          />
+          </h2>
+          <div className={`h-1 w-24 mx-auto rounded-full ${isLight ? 'bg-black' : 'bg-white'}`} />
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[300px]">
@@ -172,15 +178,27 @@ const Gallery = () => {
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4"
             onClick={() => setSelectedImage(null)}
           >
-            <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" onClick={() => setSelectedImage(null)}>
-               <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-            <button className="absolute left-2 md:left-8 text-white/50 hover:text-white transition-colors p-4 z-50" onClick={handlePrev}>
-               <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" /></svg>
-            </button>
-            <button className="absolute right-2 md:right-8 text-white/50 hover:text-white transition-colors p-4 z-50" onClick={handleNext}>
-               <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
-            </button>
+            <div className="absolute top-6 right-6 z-50">
+              <Magnetic strength={0.4}>
+                <button className="text-white/50 hover:text-white transition-colors p-2" onClick={() => setSelectedImage(null)} aria-label="Close modal">
+                  <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </Magnetic>
+            </div>
+            <div className="absolute left-2 md:left-8 z-50">
+              <Magnetic strength={0.4}>
+                <button className="text-white/50 hover:text-white transition-colors p-4" onClick={handlePrev} aria-label="Previous image">
+                  <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+              </Magnetic>
+            </div>
+            <div className="absolute right-2 md:right-8 z-50">
+              <Magnetic strength={0.4}>
+                <button className="text-white/50 hover:text-white transition-colors p-4" onClick={handleNext} aria-label="Next image">
+                  <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
+                </button>
+              </Magnetic>
+            </div>
 
             <motion.div 
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -209,13 +227,26 @@ const Gallery = () => {
 const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
     const cardRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+    const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
         const rect = cardRef.current.getBoundingClientRect();
-        setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-        });
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setMousePosition({ x, y });
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -7;
+        const rotateY = ((x - centerX) / centerX) * 7;
+        setTilt({ rotateX, rotateY });
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+        setTilt({ rotateX: 0, rotateY: 0 });
     };
 
     return (
@@ -226,17 +257,29 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
             viewport={{ once: true }}
             transition={{ delay: index * 0.05, duration: 0.5 }}
             onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={handleMouseLeave}
             onClick={onClick}
-            className={`group relative overflow-hidden rounded-xl border cursor-pointer ${className} ${
-                isLight ? 'bg-white border-gray-200' : 'bg-neutral-900 border-neutral-800'
+            style={{
+                transform: isHovered
+                    ? `perspective(800px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1.02, 1.02, 1.02)`
+                    : 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+                transition: 'transform 0.15s ease-out, box-shadow 0.3s ease',
+            }}
+            className={`group relative overflow-hidden rounded-2xl border cursor-pointer ${className} ${
+                isLight 
+                    ? 'bg-white border-gray-200/90 shadow-sm hover:shadow-2xl hover:border-black/30' 
+                    : 'bg-neutral-900 border-neutral-800 shadow-lg hover:shadow-2xl hover:shadow-black/70 hover:border-white/30'
             }`}
         >
+            <BorderBeam size={220} duration={8} colorFrom="#f59e0b" colorTo="#ef4444" />
+            {/* Spotlight reflection */}
             <div 
-                className={`hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                className={`hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                 style={{
-                    background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${
-                        isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.15)'
-                    }, transparent 40%)`
+                    background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, ${
+                        isLight ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.12)'
+                    }, transparent 60%)`
                 }}
             />
 
@@ -249,11 +292,11 @@ const GalleryCard = ({ image, index, onClick, isLight, className = "" }) => {
                 />
             </div>
 
-            <div className={`absolute inset-0 z-10 flex flex-col justify-end p-4 md:p-6 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-all duration-300`}>
-                <h3 className="text-white font-bold text-sm md:text-lg translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            <div className={`absolute inset-0 z-10 flex flex-col justify-end p-4 md:p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-all duration-300`}>
+                <h3 className="text-white font-bold text-sm md:text-lg translate-y-0 md:translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
                     {image.title}
                 </h3>
-                <p className="text-gray-300 text-[10px] md:text-xs uppercase tracking-wider translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                <p className="text-gray-300 text-[10px] md:text-xs uppercase tracking-wider translate-y-0 md:translate-y-3 group-hover:translate-y-0 transition-transform duration-300 delay-75">
                     {image.description}
                 </p>
             </div>

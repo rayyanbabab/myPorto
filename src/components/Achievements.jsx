@@ -12,6 +12,7 @@ import 'swiper/css/effect-coverflow';
 import CertificationCard from './assets/CertificationCard';
 import { dataCerti } from '../../constant';
 import { useLanguage } from '../context/LanguageContext';
+import ShinyText from './ui/ShinyText';
 
 const Achievements = () => {
   const { t } = useLanguage();
@@ -60,7 +61,7 @@ const Achievements = () => {
                         ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500' 
                         : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
                 }`}>
-                    {t.achievements.title}
+                    <ShinyText text={t.achievements.title} />
                 </span>
             </motion.h1>
             <motion.div 

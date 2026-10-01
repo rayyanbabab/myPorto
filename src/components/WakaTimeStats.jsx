@@ -1,6 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { motion } from "framer-motion";
+import BorderBeam from "./ui/BorderBeam";
+import ShinyText from "./ui/ShinyText";
+import Magnetic from "./ui/Magnetic";
 
 // ─── WakaTime Configuration ──────────────────────────────────────────────────
 const WAKATIME_USER_ID = "155b008b-613b-4038-94f0-db6a83a98c03";
@@ -13,12 +16,13 @@ const WAKATIME_PROFILE_URL = `https://wakatime.com/@${WAKATIME_USER_ID}`;
 
 const StatCard = ({ label, value, icon, isLight }) => (
   <div
-    className={`flex flex-col gap-1 rounded-2xl px-5 py-4 border transition-all duration-300
+    className={`group relative overflow-hidden flex flex-col gap-1 rounded-2xl px-5 py-4 border transition-all duration-300
       ${isLight
         ? "bg-white/70 border-gray-200 hover:border-indigo-300 hover:shadow-md"
         : "bg-white/5 border-white/10 hover:border-white/25"
       }`}
   >
+    <BorderBeam size={130} duration={6} colorFrom="#6366f1" colorTo="#38bdf8" />
     <span className={`text-xs font-semibold uppercase tracking-widest ${isLight ? "text-gray-400" : "text-gray-500"}`}>
       {icon} {label}
     </span>
@@ -35,9 +39,13 @@ const LangBar = ({ lang, percent, color, isLight }) => (
       <span className={`text-xs tabular-nums ${isLight ? "text-gray-500" : "text-gray-400"}`}>{percent}%</span>
     </div>
     <div className={`w-full h-1.5 rounded-full overflow-hidden ${isLight ? "bg-gray-200" : "bg-white/10"}`}>
-      <div
-        className="h-full rounded-full transition-all duration-700"
-        style={{ width: `${percent}%`, background: color }}
+      <motion.div
+        initial={{ width: 0 }}
+        whileInView={{ width: `${percent}%` }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="h-full rounded-full"
+        style={{ background: color }}
       />
     </div>
   </div>
@@ -110,7 +118,7 @@ const WakaTimeStats = () => {
             className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] px-4 py-2 rounded-full border mb-4
               ${isLight ? "border-indigo-300 bg-indigo-50 text-indigo-600" : "border-white/15 bg-white/5 text-gray-400"}`}
           >
-            ⏱ {t.wakatime.badge}
+            ⏱ <ShinyText text={t.wakatime.badge} className={isLight ? "text-indigo-600 font-semibold" : "text-gray-300 font-semibold"} />
           </span>
           <h2
             className={`text-3xl sm:text-4xl font-bold tracking-tight ${isLight ? "text-gray-900" : "text-white"}`}
@@ -124,9 +132,12 @@ const WakaTimeStats = () => {
 
         {/* Main Card */}
         <div
-          className={`rounded-3xl border overflow-hidden backdrop-blur-xl transition-all duration-300
-            ${isLight ? "bg-white/80 border-gray-200 shadow-xl" : "bg-white/4 border-white/10"}`}
+          className={`rounded-3xl border overflow-hidden backdrop-blur-xl transition-all duration-300 relative shadow-2xl ${
+            isLight ? "bg-white/80 border-gray-200 shadow-indigo-100/50" : "bg-white/4 border-white/10 shadow-black/40"
+          }`}
         >
+          {/* Magic UI Border Beam */}
+          <BorderBeam size={280} duration={8} colorFrom="#6366f1" colorTo="#a855f7" />
           {/* Top bar */}
           <div
             className={`flex items-center justify-between px-6 py-4 border-b
@@ -142,17 +153,19 @@ const WakaTimeStats = () => {
                 Coding Activity &middot; {t.wakatime.last7Days}
               </span>
             </div>
-            <a
-              href={WAKATIME_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-xs font-semibold px-3 py-1 rounded-full border transition-colors
-                ${isLight
-                  ? "border-indigo-200 text-indigo-600 hover:bg-indigo-50"
-                  : "border-white/15 text-gray-400 hover:text-white hover:border-white/30"}`}
-            >
-              {t.wakatime.viewProfile} &rarr;
-            </a>
+            <Magnetic strength={0.3}>
+              <a
+                href={WAKATIME_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border transition-colors
+                  ${isLight
+                    ? "border-indigo-200 text-indigo-600 hover:bg-indigo-50"
+                    : "border-white/15 text-gray-400 hover:text-white hover:border-white/30"}`}
+              >
+                {t.wakatime.viewProfile} &rarr;
+              </a>
+            </Magnetic>
           </div>
 
           {/* Body */}

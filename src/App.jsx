@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 
+import ScrollProgress from './components/ui/ScrollProgress';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechStack from './components/TechStack';
@@ -57,6 +58,7 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
+            <ScrollProgress />
             <Navbar />
             <Hero />
             <Suspense fallback={<div style={{height: '80vh'}} />}>

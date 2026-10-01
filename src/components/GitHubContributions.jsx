@@ -2,6 +2,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { GITHUB_PROFILE_URL, GITHUB_USERNAME } from "../../constant";
 import { useLanguage } from "../context/LanguageContext";
+import { motion } from "framer-motion";
+import BorderBeam from "./ui/BorderBeam";
+import ShinyText from "./ui/ShinyText";
+import NumberTicker from "./ui/NumberTicker";
 
 const GitHubContributions = () => {
   const { t } = useLanguage();
@@ -185,7 +189,20 @@ const GitHubContributions = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-4 backdrop-blur-md"
+            style={{
+              borderColor: isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.12)",
+              background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.04)",
+            }}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <ShinyText isLight={isLight} className="text-xs font-semibold tracking-wider uppercase">
+              {t.github.badge}
+            </ShinyText>
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
             <span
               className={`bg-clip-text text-transparent ${
                 isLight
@@ -195,22 +212,25 @@ const GitHubContributions = () => {
             >
               {t.github.title}
             </span>
-          </h1>
+          </h2>
           <div className={`h-1 w-24 rounded-full ${isLight ? "bg-black" : "bg-white"} mx-auto`} />
         </div>
 
         <div
-          className={`mx-auto max-w-5xl rounded-3xl border backdrop-blur-md overflow-hidden ${
-            isLight ? "bg-white/70 border-gray-200" : "bg-white/5 border-white/10"
+          className={`mx-auto max-w-5xl rounded-3xl border backdrop-blur-md overflow-hidden relative shadow-2xl ${
+            isLight ? "bg-white/80 border-gray-200 shadow-black/5" : "bg-neutral-900/80 border-white/10 shadow-black/50"
           }`}
         >
-          <div className="px-6 sm:px-10 py-6 sm:py-8">
+          {/* Magic UI Border Beam Animation */}
+          <BorderBeam size={320} duration={9} colorFrom="#10b981" colorTo="#06b6d4" />
+
+          <div className="px-6 sm:px-10 py-6 sm:py-8 relative z-10">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
               <div>
-                <h2 className={`text-xl sm:text-2xl font-bold ${isLight ? "text-black" : "text-white"}`}>
+                <h3 className={`text-xl sm:text-2xl font-bold tracking-tight ${isLight ? "text-black" : "text-white"}`}>
                   {username ? `@${username}` : "GitHub"}
-                </h2>
-                <p className={`${isLight ? "text-gray-600" : "text-gray-400"} text-sm`}>
+                </h3>
+                <p className={`${isLight ? "text-gray-500" : "text-gray-400"} text-sm mt-0.5`}>
                   {t.github.badge}
                 </p>
               </div>
@@ -219,10 +239,13 @@ const GitHubContributions = () => {
             {chartUrl ? (
               <div className="flex flex-col lg:flex-row gap-6">
                 <div className="flex-1 min-w-0">
-                  <div className="mb-4">
-                    <p className={`text-sm ${isLight ? "text-gray-700" : "text-gray-300"}`}>
-                      {totalsMap[selectedYear] ?? 0} {t.github.totalContributions} ({selectedYear})
-                    </p>
+                  <div className="mb-4 flex items-center gap-2">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">
+                      <NumberTicker value={Number(totalsMap[selectedYear] ?? 0)} />
+                    </span>
+                    <span className={`text-sm font-medium ${isLight ? "text-gray-600" : "text-gray-300"}`}>
+                      {t.github.totalContributions} ({selectedYear})
+                    </span>
                   </div>
                 
                 {calendar && !loadError ? (
@@ -351,21 +374,35 @@ const GitHubContributions = () => {
 
                 {!loading && availableYears.length > 0 && (
                   <div className="flex lg:flex-col gap-2 overflow-x-auto shrink-0 pb-2 lg:pb-0">
-                    {availableYears.map((year) => (
-                      <button
-                        key={year}
-                        onClick={() => setSelectedYear(year)}
-                        className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all w-full text-left lg:text-center ${
-                          selectedYear === year
-                            ? "bg-blue-600 text-white"
-                            : isLight
-                              ? "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                              : "bg-white/5 text-gray-400 hover:bg-white/10"
-                        }`}
-                      >
-                        {year}
-                      </button>
-                    ))}
+                    {availableYears.map((year) => {
+                      const isSelected = selectedYear === year;
+                      return (
+                        <button
+                          key={year}
+                          onClick={() => setSelectedYear(year)}
+                          className={`relative px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors duration-200 w-full text-left lg:text-center ${
+                            isSelected
+                              ? isLight
+                                ? "text-white"
+                                : "text-black"
+                              : isLight
+                                ? "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                : "bg-white/5 text-gray-400 hover:bg-white/10"
+                          }`}
+                        >
+                          {isSelected && (
+                            <motion.div
+                              layoutId="activeGithubYear"
+                              transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                              className={`absolute inset-0 rounded-xl shadow-md ${
+                                isLight ? "bg-black shadow-black/20" : "bg-white shadow-white/20"
+                              }`}
+                            />
+                          )}
+                          <span className="relative z-10">{year}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </div>

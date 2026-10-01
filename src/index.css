@@ -237,3 +237,50 @@ textarea::-webkit-scrollbar-thumb {
     border-width: 2px;
   }
 }
+
+/* --- Aceternity UI & Magic UI Animation Utilities --- */
+@keyframes meteor {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(215deg) translateX(-700px);
+    opacity: 0;
+  }
+}
+
+.animate-meteor-effect {
+  animation: meteor 6s linear infinite;
+}
+
+@keyframes border-beam-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam-spin 8s linear infinite;
+}
+
+@keyframes shiny-text {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shiny-text {
+  background-size: 200% auto;
+  animation: shiny-text 4s linear infinite;
+}
+

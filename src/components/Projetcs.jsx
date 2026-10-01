@@ -6,19 +6,32 @@ import { projectsData } from "../../constant";
 import { useNavigate } from "react-router-dom";
 import ProjectModal from "./assets/ProjectModal";
 import { useLanguage } from "../context/LanguageContext";
+import BorderBeam from "./ui/BorderBeam";
+import Magnetic from "./ui/Magnetic";
+import ShinyText from "./ui/ShinyText";
 
 const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingSoon, isLight, onClick, t }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    setTilt({
+      rotateX: ((y - centerY) / centerY) * -5,
+      rotateY: ((x - centerX) / centerX) * 5,
     });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ rotateX: 0, rotateY: 0 });
   };
 
   const handle404 = (e) => {
@@ -31,17 +44,24 @@ const ProjectCard = ({ gambar, judul, parag, tech, linkDemo, linkCode, isComingS
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      className={`group relative h-full flex flex-col rounded-2xl border transition-all duration-500 overflow-hidden cursor-pointer ${isLight
-          ? "bg-white/70 border-gray-100 hover:border-gray-300 hover:shadow-lg backdrop-blur-sm"
-          : "bg-neutral-900/60 border-white/5 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 backdrop-blur-md"
+      style={{
+        transform: `perspective(900px) rotateX(${tilt.rotateX.toFixed(2)}deg) rotateY(${tilt.rotateY.toFixed(2)}deg)`,
+        transition: "transform 0.25s cubic-bezier(0.2, 0, 0, 1)",
+        transformStyle: "preserve-3d",
+      }}
+      className={`group relative h-full flex flex-col rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer ${isLight
+          ? "bg-white/85 border-gray-200/90 hover:border-black/30 hover:shadow-xl backdrop-blur-md"
+          : "bg-neutral-900/80 border-white/10 hover:border-white/30 hover:shadow-2xl hover:shadow-black/50 backdrop-blur-md"
         }`}
     >
+      <BorderBeam size={260} duration={8} colorFrom="#38bdf8" colorTo="#818cf8" />
       <div
-        className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
+        className={`absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
         style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)'
-            }, transparent 40%)`
+          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, ${isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.08)'
+            }, transparent 60%)`
         }}
       />
 
@@ -253,26 +273,32 @@ const Projects = () => {
           </div>
 
           <div className="hidden md:flex gap-3">
-            <button
-              onClick={() => scrollTo('left')}
-              disabled={!canScrollLeft}
-              className={`p-4 rounded-full border transition-all duration-300 ${isLight
-                  ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30"
-                  : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
-                }`}
-            >
-              <ArrowRight className="rotate-180" size={24} />
-            </button>
-            <button
-              onClick={() => scrollTo('right')}
-              disabled={!canScrollRight}
-              className={`p-4 rounded-full border transition-all duration-300 ${isLight
-                  ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30"
-                  : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
-                }`}
-            >
-              <ArrowRight size={24} />
-            </button>
+            <Magnetic strength={0.35}>
+              <button
+                onClick={() => scrollTo('left')}
+                disabled={!canScrollLeft}
+                aria-label="Scroll left"
+                className={`p-4 rounded-full border transition-all duration-300 ${isLight
+                    ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30"
+                    : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
+                  }`}
+              >
+                <ArrowRight className="rotate-180" size={24} />
+              </button>
+            </Magnetic>
+            <Magnetic strength={0.35}>
+              <button
+                onClick={() => scrollTo('right')}
+                disabled={!canScrollRight}
+                aria-label="Scroll right"
+                className={`p-4 rounded-full border transition-all duration-300 ${isLight
+                    ? "border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-30"
+                    : "border-white/20 text-white hover:bg-white hover:text-black disabled:opacity-30"
+                  }`}
+              >
+                <ArrowRight size={24} />
+              </button>
+            </Magnetic>
           </div>
         </div>
 

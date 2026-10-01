@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useRef } from 'react'
 import CertificateModal from './CertificateModal'
 import { useLanguage } from '../../context/LanguageContext'
+import BorderBeam from '../ui/BorderBeam'
 
 const CertificationCard = ({ 
   gambar, 
@@ -49,6 +49,8 @@ const CertificationCard = ({
             }`}
             style={{ backfaceVisibility: 'hidden' }}
           >
+            {/* Magic UI Border Beam on card hover */}
+            <BorderBeam size={180} duration={7} colorFrom="#38bdf8" colorTo="#a855f7" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             {/* Image Thumbnail */}
             <div className={`w-full aspect-[4/3] rounded-xl overflow-hidden mb-3 relative ${
                 isLight ? 'bg-gray-100 border border-gray-200' : 'bg-neutral-800/80 border border-white/5'
@@ -102,13 +104,15 @@ const CertificationCard = ({
 
           {/* Back Side */}
           <div
-            className={`absolute inset-0 flex flex-col justify-between rounded-2xl p-5 sm:p-6 text-center border transition-all duration-500 min-h-[380px] ${
+            className={`absolute inset-0 flex flex-col justify-between rounded-2xl p-5 sm:p-6 text-center border transition-all duration-500 min-h-[380px] overflow-hidden ${
                 isLight 
                     ? 'bg-white border-gray-100 shadow-xl' 
                     : 'bg-neutral-900 border-white/10 shadow-2xl backdrop-blur-xl'
             }`}
             style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
           >
+            {/* Magic UI Border Beam on card hover */}
+            <BorderBeam size={180} duration={7} colorFrom="#38bdf8" colorTo="#a855f7" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="flex flex-col items-center w-full my-auto">
               <div className={`h-1 w-12 rounded-full mb-3 ${isLight ? 'bg-black/10' : 'bg-white/10'}`} />
               

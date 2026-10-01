@@ -4,6 +4,9 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import { useLanguage } from "../context/LanguageContext";
+import Meteors from "./ui/Meteors";
+import ShinyText from "./ui/ShinyText";
+import Magnetic from "./ui/Magnetic";
 
 gsap.registerPlugin(SplitText);
 
@@ -225,13 +228,15 @@ const Hero = () => {
       className={`font-sans flex flex-col items-center justify-center relative min-h-screen overflow-hidden pt-20 theme-${theme}`}
     >
       
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         
         <div className="absolute inset-0" style={{
           background: theme === 'dark'
             ? 'linear-gradient(135deg, #040507 0%, #0a0d12 50%, #050608 100%)'
             : 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #e0e7ff 100%)'
         }} />
+
+        <Meteors number={22} />
 
         <div
           className="aurora-blob absolute rounded-full blur-[100px] sm:blur-[140px]"
@@ -309,12 +314,14 @@ const Hero = () => {
 
       <Hero3DBackground theme={theme} />
 
-      <button
-        onClick={toggleMusic}
-        className="hidden md:block fixed top-6 right-6 z-50 group"
-        aria-label="Toggle music"
-      >
-        <div className="relative">
+      <div className="hidden md:block fixed top-6 right-6 z-50">
+        <Magnetic strength={0.3}>
+          <button
+            onClick={toggleMusic}
+            className="group"
+            aria-label="Toggle music"
+          >
+            <div className="relative">
           
           <div className="absolute -inset-3 bg-white/5 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -442,6 +449,8 @@ const Hero = () => {
           </div>
         </div>
       </button>
+    </Magnetic>
+  </div>
 
       <audio ref={audioRef} loop preload="none">
         <source src="/music/Perunggu - Gemilang (Official Lyric Video).mp3" type="audio/mp3" />
@@ -450,32 +459,31 @@ const Hero = () => {
       <div ref={containerRef} className="relative z-20 w-full max-w-6xl mx-auto px-6 mt-10"> 
         
         <div className="text-center">
+          <div className="hero-subtitle inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-4 backdrop-blur-md"
+            style={{
+              borderColor: theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)',
+              background: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)',
+            }}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <ShinyText isLight={theme === 'light'} className="text-xs sm:text-sm font-semibold tracking-wider uppercase">
+              {t.hero.greeting}
+            </ShinyText>
+          </div>
+
           <h1
-            className="text-2xl sm:text-5xl md:text-6xl lg:text-[70px] xl:text-[80px] font-bold leading-tight mb-6 tracking-tight px-4 font-heading"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[84px] font-extrabold leading-tight mb-4 tracking-tight px-4 font-heading"
             id="nama"
             style={{
               color: themeStyles[theme].accent,
-              textShadow: theme === 'dark' ? '0 0 30px rgba(255,255,255,0.3)' : '0 0 18px rgba(15,23,42,0.12)'
+              textShadow: theme === 'dark' ? '0 0 35px rgba(255,255,255,0.3)' : '0 0 20px rgba(15,23,42,0.12)'
             }}
           >
             {renderNameWithSpans()}
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl hero-subtitle font-semibold tracking-[0.08em] uppercase mb-4" aria-label="Greeting">
-            <span
-              className="inline-block bg-clip-text text-transparent"
-              style={{
-                backgroundImage: themeStyles[theme].heading,
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent'
-              }}
-            >
-              {t.hero.greeting}
-            </span>
-          </p>
           
-          <div className="relative mt-6">
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-relaxed font-semibold tracking-[0.12em] uppercase">
+          <div className="relative mt-4">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-semibold tracking-[0.1em] uppercase">
               <span
                 className="inline-block bg-clip-text text-transparent"
                 style={{
@@ -515,47 +523,49 @@ const Hero = () => {
         </div>
 
         <div className="github-container flex items-center justify-center relative z-25 mt-8 lg:mt-12">
-          <a
-            href="https://github.com/rayyanbabab"
-            className="group relative"
-            target="_blank"
-            rel="noopener noreferrer"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <div className="relative">
-              
-              <div className={`absolute inset-0 rounded-full transition-all duration-500 ${isHovered ? 'bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl' : 'bg-white/20 blur-lg'
-                }`} />
-
-              <div className="relative w-16 h-16 bg-gradient-to-br from-gray-900 to-black rounded-full flex items-center justify-center 
-                            border border-white/20 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 
-                            group-hover:border-cyan-400/50 group-hover:shadow-2xl group-hover:shadow-cyan-500/25">
+          <Magnetic strength={0.4}>
+            <a
+              href="https://github.com/rayyanbabab"
+              className="group relative inline-block"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div className="relative">
                 
-                <svg
-                  role="img"
-                  aria-label="GitHub"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8 transition-all duration-300 transform-gpu group-hover:scale-110 fill-white group-hover:fill-cyan-400"
-                >
-                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.111.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.084-.73.084-.73 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.47-2.381 1.235-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.804 5.624-5.475 5.921.43.372.823 1.103.823 2.222 0 1.606-.014 2.896-.014 3.286 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z" />
-                </svg>
-                
-                <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${isHovered
-                    ? 'border-cyan-400/50 animate-ping-slow'
-                    : 'border-transparent'
+                <div className={`absolute inset-0 rounded-full transition-all duration-500 ${isHovered ? 'bg-gradient-to-r from-cyan-400 to-purple-500 blur-xl' : 'bg-white/20 blur-lg'
                   }`} />
-              </div>
-            </div>
 
-            <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="bg-black/80 backdrop-blur-sm text-white text-sm px-3 py-2 rounded-lg border border-white/10 whitespace-nowrap">
-                {t.hero.visitGithub}
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-l border-t border-white/10" />
+                <div className="relative w-16 h-16 bg-gradient-to-br from-gray-900 to-black rounded-full flex items-center justify-center 
+                              border border-white/20 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 
+                              group-hover:border-cyan-400/50 group-hover:shadow-2xl group-hover:shadow-cyan-500/25">
+                  
+                  <svg
+                    role="img"
+                    aria-label="GitHub"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-8 h-8 transition-all duration-300 transform-gpu group-hover:scale-110 fill-white group-hover:fill-cyan-400"
+                  >
+                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.111.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.084-.73.084-.73 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.47-2.381 1.235-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.045.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.873.118 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.804 5.624-5.475 5.921.43.372.823 1.103.823 2.222 0 1.606-.014 2.896-.014 3.286 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z" />
+                  </svg>
+                  
+                  <div className={`absolute inset-0 rounded-full border-2 transition-all duration-500 ${isHovered
+                      ? 'border-cyan-400/50 animate-ping-slow'
+                      : 'border-transparent'
+                    }`} />
+                </div>
               </div>
-            </div>
-          </a>
+
+              <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <div className="bg-black/80 backdrop-blur-sm text-white text-sm px-3 py-2 rounded-lg border border-white/10 whitespace-nowrap">
+                  {t.hero.visitGithub}
+                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45 border-l border-t border-white/10" />
+                </div>
+              </div>
+            </a>
+          </Magnetic>
         </div>
       </div>
 
@@ -566,19 +576,21 @@ const Hero = () => {
         >
           {t.hero.exploreWork}
         </h1>
-        <div className="scroll-arrow group cursor-pointer">
-          <div className={`w-7 h-12 border-2 rounded-full flex justify-center pt-2 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-cyan-500/20 ${theme === 'light'
-              ? 'border-slate-300/80 bg-white/50 group-hover:border-cyan-300/70'
-              : 'border-white/30 bg-white/5 group-hover:border-cyan-400/60'
-            }`}>
-            <div className={`w-1.5 h-3 rounded-full animate-bounce ${theme === 'light'
-                ? 'bg-gradient-to-b from-cyan-300 to-cyan-500'
-                : 'bg-gradient-to-b from-white to-cyan-200'
+        <Magnetic strength={0.3}>
+          <div className="scroll-arrow group cursor-pointer">
+            <div className={`w-7 h-12 border-2 rounded-full flex justify-center pt-2 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-cyan-500/20 ${theme === 'light'
+                ? 'border-slate-300/80 bg-white/50 group-hover:border-cyan-300/70'
+                : 'border-white/30 bg-white/5 group-hover:border-cyan-400/60'
+              }`}>
+              <div className={`w-1.5 h-3 rounded-full animate-bounce ${theme === 'light'
+                  ? 'bg-gradient-to-b from-cyan-300 to-cyan-500'
+                  : 'bg-gradient-to-b from-white to-cyan-200'
+                }`} />
+            </div>
+            <div className={`absolute -inset-4 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${theme === 'light' ? 'bg-cyan-400/15' : 'bg-cyan-500/10'
               }`} />
           </div>
-          <div className={`absolute -inset-4 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${theme === 'light' ? 'bg-cyan-400/15' : 'bg-cyan-500/10'
-            }`} />
-        </div>
+        </Magnetic>
       </div>
 
       <style>{`

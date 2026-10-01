@@ -2,6 +2,8 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+import BorderBeam from "./ui/BorderBeam";
+import ShinyText from "./ui/ShinyText";
 
 const Educations = () => {
   const { t } = useLanguage();
@@ -142,6 +144,7 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
               : "bg-neutral-900 border-neutral-800 hover:border-white/50 shadow-lg hover:shadow-white/5"
             }`}
         >
+          <BorderBeam size={240} duration={8} colorFrom="#38bdf8" colorTo="#818cf8" />
           <div
             className={`absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 ${isLight ? 'bg-gray-100/50' : 'bg-white/5'
               }`}

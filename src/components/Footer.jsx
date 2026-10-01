@@ -5,6 +5,9 @@ import emailjs from '@emailjs/browser';
 
 import { Send, Check, AlertCircle, X, Mail, Instagram, Youtube, Linkedin } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import BorderBeam from "./ui/BorderBeam";
+import Magnetic from "./ui/Magnetic";
+import ShinyText from "./ui/ShinyText";
 
 const Footer = () => {
     const { t } = useLanguage();
@@ -169,7 +172,7 @@ const Footer = () => {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                             </span>
-                            {t.footer.badge}
+                            <ShinyText text={t.footer.badge} className={isLight ? "text-emerald-700 font-medium" : "text-emerald-400 font-medium"} />
                         </motion.div>
 
                         <motion.div
@@ -216,19 +219,21 @@ const Footer = () => {
                             ))}
                         </motion.div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.15 }}
-                            className={`flex items-center gap-3 px-5 py-3 rounded-full border transition-colors ${isLight
-                                    ? 'bg-gray-50 border-gray-200 text-gray-800'
-                                    : 'bg-white/5 border-white/10 text-gray-200'
-                                }`}
-                        >
-                            <Mail size={18} />
-                            <span className="font-mono text-sm">rayyanammar276@gmail.com</span>
-                        </motion.div>
+                        <Magnetic strength={0.25}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.15 }}
+                                className={`flex items-center gap-3 px-5 py-3 rounded-full border transition-colors ${isLight
+                                        ? 'bg-gray-50 border-gray-200 text-gray-800'
+                                        : 'bg-white/5 border-white/10 text-gray-200'
+                                    }`}
+                            >
+                                <Mail size={18} />
+                                <span className="font-mono text-sm">rayyanammar276@gmail.com</span>
+                            </motion.div>
+                        </Magnetic>
 
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -238,21 +243,22 @@ const Footer = () => {
                             className="flex gap-4"
                         >
                             {socialLinks.map((social, idx) => (
-                                <a
-                                    key={idx}
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={social.label}
-                                    className={`w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300 group ${isLight
-                                            ? 'border-gray-200 text-black hover:border-black hover:bg-black hover:text-white'
-                                            : 'border-white/20 text-white hover:border-white hover:bg-white hover:text-black'
-                                        }`}
-                                >
-                                    <div className="transition-transform duration-300 group-hover:scale-110">
-                                        {social.icon}
-                                    </div>
-                                </a>
+                                <Magnetic key={idx} strength={0.4}>
+                                    <a
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                        className={`w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300 group ${isLight
+                                                ? 'border-gray-200 text-black hover:border-black hover:bg-black hover:text-white'
+                                                : 'border-white/20 text-white hover:border-white hover:bg-white hover:text-black'
+                                            }`}
+                                    >
+                                        <div className="transition-transform duration-300 group-hover:scale-110">
+                                            {social.icon}
+                                        </div>
+                                    </a>
+                                </Magnetic>
                             ))}
                         </motion.div>
                     </div>
@@ -262,11 +268,12 @@ const Footer = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className={`relative p-8 rounded-3xl border ${isLight
+                        className={`relative p-8 rounded-3xl border overflow-hidden ${isLight
                                 ? 'bg-white border-gray-100 shadow-2xl shadow-gray-100'
                                 : 'bg-white/5 border-white/5 shadow-2xl shadow-black/50'
                             }`}
                     >
+                        <BorderBeam size={320} duration={8} colorFrom="#a855f7" colorTo="#ec4899" />
                         <div className="mb-8">
                             <h3 className={`text-xl font-bold mb-1 ${isLight ? 'text-black' : 'text-white'}`}>{t.footer.sendMessage}</h3>
                             <p className={`text-sm ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>{t.footer.replyTime}</p>
@@ -338,26 +345,28 @@ const Footer = () => {
                                 </div>
                             </div>
 
-                            <button
-                                type="submit"
-                                disabled={formData.isSubmitting}
-                                className={`group w-full py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 ${isLight
-                                        ? 'bg-black text-white hover:bg-gray-800 active:scale-[0.98] disabled:bg-gray-200 disabled:text-gray-400'
-                                        : 'bg-white text-black hover:bg-gray-100 active:scale-[0.98] disabled:bg-white/10 disabled:text-gray-600'
-                                    }`}
-                            >
-                                {formData.isSubmitting ? (
-                                    <>
-                                        <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                        {t.footer.sending}
-                                    </>
-                                ) : (
-                                    <>
-                                        {t.footer.sendButton}
-                                        <Send size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
-                                    </>
-                                )}
-                            </button>
+                            <Magnetic strength={0.15}>
+                                <button
+                                    type="submit"
+                                    disabled={formData.isSubmitting}
+                                    className={`group w-full py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 ${isLight
+                                            ? 'bg-black text-white hover:bg-gray-800 active:scale-[0.98] disabled:bg-gray-200 disabled:text-gray-400'
+                                            : 'bg-white text-black hover:bg-gray-100 active:scale-[0.98] disabled:bg-white/10 disabled:text-gray-600'
+                                        }`}
+                                >
+                                    {formData.isSubmitting ? (
+                                        <>
+                                            <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                            {t.footer.sending}
+                                        </>
+                                    ) : (
+                                        <>
+                                            {t.footer.sendButton}
+                                            <Send size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+                                        </>
+                                    )}
+                                </button>
+                            </Magnetic>
                         </form>
                     </motion.div>
                 </div>

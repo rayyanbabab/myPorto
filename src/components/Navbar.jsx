@@ -3,12 +3,14 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { navlinks } from '../../constant'
 import { useLanguage } from '../context/LanguageContext'
+import Magnetic from './ui/Magnetic'
 
 const Navbar = () => {
   const { language, toggleLanguage, t } = useLanguage()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [hoveredNav, setHoveredNav] = useState(null)
   const [themeMode, setThemeMode] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "dark";
@@ -89,26 +91,38 @@ const Navbar = () => {
                 : 'bg-black/80 border-white/10 shadow-xl shadow-black/50'
         }`}
       >
-        <a href="#home" className="pl-4 pr-4 flex items-center">
-            <img 
-                src="/img/logo1.png" 
-                alt="Logo" 
-                className={`h-9 w-auto object-contain transition-all duration-300 hover:scale-110 ${isLight ? 'invert' : ''}`} 
-            />
-        </a>
+        <Magnetic strength={0.3}>
+          <a href="#home" className="pl-4 pr-3 flex items-center">
+              <img 
+                  src="/img/logo1.png" 
+                  alt="Logo" 
+                  className={`h-9 w-auto object-contain transition-all duration-300 hover:scale-110 ${isLight ? 'invert' : ''}`} 
+              />
+          </a>
+        </Magnetic>
         <div className={`w-px h-6 mr-1 ${isLight ? 'bg-gray-200' : 'bg-white/10'}`} />
-        <ul className="flex items-center gap-0.5">
+        <ul className="flex items-center gap-0.5" onMouseLeave={() => setHoveredNav(null)}>
             {navlinks.map((link) => (
                 <li key={link.id}>
                     <a 
                         href={link.link}
-                        className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                        onMouseEnter={() => setHoveredNav(link.id)}
+                        className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors duration-200 ${
                             isLight
-                                ? 'text-gray-600 hover:text-black hover:bg-gray-200'
-                                : 'text-gray-400 hover:text-white hover:bg-gray-700/60'
+                                ? 'text-gray-600 hover:text-black'
+                                : 'text-gray-400 hover:text-white'
                         }`}
                     >
-                        {getNavText(link.id, link.text)}
+                        {hoveredNav === link.id && (
+                          <motion.div
+                            layoutId="navHoverPill"
+                            transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                            className={`absolute inset-0 rounded-full ${
+                              isLight ? 'bg-gray-200/80' : 'bg-white/10'
+                            }`}
+                          />
+                        )}
+                        <span className="relative z-10">{getNavText(link.id, link.text)}</span>
                     </a>
                 </li>
             ))}
