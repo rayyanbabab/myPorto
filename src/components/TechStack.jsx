@@ -3,6 +3,11 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import { useLanguage } from "../context/LanguageContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FloatingParticles from "./ui/FloatingParticles";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const techstack = [
   { id: 1, name: "React", category: "Frontend", level: "Intermediate", src: "https://cdn.simpleicons.org/react/61DAFB", color: "#61DAFB" },
@@ -44,6 +49,9 @@ const TechStack = () => {
   const [isSearching, setIsSearching] = useState(false);
 
   const containerRef = useRef(null);
+  const headerRef = useRef(null);
+  const marqueeRef = useRef(null);
+  const controlsRef = useRef(null);
   const isLight = theme === "light";
 
   // Split into 2 rows for Marquee
@@ -104,12 +112,71 @@ const TechStack = () => {
     return () => observer.disconnect();
   }, []);
 
+  // GSAP scroll reveal animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header badge + title slide up
+      gsap.fromTo(
+        headerRef.current?.children,
+        { opacity: 0, y: 50, filter: "blur(8px)" },
+        {
+          opacity: 1, y: 0, filter: "blur(0px)",
+          duration: 0.9,
+          stagger: 0.15,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // Marquee strip slide in from left
+      gsap.fromTo(
+        marqueeRef.current,
+        { opacity: 0, x: -80 },
+        {
+          opacity: 1, x: 0,
+          duration: 1.1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: marqueeRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
+
+      // Search + categories stagger
+      if (controlsRef.current) {
+        gsap.fromTo(
+          controlsRef.current.querySelectorAll(".anim-control"),
+          { opacity: 0, y: 30, scale: 0.95 },
+          {
+            opacity: 1, y: 0, scale: 1,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: controlsRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const gradientColorBg = isLight ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)";
 
   return (
     <section
       id="tech-stack"
-      className="relative min-h-screen px-4 sm:px-6 py-24 sm:py-32 overflow-hidden font-sans"
+      className="relative px-4 sm:px-6 py-20 sm:py-28 overflow-hidden font-sans"
       ref={containerRef}
     >
       {/* Background decorations */}
@@ -127,16 +194,18 @@ const TechStack = () => {
             isLight ? "bg-blue-300" : "bg-cyan-500/20"
           }`}
         />
+        {/* Animated rotating orb */}
+        <div
+          className="animate-slow-spin absolute top-1/2 right-10 w-72 h-72 rounded-full opacity-5 pointer-events-none"
+          style={{ background: isLight ? "radial-gradient(circle, #6366f1, transparent)" : "radial-gradient(circle, #22d3ee, transparent)" }}
+        />
+        <FloatingParticles count={18} isLight={isLight} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+        {/* Header - animated by GSAP ScrollTrigger */}
+        <div ref={headerRef} className="text-center mb-14">
+          <div
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-4 backdrop-blur-md"
             style={{
               borderColor: isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.12)",
@@ -147,15 +216,9 @@ const TechStack = () => {
             <span className={`text-xs font-semibold tracking-wider uppercase ${isLight ? "text-gray-600" : "text-gray-300"}`}>
               {t.techStack.badge}
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading"
-          >
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
             <span
               className={`bg-clip-text text-transparent ${
                 isLight
@@ -165,19 +228,13 @@ const TechStack = () => {
             >
               {t.techStack.title}
             </span>
-          </motion.h2>
+          </h2>
 
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className={`h-1 w-24 mx-auto rounded-full ${isLight ? "bg-black" : "bg-white"}`}
-          />
+          <div className={`h-1 w-24 mx-auto rounded-full animate-wave ${isLight ? "bg-black" : "bg-white"}`} />
         </div>
 
         {/* Dynamic Infinite Marquee Strip (Aceternity / Magic UI style) */}
-        <div className="relative mb-20 -mx-4 sm:-mx-6 overflow-hidden py-4 select-none">
+        <div ref={marqueeRef} className="relative mb-20 -mx-4 sm:-mx-6 overflow-hidden py-4 select-none">
           {/* Row 1 - Left */}
           <div className="mb-4">
             <Marquee
@@ -211,8 +268,10 @@ const TechStack = () => {
           </div>
         </div>
 
+        {/* Search + Category controls - animated by GSAP */}
+        <div ref={controlsRef}>
         {/* Search Bar */}
-        <div className="relative max-w-md mx-auto mb-10 z-20">
+        <div className="relative max-w-md mx-auto mb-10 z-20 anim-control">
           <div className="relative group">
             <div
               className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
@@ -262,7 +321,7 @@ const TechStack = () => {
         </div>
 
         {/* Categories Pills with Framer Motion layoutId spring transition */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-12 anim-control">
           {categories.map((category) => {
             const isSelected = selectedCategory === category;
             return (
@@ -295,6 +354,8 @@ const TechStack = () => {
             );
           })}
         </div>
+
+        </div>{/* end controlsRef */}
 
         {/* Tech Grid */}
         {isSearching ? (
@@ -379,19 +440,30 @@ const MarqueePill = ({ tech, isLight }) => {
   );
 };
 
-// Aceternity UI-style Spotlight TechCard
+// Upgraded 3D Tilt Spotlight TechCard
 const TechCard = ({ tech, isLight, t }) => {
   const cardRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+    setTilt({ rotateX, rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ rotateX: 0, rotateY: 0 });
   };
 
   const glowColor = getGlowColor(tech.color, isLight);
@@ -401,41 +473,61 @@ const TechCard = ({ tech, isLight, t }) => {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.92 }}
-      transition={{ duration: 0.25 }}
+      initial={{ opacity: 0, y: 40, scale: 0.88 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.88, y: 20 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`group relative flex flex-col items-center p-6 rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+      onMouseLeave={handleMouseLeave}
+      className={`group relative flex flex-col items-center p-6 rounded-2xl border transition-colors duration-300 cursor-pointer overflow-hidden ${
         isLight
-          ? "bg-white/90 border-gray-200/90 shadow-sm hover:shadow-xl hover:shadow-black/5"
-          : "bg-neutral-900/80 border-white/10 shadow-lg shadow-black/40 hover:shadow-2xl"
+          ? "bg-white/90 border-gray-200/90 shadow-sm"
+          : "bg-neutral-900/80 border-white/10 shadow-lg shadow-black/40"
       }`}
       style={{
-        borderColor: isHovered ? `${glowColor}55` : undefined,
+        transform: isHovered
+          ? `perspective(700px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1.04, 1.04, 1.04)`
+          : "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)",
+        transition: "transform 0.14s ease-out, border-color 0.3s, box-shadow 0.3s",
+        borderColor: isHovered ? `${glowColor}60` : undefined,
+        boxShadow: isHovered
+          ? `0 20px 60px -10px ${glowColor}40, 0 0 0 1px ${glowColor}30`
+          : undefined,
+        transformStyle: "preserve-3d",
       }}
     >
-      {/* Aceternity Spotlight Hover Radial Gradient */}
+      {/* Aceternity Spotlight Radial Gradient */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 z-0"
         style={{
-          background: `radial-gradient(220px circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColor}22, transparent 70%)`,
+          background: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColor}28, transparent 70%)`,
         }}
       />
 
-      {/* Tech Icon with subtle glow background on hover */}
-      <div className="relative w-14 h-14 mb-4 z-10 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1">
+      {/* Glowing corner accent */}
+      <div
+        className="absolute top-0 right-0 w-16 h-16 rounded-bl-full opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none z-0"
+        style={{ background: `radial-gradient(circle at top right, ${glowColor}, transparent 70%)` }}
+      />
+
+      {/* Tech Icon — floats upward on hover with glow */}
+      <div
+        className="relative w-14 h-14 mb-4 z-10"
+        style={{
+          transform: isHovered ? "translateY(-6px) translateZ(30px)" : "translateY(0) translateZ(0)",
+          transition: "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
+      >
         <div
-          className="absolute inset-0 rounded-full blur-md opacity-0 group-hover:opacity-40 transition-opacity duration-300"
+          className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"
           style={{ backgroundColor: glowColor }}
         />
         <img
           src={tech.src}
           alt={tech.name}
-          className="relative w-full h-full object-contain transition-all duration-300"
+          className="relative w-full h-full object-contain drop-shadow-sm group-hover:drop-shadow-lg transition-all duration-300"
           loading="lazy"
           onError={(e) => {
             const img = e.currentTarget;
@@ -446,7 +538,10 @@ const TechCard = ({ tech, isLight, t }) => {
         />
       </div>
 
-      <h3 className={`text-base font-bold text-center mb-2 z-10 transition-colors duration-300 ${isLight ? "text-black" : "text-white"}`}>
+      <h3
+        className={`text-base font-bold text-center mb-2 z-10 transition-colors duration-300 ${isLight ? "text-black" : "text-white"}`}
+        style={{ transform: isHovered ? "translateZ(20px)" : "translateZ(0)", transition: "transform 0.3s ease" }}
+      >
         {tech.name}
       </h3>
 
@@ -454,6 +549,11 @@ const TechCard = ({ tech, isLight, t }) => {
         className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-1 z-10 border transition-colors ${
           isLight ? "bg-gray-50 text-gray-700 border-gray-200" : "bg-white/5 text-gray-300 border-white/10"
         }`}
+        style={{
+          borderColor: isHovered ? `${glowColor}50` : undefined,
+          color: isHovered ? glowColor : undefined,
+          transition: "border-color 0.3s, color 0.3s",
+        }}
       >
         {translatedLevel}
       </div>

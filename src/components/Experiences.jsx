@@ -155,7 +155,7 @@ const Experiences = () => {
   return (
     <section
       id="experiences"
-      className="relative py-24 sm:py-32 overflow-hidden font-sans"
+      className="relative py-20 sm:py-28 overflow-hidden font-sans"
     >
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? "bg-white" : "bg-black"}`} />

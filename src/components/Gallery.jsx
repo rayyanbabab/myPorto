@@ -68,7 +68,7 @@ const Gallery = () => {
     <section 
       id="gallery" 
       ref={containerRef} 
-      className="relative min-h-screen py-24 sm:py-32 px-4 md:px-8 overflow-hidden font-sans"
+      className="relative py-20 sm:py-28 px-4 md:px-8 overflow-hidden font-sans"
     >
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />

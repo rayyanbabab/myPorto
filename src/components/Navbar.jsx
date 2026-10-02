@@ -29,8 +29,9 @@ const Navbar = () => {
       case 5: return t.nav.gallery;
       case 6: return t.nav.projects;
       case 7: return t.nav.github;
-      case 8: return t.nav.achievements;
-      case 9: return t.nav.contact;
+      case 8: return t.nav.wakatime;
+      case 9: return t.nav.achievements;
+      case 10: return t.nav.contact;
       default: return fallback;
     }
   };

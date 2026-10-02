@@ -210,7 +210,7 @@ const Footer = () => {
                             {[
                                 { label: t.footer.projectsLabel, value: '7+' },
                                 { label: t.footer.responseLabel, value: '<24h' },
-                                { label: t.footer.locationLabel, value: 'ID 🇮🇩' },
+                                { label: t.footer.locationLabel, value: 'Bekasi, ID' },
                             ].map((stat) => (
                                 <div key={stat.label} className="flex flex-col items-center py-4 px-2">
                                     <span className={`text-xl font-bold tabular-nums ${isLight ? 'text-black' : 'text-white'}`}>{stat.value}</span>

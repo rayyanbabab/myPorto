@@ -235,7 +235,7 @@ const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 overflow-hidden scroll-mt-24 font-sans"
+      className="relative py-20 sm:py-28 px-4 sm:px-6 overflow-hidden scroll-mt-24 font-sans"
     >
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />
@@ -362,8 +362,8 @@ const Projects = () => {
             />
           </div>
           <div className={`flex justify-between mt-2 text-xs font-mono uppercase tracking-widest opacity-50 ${isLight ? 'text-black' : 'text-white'}`}>
-            <span>01</span>
-            <span>0{projectsList.length}</span>
+            <span>{String(Math.round((scrollProgress / 100) * (projectsList.length - 1)) + 1).padStart(2, '0')}</span>
+            <span>{String(projectsList.length).padStart(2, '0')}</span>
           </div>
         </div>
       </div>

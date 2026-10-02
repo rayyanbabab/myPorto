@@ -5,10 +5,18 @@ import Magnetic from "./ui/Magnetic";
 import CardTilt from "./ui/CardTilt";
 import ShinyText from "./ui/ShinyText";
 import BorderBeam from "./ui/BorderBeam";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FloatingParticles from "./ui/FloatingParticles";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const { t } = useLanguage();
   const containerRef = useRef(null);
+  const photoRef = useRef(null);
+  const bioRef = useRef(null);
+  const statsRef = useRef(null);
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
   const [isMobile, setIsMobile] = useState(false);
@@ -30,6 +38,57 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
+  // GSAP scroll animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Photo card — slides in from left with 3D flip
+      if (photoRef.current) {
+        gsap.fromTo(
+          photoRef.current,
+          { opacity: 0, x: isMobile ? 0 : -70, rotateY: isMobile ? 0 : -15, filter: "blur(6px)" },
+          {
+            opacity: 1, x: 0, rotateY: 0, filter: "blur(0px)",
+            duration: 1.1,
+            ease: "expo.out",
+            scrollTrigger: { trigger: photoRef.current, start: "top 85%", once: true },
+          }
+        );
+      }
+
+      // Bio text lines — cascade reveal
+      if (bioRef.current) {
+        gsap.fromTo(
+          bioRef.current.querySelectorAll("h3, p, a"),
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: { trigger: bioRef.current, start: "top 82%", once: true },
+          }
+        );
+      }
+
+      // Stat cards — stagger scale bounce
+      if (statsRef.current) {
+        gsap.fromTo(
+          statsRef.current.querySelectorAll(".stat-card"),
+          { opacity: 0, scale: 0.8, y: 20 },
+          {
+            opacity: 1, scale: 1, y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+            scrollTrigger: { trigger: statsRef.current, start: "top 88%", once: true },
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [isMobile]);
+
   const statsList = [
     { label: t.about.stats.experience, value: t.about.stats.experienceVal },
     { label: t.about.stats.location, value: t.about.stats.locationVal },
@@ -41,7 +100,7 @@ const About = () => {
     <section
       ref={containerRef}
       id="about"
-      className="relative min-h-screen py-24 sm:py-32 px-4 md:px-8 overflow-hidden font-sans"
+      className="relative py-20 sm:py-28 px-4 md:px-8 overflow-hidden font-sans"
     >
       {/* Background decorations */}
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
@@ -58,6 +117,10 @@ const About = () => {
             isLight ? "bg-indigo-300" : "bg-indigo-500/20"
           }`}
         />
+        {/* Floating orbs */}
+        <div className="animate-float-loop absolute bottom-20 right-10 w-40 h-40 rounded-full blur-[80px] opacity-10 pointer-events-none"
+          style={{ background: isLight ? "#818cf8" : "#6366f1" }} />
+        <FloatingParticles count={14} isLight={isLight} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -111,7 +174,8 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`order-1 ${isMobile ? "order-1" : "lg:order-2"} flex justify-center lg:justify-end`}
+            className={`order-1 ${isMobile ? "order-1" : "lg:order-2"} flex justify-center lg:justify-center`}
+            ref={photoRef}
           >
             <CardTilt maxTilt={8} glare={true} className="rounded-2xl">
               <div className="relative group">
@@ -168,6 +232,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
             className={`order-2 ${isMobile ? "order-2" : "lg:order-1"} space-y-8 text-center lg:text-left`}
+            ref={bioRef}
           >
             <div>
               <h3 className={`text-3xl md:text-4xl font-extrabold tracking-tight mb-2 font-heading ${isLight ? "text-black" : "text-white"}`}>
@@ -184,7 +249,7 @@ const About = () => {
             </div>
 
             {/* Spotlight Stat Cards */}
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div ref={statsRef} className="grid grid-cols-2 gap-4 pt-2">
               {statsList.map((item, idx) => (
                 <StatCard key={idx} item={item} isLight={isLight} />
               ))}
@@ -239,7 +304,7 @@ const StatCard = ({ item, isLight }) => {
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`group relative p-4 sm:p-5 rounded-2xl border transition-all duration-300 overflow-hidden text-center cursor-default ${
+      className={`stat-card group relative p-4 sm:p-5 rounded-2xl border transition-all duration-300 overflow-hidden text-center cursor-default ${
         isLight
           ? "bg-white/80 border-gray-200/90 shadow-sm hover:border-black/30 hover:shadow-md"
           : "bg-neutral-900/70 border-white/10 shadow-md hover:border-white/30 hover:shadow-xl"

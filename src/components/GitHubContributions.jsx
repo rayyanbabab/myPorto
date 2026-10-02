@@ -1,16 +1,24 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { GITHUB_PROFILE_URL, GITHUB_USERNAME } from "../../constant";
 import { useLanguage } from "../context/LanguageContext";
 import { motion } from "framer-motion";
 import BorderBeam from "./ui/BorderBeam";
 import ShinyText from "./ui/ShinyText";
 import NumberTicker from "./ui/NumberTicker";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FloatingParticles from "./ui/FloatingParticles";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GitHubContributions = () => {
   const { t } = useLanguage();
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardRef = useRef(null);
 
   const [contribDays, setContribDays] = useState(null);
   const [allContributions, setAllContributions] = useState(null);
@@ -28,6 +36,42 @@ const GitHubContributions = () => {
     const observer = new MutationObserver(updateTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     return () => observer.disconnect();
+  }, []);
+
+  // GSAP scroll animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Section header cascade
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current.children,
+          { opacity: 0, y: 40, filter: "blur(8px)" },
+          {
+            opacity: 1, y: 0, filter: "blur(0px)",
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "expo.out",
+            scrollTrigger: { trigger: headerRef.current, start: "top 85%", once: true },
+          }
+        );
+      }
+
+      // Contribution card — scale up from bottom
+      if (cardRef.current) {
+        gsap.fromTo(
+          cardRef.current,
+          { opacity: 0, y: 60, scale: 0.96 },
+          {
+            opacity: 1, y: 0, scale: 1,
+            duration: 1,
+            ease: "expo.out",
+            scrollTrigger: { trigger: cardRef.current, start: "top 88%", once: true },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   const username = (GITHUB_USERNAME || "").trim();
@@ -179,16 +223,21 @@ const GitHubContributions = () => {
   return (
     <section
       id="github"
-      className="relative py-24 sm:py-32 px-4 sm:px-6 overflow-hidden font-sans"
+      ref={sectionRef}
+      className="relative py-20 sm:py-28 px-4 sm:px-6 overflow-hidden font-sans"
     >
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? "bg-white" : "bg-[#050505]"}`} />
         <div className={`absolute top-0 -left-20 w-[500px] h-[500px] rounded-full mix-blend-normal filter blur-[100px] opacity-30 ${isLight ? "bg-gray-300" : "bg-emerald-900/30"}`} />
         <div className={`absolute bottom-0 -right-20 w-[400px] h-[400px] rounded-full mix-blend-normal filter blur-[100px] opacity-30 ${isLight ? "bg-gray-200" : "bg-green-900/20"}`} />
+        {/* Animated orb */}
+        <div className="animate-float-loop absolute top-1/3 right-1/4 w-48 h-48 rounded-full blur-[90px] opacity-10 pointer-events-none"
+          style={{ background: isLight ? "#34d399" : "#10b981" }} />
+        <FloatingParticles count={12} isLight={isLight} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12 md:mb-16">
+        <div ref={headerRef} className="text-center mb-12 md:mb-16">
           <div
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-4 backdrop-blur-md"
             style={{
@@ -217,6 +266,7 @@ const GitHubContributions = () => {
         </div>
 
         <div
+          ref={cardRef}
           className={`mx-auto max-w-5xl rounded-3xl border backdrop-blur-md overflow-hidden relative shadow-2xl ${
             isLight ? "bg-white/80 border-gray-200 shadow-black/5" : "bg-neutral-900/80 border-white/10 shadow-black/50"
           }`}
