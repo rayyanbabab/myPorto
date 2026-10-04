@@ -35,7 +35,7 @@ const Achievements = () => {
     <section 
       id='achievements'
       ref={containerRef}
-      className="relative py-20 sm:py-28 px-0 sm:px-6 overflow-hidden font-sans" 
+      className="relative pt-16 pb-16 sm:pt-24 sm:pb-20 px-0 sm:px-6 overflow-hidden font-sans" 
     >
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className={`absolute inset-0 transition-colors duration-700 ${isLight ? 'bg-white' : 'bg-black'}`} />

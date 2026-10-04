@@ -344,6 +344,46 @@ const projectsData = [
 const dataCerti = [
   {
     id: 1,
+    gambar: "islo_8.png",
+    judul: "Indonesian Science Language Olympiad (ISLO) Season 8",
+    issuer: "GYPEM Indonesia x Telkom Univ Purwokerto",
+    period: "2026",
+    caption: "Sertifikat apresiasi tingkat nasional atas pencapaian sebagai Peserta aktif bidang Informatika dalam ajang Indonesian Science Language Olympiad (ISLO) Season 8 yang diselenggarakan oleh GYPEM Indonesia dan Telkom University Purwokerto.",
+    captionEn: "National-level certificate of appreciation for participating in the Informatics category at Indonesian Science Language Olympiad (ISLO) Season 8, organized by GYPEM Indonesia and Telkom University Purwokerto.",
+    link: "/img/islo_8.png"
+  },
+  {
+    id: 2,
+    gambar: "fpp_2026.jpg",
+    judul: "Festival Prestasi Pelajar (FPP) 2026 - Informatika",
+    issuer: "Festival Prestasi Pelajar (Academy Berprestasi)",
+    period: "2026",
+    caption: "Sertifikat peserta aktif dalam kompetisi bergengsi tingkat nasional Festival Prestasi Pelajar (FPP) 2026 kategori Informatika Tingkat Mahasiswa.",
+    captionEn: "Active participant certificate in the prestigious national competition Festival Prestasi Pelajar (FPP) 2026 for the College Student Informatics category.",
+    link: "/img/fpp_2026.jpg"
+  },
+  {
+    id: 3,
+    gambar: "oan_kp.jpg",
+    judul: "Olimpiade Akademik Kesaktian Pancasila (OAN-KP) 2026",
+    issuer: "Puskantara & Panitia OAN-KP",
+    period: "2026",
+    caption: "Sertifikat peserta aktif dalam ajang kompetisi tingkat nasional Olimpiade Akademik Nasional Kesaktian Pancasila (OAN-KP) 2026 mewakili Politeknik Astra bidang Geografi Perguruan Tinggi.",
+    captionEn: "Certificate of active participation in the National Academic Olympiad of Kesaktian Pancasila (OAN-KP) 2026, representing Astra Polytechnic in the College Geography category.",
+    link: "/img/oan_kp.jpg"
+  },
+  {
+    id: 4,
+    gambar: "scriptopia_2026.png",
+    judul: "SCRIPTOPIA: Journal Talks 2026 - Publikasi Jurnal",
+    issuer: "BEM Fakultas Hukum UPN 'Veteran' Jakarta",
+    period: "2026",
+    caption: "Sertifikat apresiasi peserta seminar ilmiah SCRIPTOPIA 2026 dengan tema 'Kupas Tuntas Strategi Penulisan Jurnal Ilmiah: From Research Idea to Journal Publication' oleh BEM FH UPNVJ.",
+    captionEn: "Certificate of appreciation for participating in SCRIPTOPIA: Journal Talks 2026 on scientific journal writing strategy 'From Research Idea to Journal Publication' by BEM FH UPNVJ.",
+    link: "/img/scriptopia_2026.png"
+  },
+  {
+    id: 5,
     gambar: "eskul.jpeg",
     judul: "Desktop Instructor - Syntax Community",
     issuer: "Syntax Programming Community",
@@ -352,9 +392,8 @@ const dataCerti = [
     captionEn: "Certificate of appreciation for serving as a Desktop Instructor, mentoring programming logic and desktop software development at Syntax Community.",
     link: "https://drive.google.com/file/d/12et8KqvzuzYgXQ1qTxRGBy66GojrVDgJ/view?usp=sharing"
   },
-
   {
-    id: 2,
+    id: 6,
     gambar: "ksr.jpeg",
     judul: "Kompetisi Sains Ruangguru (KSR) 2024",
     issuer: "Ruangguru",
@@ -363,9 +402,8 @@ const dataCerti = [
     captionEn: "Certificate of appreciation for participating in the national-level Ruangguru Science Competition (KSR) 2024 for High School / Vocational level in Geography.",
     link: "https://drive.google.com/file/d/12tW56COk-eD6s_1jMk033J3errL2ZFJe/view?usp=sharing"
   },
-
   {
-    id: 3,
+    id: 7,
     gambar: "sopskil.jpeg",
     judul: "Pelatihan Soft Skill Profesional - RPL",
     issuer: "SMK Telekomunikasi Telesandi Bekasi",
@@ -374,9 +412,8 @@ const dataCerti = [
     captionEn: "Certificate of completion for intensive Soft Skills training covering professional communication, leadership, work ethics, and teamwork in software engineering.",
     link: "https://drive.google.com/file/d/1gvUm9EdyQh7RmI5KHDRckKtt4p5NwzZR/view?usp=sharing"
   },
-
   {
-    id: 4,
+    id: 8,
     gambar: "TOIC.jpeg",
     judul: "TOEIC® Prediction Test (CEFR Standard)",
     issuer: "Satukelas & Reallyenglish",
@@ -385,9 +422,8 @@ const dataCerti = [
     captionEn: "TOEIC Prediction Test certificate evaluating English listening and reading proficiency aligned with global CEFR standards for professional readiness.",
     link: "https://drive.google.com/file/d/1LjMyjFY-VKjuhkz2cHonJgT7vHJr_F-E/view?usp=sharing"
   },
-
   {
-    id: 5,
+    id: 9,
     gambar: "ukom.jpeg",
     judul: "Uji Kompetensi Keahlian (UKOM) - RPL",
     issuer: "SMK Telesandi & PT Akar Solusi Inovatif",
@@ -396,9 +432,8 @@ const dataCerti = [
     captionEn: "Official Vocational Competency Certificate in Software Engineering with 'Competent' grade in developing Web & Desktop Applications assessed by industry experts.",
     link: "https://drive.google.com/file/d/1K2nyey4QpHSdJRnGFl4krbnK7uN3wUuf/view?usp=sharing"
   },
-
   {
-    id: 6,
+    id: 10,
     gambar: "UL.jpeg",
     judul: "Certificate of Expertise Level II - RPL",
     issuer: "SMK Telekomunikasi Telesandi Bekasi",
