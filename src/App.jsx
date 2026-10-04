@@ -18,6 +18,7 @@ const Educations = lazy(() => import('./components/Educations'));
 const Projetcs = lazy(() => import('./components/Projetcs'));
 const Achievements = lazy(() => import('./components/Achievements'));
 const Footer = lazy(() => import('./components/Footer'));
+const CardOrbitSection = lazy(() => import('./components/CardOrbitSection'));
 import { Routes, Route } from 'react-router-dom';
 
 
@@ -48,7 +49,7 @@ function App() {
   }, []);
 
   return (
-    <main className='overflow-x-hidden' style={{
+    <main className='overflow-x-clip' style={{
       background: isLight
         ? 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #e0e7ff 100%)'
         : 'linear-gradient(135deg, #040507 0%, #0a0d12 50%, #050608 100%)'
@@ -75,6 +76,9 @@ function App() {
             <LazyMount id="gallery" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Gallery /> </Suspense>
             </LazyMount>
+            <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
+              <CardOrbitSection />
+            </Suspense>
             <LazyMount id="projects" height={600}>
               <Suspense fallback={<div style={{height:600}} />}> <Projetcs /> </Suspense>
             </LazyMount>

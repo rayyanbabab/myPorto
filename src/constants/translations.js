@@ -455,6 +455,20 @@ export const translations = {
       description: "Oops.. Sepertinya fitur ini belum tersedia.",
       subtitle: "Maaf, halaman yang Anda tuju sedang dalam pengembangan atau tidak tersedia.",
       backHome: "Kembali lagi",
+    },
+
+    // Card Orbit Showcase
+    orbit: {
+      introTitle1: "Karya yang saya",
+      introTitle2: "bangun & abadikan.",
+      introHover: "Arahkan kursor pada kartu untuk pratinjau",
+      scrollHint: "↓ Gulir untuk menjelajahi",
+      badge: "Web · Aplikasi · Fotografi · Desain",
+      title: "Proyek & karya kreatif, semuanya di satu tempat",
+      description: "Koleksi aplikasi web fullstack, desain UI/UX, dan momen fotografi — arahkan kursor ke kartu untuk melihat detail.",
+      viewProjects: "Lihat Proyek",
+      seeGallery: "Lihat Galeri",
+      cardView: "Lihat",
     }
   },
 
@@ -914,6 +928,20 @@ export const translations = {
       description: "Oops.. It seems this feature is not yet available.",
       subtitle: "Sorry, the page you are looking for is currently under construction or does not exist.",
       backHome: "Go back",
+    },
+
+    // Card Orbit Showcase
+    orbit: {
+      introTitle1: "Things I’ve",
+      introTitle2: "built & captured.",
+      introHover: "Hover a card to preview",
+      scrollHint: "↓ Scroll to explore",
+      badge: "Web · Apps · Photography · Design",
+      title: "Projects & creative work, all in one place",
+      description: "A collection of fullstack web apps, UI/UX designs, and photography moments — hover any card to see details.",
+      viewProjects: "View Projects",
+      seeGallery: "See Gallery",
+      cardView: "View",
     }
   }
 };
