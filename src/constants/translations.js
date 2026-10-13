@@ -117,14 +117,16 @@ export const translations = {
           year: "2014 - 2015",
           title: "TKIT Nurul Falah",
           subtitle: "Masa Bermain & Belajar",
-          description: "Mulai mengenal dunia luar, belajar bersosialisasi, dan membangun fondasi karakter sejak dini."
+          description: "Mulai mengenal dunia luar, belajar bersosialisasi, dan membangun fondasi karakter sejak dini.",
+          highlights: ["Pengenalan sosialisasi awal", "Eksplorasi motorik & kreativitas", "Fondasi karakter & kebiasaan baik"]
         },
         {
           year: "2015 - 2020",
           title: "SDIT Al-Fath Cibitung",
           subtitle: "Sekolah Dasar",
           description: "Enam tahun eksplorasi. Belajar kedisiplinan, tanggung jawab, dan fondasi dasar sains dan teknologi.",
-          logo: "/img/alpat.png"
+          logo: "/img/alpat.png",
+          highlights: ["Dasar-dasar matematika & sains", "Pembentukan kedisiplinan & tanggung jawab", "Minat awal terhadap teknologi komputer"]
         },
         {
           year: "2020 - 2023",
@@ -132,7 +134,8 @@ export const translations = {
           subtitle: "Pencarian Jati Diri",
           description: "Mulai aktif berorganisasi dan menemukan minat besar dalam bidang teknologi serta olahraga.",
           logo: "/img/ulil.png",
-          tags: ["Klub Bahasa Inggris", "Futsal"]
+          tags: ["Klub Bahasa Inggris", "Futsal"],
+          highlights: ["Aktif di Klub Bahasa Inggris", "Pengembangan kerja sama tim lewat Futsal", "Eksplorasi awal logika & komputer"]
         },
         {
           year: "2023 - 2026",
@@ -140,7 +143,8 @@ export const translations = {
           subtitle: "Rekayasa Perangkat Lunak",
           description: "Melangkah ke dunia IT. Mempelajari pemrograman, manajemen server, dan membangun fondasi karier sebagai developer profesional.",
           logo: "/img/tels.png",
-          tags: ["Syntax", "Voli", "Futsal", "Sepak Bola"]
+          tags: ["Syntax", "Voli", "Futsal", "Sepak Bola"],
+          highlights: ["Web Development (React, Laravel, Tailwind)", "Database & Backend Engineering", "Komunitas Coding 'Syntax'", "Proyek Web & Kompetisi IT"]
         },
         {
           year: "2026 - Sekarang",
@@ -149,7 +153,8 @@ export const translations = {
           description: "Menempuh pendidikan vokasi tinggi untuk memperdalam keahlian rekayasa perangkat lunak lanjutan, manajemen proyek IT, dan pengembangan solusi skala industri.",
           logo: "/img/astra.jpg",
           current: true,
-          tags: ["Kuliah", "Software Engineering", "Astra Tech"]
+          tags: ["Kuliah", "Software Engineering", "Astra Tech"],
+          highlights: ["Software Engineering Skala Industri", "Sistem Terdistribusi & Cloud", "Standar Profesional Industri Astra"]
         }
       ]
     },
@@ -590,14 +595,16 @@ export const translations = {
           year: "2014 - 2015",
           title: "TKIT Nurul Falah",
           subtitle: "Play & Learn Era",
-          description: "Getting to know the world outside, learning to socialize, and building a foundation of character early on."
+          description: "Getting to know the world outside, learning to socialize, and building a foundation of character early on.",
+          highlights: ["Early social skills", "Creative & motor exploration", "Character foundation"]
         },
         {
           year: "2015 - 2020",
           title: "SDIT Al-Fath Cibitung",
           subtitle: "Elementary School",
           description: "Six years of exploration. Learning discipline, responsibility, and the core fundamentals of science.",
-          logo: "/img/alpat.png"
+          logo: "/img/alpat.png",
+          highlights: ["Core math & science fundamentals", "Discipline & responsibility", "Early curiosity for computer technology"]
         },
         {
           year: "2020 - 2023",
@@ -605,7 +612,8 @@ export const translations = {
           subtitle: "Self-Discovery",
           description: "Beginning to participate in organizations and discovering active interests in technology and sports.",
           logo: "/img/ulil.png",
-          tags: ["English Club", "Futsal"]
+          tags: ["English Club", "Futsal"],
+          highlights: ["Active in English Club", "Team collaboration via Futsal", "Intro to computer logic & programming"]
         },
         {
           year: "2023 - 2026",
@@ -613,7 +621,8 @@ export const translations = {
           subtitle: "Software Engineering",
           description: "Stepping into the IT world. Learning coding, server management, and building a future career as a developer.",
           logo: "/img/tels.png",
-          tags: ["Syntax", "Volly", "Futsal", "Football"]
+          tags: ["Syntax", "Volly", "Futsal", "Football"],
+          highlights: ["Web Development (React, Laravel, Tailwind)", "Database & Backend Engineering", "'Syntax' Coding Community", "Web Projects & IT Contests"]
         },
         {
           year: "2026 - Now",
@@ -622,7 +631,8 @@ export const translations = {
           description: "Pursuing higher vocational education to deepen advanced software engineering skills, IT project management, and industrial-grade solution development.",
           logo: "/img/astra.jpg",
           current: true,
-          tags: ["College", "Software Engineering", "Astra Tech"]
+          tags: ["College", "Software Engineering", "Astra Tech"],
+          highlights: ["Industrial-Grade Software Engineering", "Distributed Systems & Cloud", "Astra Professional Standards"]
         }
       ]
     },

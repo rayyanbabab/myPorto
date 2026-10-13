@@ -29,7 +29,6 @@ const Navbar = () => {
       case 5: return t.nav.gallery;
       case 6: return t.nav.projects;
       case 7: return t.nav.github;
-      case 8: return t.nav.wakatime;
       case 9: return t.nav.achievements;
       case 10: return t.nav.contact;
       default: return fallback;
@@ -147,6 +146,21 @@ const Navbar = () => {
           </button>
 
           <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('open-guestbook'))}
+              className={`p-2 rounded-full transition-all duration-300 active:scale-95 ${
+                  isLight 
+                      ? 'bg-gray-100 text-black hover:bg-gray-200' 
+                      : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
+              title={language === 'id' ? 'Buku Tamu / Guestbook' : 'Guestbook'}
+              aria-label="Guestbook"
+          >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              </svg>
+          </button>
+
+          <button 
               onClick={toggleThemeMode}
               className={`p-2 rounded-full transition-all duration-300 active:scale-95 ${
                   isLight 
@@ -193,6 +207,19 @@ const Navbar = () => {
                 <span className={language === 'id' ? 'opacity-100 font-extrabold' : 'opacity-40'}>ID</span>
                 <span className="opacity-30">|</span>
                 <span className={language === 'en' ? 'opacity-100 font-extrabold' : 'opacity-40'}>EN</span>
+            </button>
+
+            <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('open-guestbook'))}
+                className={`p-2 rounded-full transition-all active:scale-90 ${
+                    isLight ? 'text-black bg-gray-100' : 'text-white bg-white/10'
+                }`}
+                aria-label="Guestbook"
+                title={language === 'id' ? 'Buku Tamu' : 'Guestbook'}
+            >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
             </button>
 
             <button 
@@ -266,6 +293,25 @@ const Navbar = () => {
                                 </a>
                             </motion.li>
                         ))}
+                        <motion.li
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.08 + (navlinks.length * 0.04), duration: 0.35 }}
+                        >
+                            <button
+                                onClick={() => {
+                                    closeSidebar();
+                                    window.dispatchEvent(new CustomEvent('open-guestbook'));
+                                }}
+                                className={`block w-full text-2xl font-bold tracking-tight transition-all duration-300 hover:scale-105 text-center ${
+                                    isLight 
+                                        ? 'text-black hover:text-gray-600' 
+                                        : 'text-white hover:text-gray-300'
+                                }`}
+                            >
+                                {language === 'id' ? '📖 Buku Tamu' : '📖 Guestbook'}
+                            </button>
+                        </motion.li>
                     </ul>
 
                     {/* Language Switcher in Mobile Menu */}

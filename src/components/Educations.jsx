@@ -4,12 +4,21 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import BorderBeam from "./ui/BorderBeam";
 import ShinyText from "./ui/ShinyText";
+import FlipCard from "./ui/FlipCard";
 
 const Educations = () => {
   const { t } = useLanguage();
   const containerRef = useRef(null);
   const [themeMode, setThemeMode] = useState("dark");
   const isLight = themeMode === "light";
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -59,16 +68,26 @@ const Educations = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="text-center mb-24"
+          className="text-center mb-20 md:mb-24"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-4 backdrop-blur-md"
+            style={{
+              borderColor: isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.12)",
+              background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.04)",
+            }}
+          >
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <ShinyText text="Academic Journey" className={`text-xs font-semibold tracking-wider uppercase ${isLight ? "text-gray-600" : "text-gray-300"}`} />
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 font-heading">
             <span className={`bg-clip-text text-transparent ${isLight
                 ? 'bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500'
                 : 'bg-gradient-to-r from-white via-gray-200 to-gray-500'
               }`}>
               {t.educations.title}
             </span>
-          </h1>
+          </h2>
           <div className={`h-1 w-20 mx-auto rounded-full ${isLight ? 'bg-black' : 'bg-white'}`} />
         </motion.div>
 
@@ -89,9 +108,16 @@ const Educations = () => {
             style={{ top: useTransform(smoothProgress, [0, 1], ["0%", "100%"]) }}
           />
 
-          <div className="space-y-16 md:space-y-32 pt-10 pb-20">
+          <div className="space-y-16 md:space-y-28 pt-8 pb-20">
             {timelineData.map((item, index) => (
-              <TimelineCard key={index} data={item} index={index} isLight={isLight} isEven={index % 2 === 0} />
+              <TimelineCard
+                key={index}
+                data={item}
+                index={index}
+                isLight={isLight}
+                isEven={index % 2 === 0}
+                isMobile={isMobile}
+              />
             ))}
           </div>
         </div>
@@ -100,24 +126,15 @@ const Educations = () => {
   );
 };
 
-const TimelineCard = ({ data, index, isEven, isLight }) => {
-  const cardRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+const TimelineCard = ({ data, index, isEven, isLight, isMobile }) => {
+  const cardHeight = isMobile ? 320 : 285;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, type: "spring" }}
+      transition={{ duration: 0.6, delay: index * 0.08, type: "spring" }}
       className={`relative flex items-center ${isEven ? "md:flex-row-reverse" : "md:flex-row"}`}
     >
       <div className="absolute left-4 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
@@ -134,80 +151,146 @@ const TimelineCard = ({ data, index, isEven, isLight }) => {
       <div className="hidden md:block w-1/2" />
 
       <div className={`w-full md:w-1/2 pl-12 md:pl-0 flex ${isEven ? "md:pr-12 md:justify-end" : "md:pl-12 md:justify-start"}`}>
-        <motion.div
-          ref={cardRef}
-          onMouseMove={handleMouseMove}
-          whileHover={{ scale: 1.01 }}
-          transition={{ duration: 0.2 }}
-          className={`group relative p-6 sm:p-8 rounded-2xl border transition-all duration-500 overflow-hidden w-full max-w-[540px] ${isLight
-              ? "bg-white border-gray-200 hover:border-black shadow-lg hover:shadow-xl"
-              : "bg-neutral-900 border-neutral-800 hover:border-white/50 shadow-lg hover:shadow-white/5"
-            }`}
-        >
-          <BorderBeam size={240} duration={8} colorFrom="#38bdf8" colorTo="#818cf8" />
-          <div
-            className={`absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 ${isLight ? 'bg-gray-100/50' : 'bg-white/5'
-              }`}
-            style={{
-              background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, ${isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)'
-                }, transparent 40%)`
-            }}
-          />
+        <FlipCard
+          width="100%"
+          height={cardHeight}
+          radius={18}
+          background={isLight ? '#ffffff' : '#111215'}
+          color={isLight ? '#0f172a' : '#f8fafc'}
+          shadowColor="#000000"
+          shadowOpacity={isLight ? 0.08 : 0.35}
+          tilt={true}
+          tiltMax={10}
+          glare={true}
+          glareOpacity={isLight ? 0.16 : 0.22}
+          flipOnClick={true}
+          draggable={true}
+          className="w-full max-w-[540px]"
+          front={
+            <div className={`relative h-full w-full p-6 sm:p-7 flex flex-col justify-between rounded-2xl border transition-all duration-300 overflow-hidden ${
+              isLight
+                ? "bg-white border-gray-200 text-slate-900"
+                : "bg-neutral-900/95 border-neutral-800 text-white"
+            }`}>
+              <BorderBeam size={220} duration={8} colorFrom="#38bdf8" colorTo="#818cf8" />
 
-          <div className="relative z-10">
-            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 border ${isLight
-                ? 'bg-black text-white border-transparent'
-                : 'bg-white text-black border-transparent'
-              }`}>
-              {data.year}
-              {data.current && <span className={`flex h-1.5 w-1.5 rounded-full ${isLight ? 'bg-white' : 'bg-black'} animate-pulse`} />}
-            </div>
-
-            <div className={`flex items-center gap-5 mb-4`}>
-              {data.logo && (
-                <div className={`w-12 h-12 rounded-xl p-2 shrink-0 flex items-center justify-center border ${isLight ? 'bg-gray-50 border-gray-200' : 'bg-neutral-800 border-neutral-700'
-                  }`}>
-                  <img src={data.logo} alt="logo" className="w-full h-full object-contain md:grayscale group-hover:grayscale-0 transition-all duration-500" />
-                </div>
-              )}
               <div>
-                <h3 className={`text-xl sm:text-2xl font-bold mb-0.5 ${isLight ? 'text-black' : 'text-white'}`}>
-                  {data.title}
-                </h3>
-                <p className={`text-[10px] sm:text-xs font-medium uppercase tracking-widest ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-                  {data.subtitle}
+                <div className="flex items-center justify-between mb-3.5">
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${
+                    isLight ? 'bg-black text-white border-transparent' : 'bg-white text-black border-transparent'
+                  }`}>
+                    {data.year}
+                    {data.current && <span className={`flex h-1.5 w-1.5 rounded-full ${isLight ? 'bg-white' : 'bg-black'} animate-pulse`} />}
+                  </div>
+                  <span className={`text-[11px] font-mono font-medium tracking-wider uppercase flex items-center gap-1 opacity-70 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    <span>↻</span> Klik / Geser
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4 mb-3">
+                  {data.logo ? (
+                    <div className={`w-12 h-12 rounded-xl p-2 shrink-0 flex items-center justify-center border ${isLight ? 'bg-gray-50 border-gray-200' : 'bg-neutral-800 border-neutral-700'}`}>
+                      <img src={data.logo} alt="logo" className="w-full h-full object-contain" />
+                    </div>
+                  ) : (
+                    <div className={`w-12 h-12 rounded-xl p-2 shrink-0 flex items-center justify-center border font-heading font-black text-lg ${isLight ? 'bg-gray-100 text-gray-700 border-gray-200' : 'bg-neutral-800 text-gray-300 border-neutral-700'}`}>
+                      🎓
+                    </div>
+                  )}
+                  <div>
+                    <h3 className={`text-lg sm:text-xl font-bold font-heading leading-tight ${isLight ? 'text-black' : 'text-white'}`}>
+                      {data.title}
+                    </h3>
+                    <p className={`text-[10px] sm:text-xs font-medium uppercase tracking-widest mt-0.5 ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
+                      {data.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <p className={`text-xs sm:text-sm leading-relaxed line-clamp-3 ${isLight ? 'text-gray-600' : 'text-gray-400'}`}>
+                  {data.description}
                 </p>
               </div>
-            </div>
 
-            <p className={`text-sm sm:text-base leading-relaxed mb-6 ${isLight ? 'text-gray-600' : 'text-gray-400'}`}>
-              {data.description}
-            </p>
-
-            {data.tags && (
-              <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "justify-start"}`}>
-                {data.tags.map((tag, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                    whileHover={{ y: -3, backgroundColor: isLight ? "#000" : "#fff", color: isLight ? "#fff" : "#000" }}
-                    className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all cursor-default border ${isLight
-                        ? 'bg-gray-100 text-gray-800 border-gray-200'
-                        : 'bg-neutral-800 text-gray-300 border-neutral-700'
+              {data.tags && (
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  {data.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className={`px-2.5 py-1 text-[11px] font-bold rounded-lg border transition-all ${
+                        isLight
+                          ? 'bg-gray-100 text-gray-800 border-gray-200'
+                          : 'bg-neutral-800 text-gray-300 border-neutral-700'
                       }`}
-                  >
-                    #{tag}
-                  </motion.span>
-                ))}
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          }
+          back={
+            <div className={`relative h-full w-full p-6 sm:p-7 flex flex-col justify-between rounded-2xl border transition-all duration-300 overflow-hidden ${
+              isLight
+                ? "bg-slate-50 border-gray-300 text-slate-900"
+                : "bg-neutral-950 border-neutral-700 text-white"
+            }`}>
+              <BorderBeam size={220} duration={8} colorFrom="#a855f7" colorTo="#38bdf8" />
+
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-[10px] font-bold tracking-widest uppercase font-mono px-2.5 py-0.5 rounded-full ${isLight ? 'bg-indigo-50 text-indigo-600' : 'bg-cyan-500/15 text-cyan-400'}`}>
+                    ✦ Sorotan &amp; Pencapaian
+                  </span>
+                  <span className={`text-[11px] font-mono font-medium tracking-wider uppercase flex items-center gap-1 opacity-70 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    <span>↻</span> Kembali
+                  </span>
+                </div>
+
+                <div className="mb-2.5">
+                  <h4 className={`text-base sm:text-lg font-bold font-heading leading-tight ${isLight ? 'text-black' : 'text-white'}`}>
+                    {data.title}
+                  </h4>
+                  <p className={`text-[11px] font-medium uppercase tracking-wider ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    {data.subtitle} · {data.year}
+                  </p>
+                </div>
+
+                {data.highlights ? (
+                  <div className="space-y-1.5 my-2">
+                    {data.highlights.map((h, i) => (
+                      <div key={i} className={`flex items-start gap-2 text-xs sm:text-[13px] ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
+                        <span className="text-cyan-400 font-bold shrink-0">✓</span>
+                        <span className="leading-snug">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className={`text-xs sm:text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                    {data.description}
+                  </p>
+                )}
               </div>
-            )}
-          </div>
-        </motion.div>
+
+              <div className="pt-2.5 border-t border-black/5 dark:border-white/10 flex items-center justify-between text-[11px]">
+                <span className={`font-mono text-[10px] opacity-75 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                  Periode: {data.year}
+                </span>
+                {data.current && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-[10px]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Aktif Sekarang
+                  </span>
+                )}
+              </div>
+            </div>
+          }
+        />
       </div>
     </motion.div>
   );
 };
 
 export default Educations;
+

@@ -5,6 +5,7 @@ import Magnetic from "./ui/Magnetic";
 import CardTilt from "./ui/CardTilt";
 import ShinyText from "./ui/ShinyText";
 import BorderBeam from "./ui/BorderBeam";
+import Lanyard from "./ui/Lanyard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FloatingParticles from "./ui/FloatingParticles";
@@ -174,55 +175,31 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`order-1 ${isMobile ? "order-1" : "lg:order-2"} flex justify-center lg:justify-center`}
+            className={`order-1 ${isMobile ? "order-1" : "lg:order-2"} w-full flex flex-col items-center justify-center`}
             ref={photoRef}
           >
-            <CardTilt maxTilt={8} glare={true} className="rounded-2xl">
-              <div className="relative group">
-                {/* Outer ambient glow */}
-                <div
-                  className={`absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl ${
-                    isLight ? "bg-black/5" : "bg-white/10"
-                  }`}
-                />
+            <div className="relative w-full max-w-[560px] lg:max-w-[620px] h-[560px] sm:h-[620px] md:h-[680px] flex items-center justify-center">
+              <Lanyard
+                frontImage="/img/rayy.png"
+                backImage="/img/rayy.png"
+                cardColor={isLight ? "#f8fafc" : "#0f172a"}
+                strapColor={isLight ? "#0f172a" : "#1e293b"}
+                finish="natural"
+                metal="silver"
+                size={0.48}
+                strapLength={0.38}
+                gravity={1.1}
+                damping={0.48}
+                elasticity={0.55}
+                interactive={true}
+                className="w-full h-full"
+              />
+            </div>
 
-                <div
-                  className={`absolute -inset-4 border transition-all duration-500 rounded-2xl ${
-                    isLight ? "border-black/5 group-hover:border-black/15" : "border-white/5 group-hover:border-white/20"
-                  }`}
-                />
-
-                <div
-                  className={`relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 transform group-hover:scale-[1.02] ${
-                    isLight ? "shadow-black/10 border border-black/5" : "shadow-white/5 border border-white/10"
-                  }`}
-                >
-                  <div
-                    className={`absolute inset-0 z-10 opacity-15 group-hover:opacity-0 transition-opacity duration-500 ${
-                      isLight ? "bg-black" : "bg-black"
-                    }`}
-                  />
-
-                  <img
-                    src="/img/rayy.png"
-                    alt="Rayyan Ammar Fadhillah"
-                    className="w-full h-full object-cover md:grayscale group-hover:grayscale-0 transition-all duration-700"
-                  />
-                </div>
-
-                {/* Decorative corner brackets */}
-                <div
-                  className={`absolute -bottom-5 -left-5 w-20 h-20 border-b-2 border-l-2 rounded-bl-2xl transition-all duration-500 ${
-                    isLight ? "border-black group-hover:translate-x-1.5 group-hover:-translate-y-1.5" : "border-white group-hover:translate-x-1.5 group-hover:-translate-y-1.5"
-                  }`}
-                />
-                <div
-                  className={`absolute -top-5 -right-5 w-20 h-20 border-t-2 border-r-2 rounded-tr-2xl transition-all duration-500 ${
-                    isLight ? "border-black group-hover:-translate-x-1.5 group-hover:translate-y-1.5" : "border-white group-hover:-translate-x-1.5 group-hover:translate-y-1.5"
-                  }`}
-                />
-              </div>
-            </CardTilt>
+            <p className="mt-2 text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase text-neutral-400 flex items-center gap-1.5 opacity-80 select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+              <span>✦ Drag &amp; toss this 3D card</span>
+            </p>
           </motion.div>
 
           {/* Bio & Stats */}

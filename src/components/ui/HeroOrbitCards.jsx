@@ -288,13 +288,9 @@ export default function HeroOrbitCards({
     <section
       ref={sectionRef}
       aria-label="Work Showcase Orbit"
-      className={`relative ${
+      className={`relative font-sans ${
         mode === 'scroll' ? 'h-[300vh]' : 'h-screen min-h-[700px]'
       } ${className}`}
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-      }}
     >
       {/* Sticky Stage Container — background solid mencegah section lain tembus */}
       <div
@@ -317,14 +313,14 @@ export default function HeroOrbitCards({
             style={{ paddingBottom: '8vh' }}
           >
             <p
-              className={`text-[28px] md:text-[36px] lg:text-[42px] leading-[1.15] font-bold tracking-tight ${
+              className={`text-[28px] md:text-[36px] lg:text-[44px] leading-[1.15] font-extrabold tracking-tight font-heading ${
                 isDark ? 'text-white/90' : 'text-[#0f172a]'
               }`}
             >
               {t.orbit?.introTitle1 || "Things I’ve"}
               <br />
               <span
-                className={`font-black ${
+                className={`font-black font-heading ${
                   isDark
                     ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent'
                     : 'bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent'
@@ -333,7 +329,7 @@ export default function HeroOrbitCards({
                 {t.orbit?.introTitle2 || "built & captured."}
               </span>
             </p>
-            <p className={`mt-2 text-[13px] md:text-[14px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <p className={`mt-2 text-[13px] md:text-[14px] font-sans font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
               {t.orbit?.introHover || "Hover a card to preview"}
             </p>
           </div>
@@ -342,7 +338,7 @@ export default function HeroOrbitCards({
           <p
             ref={hintRef}
             aria-hidden="true"
-            className={`pointer-events-none absolute bottom-8 left-1/2 z-0 -translate-x-1/2 text-[11px] md:text-[12px] font-medium tracking-[0.18em] uppercase opacity-0 transition-opacity ${
+            className={`pointer-events-none absolute bottom-8 left-1/2 z-0 -translate-x-1/2 text-[11px] md:text-[12px] font-medium tracking-[0.18em] uppercase opacity-0 transition-opacity font-sans ${
               isDark ? 'text-slate-500' : 'text-slate-400'
             } ${mode === 'static-arc' ? '!hidden' : ''}`}
           >
@@ -359,7 +355,7 @@ export default function HeroOrbitCards({
             }`}
           >
             <p
-              className={`text-[11px] md:text-[12px] font-semibold tracking-[0.22em] uppercase mb-3 ${
+              className={`text-[11px] md:text-[12px] font-semibold tracking-[0.22em] uppercase mb-3 font-sans ${
                 isDark ? 'text-cyan-400' : 'text-blue-600'
               }`}
             >
@@ -367,16 +363,23 @@ export default function HeroOrbitCards({
             </p>
 
             <h2
-              className={`text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] leading-[1.1] font-serif font-normal max-w-3xl ${
+              className={`text-[30px] sm:text-[38px] md:text-[46px] lg:text-[52px] leading-[1.12] font-extrabold tracking-tight font-heading max-w-3xl ${
                 isDark ? 'text-white' : 'text-[#0f172a]'
               }`}
-              style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", serif' }}
             >
-              {t.orbit?.title || "Projects & creative work, all in one place"}
+              <span
+                className={
+                  isDark
+                    ? 'bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent'
+                    : 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent'
+                }
+              >
+                {t.orbit?.title || "Projects & creative work, all in one place"}
+              </span>
             </h2>
 
             <p
-              className={`mt-3 max-w-lg text-[14px] md:text-[15px] font-light leading-relaxed ${
+              className={`mt-3 max-w-lg text-[14px] md:text-[15px] font-normal leading-relaxed font-sans ${
                 isDark ? 'text-slate-300' : 'text-slate-600'
               }`}
             >
@@ -387,7 +390,7 @@ export default function HeroOrbitCards({
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="#projects"
-                className={`inline-flex items-center justify-center gap-2 min-h-[44px] px-7 rounded-full text-[12px] font-semibold tracking-wide transition-all shadow-lg ${
+                className={`inline-flex items-center justify-center gap-2 min-h-[44px] px-7 rounded-full text-[13px] font-semibold tracking-wide transition-all shadow-lg font-sans ${
                   isDark
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white'
                     : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white'
@@ -398,7 +401,7 @@ export default function HeroOrbitCards({
 
               <a
                 href="#gallery"
-                className={`inline-flex items-center justify-center gap-2 min-h-[44px] px-6 rounded-full text-[12px] font-semibold tracking-wide backdrop-blur-md border transition-all ${
+                className={`inline-flex items-center justify-center gap-2 min-h-[44px] px-6 rounded-full text-[13px] font-semibold tracking-wide backdrop-blur-md border transition-all font-sans ${
                   isDark
                     ? 'bg-white/5 border-white/15 text-white/80 hover:bg-white/10 hover:text-white'
                     : 'bg-white/70 border-slate-200 text-slate-700 hover:bg-white hover:border-slate-300'
@@ -444,15 +447,15 @@ export default function HeroOrbitCards({
 
                   {/* Belakang (Backface Detail) */}
                   <span className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 rounded-xl border p-2 text-center shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)] ${isDark ? 'bg-slate-900/95 border-white/10 backdrop-blur-lg' : 'bg-white/95 border-slate-200 backdrop-blur-lg'}`}>
-                    <span className={`text-[7px] font-bold tracking-[0.22em] uppercase ${isDark ? 'text-cyan-400' : 'text-blue-500'}`}>
+                    <span className={`text-[7px] font-bold tracking-[0.22em] uppercase font-sans ${isDark ? 'text-cyan-400' : 'text-blue-500'}`}>
                       {formatCategory(p.category)}
                     </span>
                     <span
-                      className={`text-[10px] leading-tight font-semibold line-clamp-2 px-1 ${isDark ? 'text-white' : 'text-slate-800'}`}
+                      className={`text-[10px] leading-tight font-bold line-clamp-2 px-1 font-heading ${isDark ? 'text-white' : 'text-slate-800'}`}
                     >
                       {p.displayName}
                     </span>
-                    <span className={`text-[9px] mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    <span className={`text-[9px] mt-0.5 font-sans ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       {formatSubtitle(p.price)}
                     </span>
                   </span>
@@ -492,13 +495,13 @@ export default function HeroOrbitCards({
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className={`text-[10px] font-bold tracking-widest uppercase ${isDark ? 'text-cyan-400' : 'text-blue-500'}`}>
+            <span className={`text-[10px] font-bold tracking-widest uppercase font-sans ${isDark ? 'text-cyan-400' : 'text-blue-500'}`}>
               {formatCategory(activeCard.category)}
             </span>
-            <h3 className={`text-base font-bold mt-0.5 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <h3 className={`text-base font-bold mt-0.5 font-heading ${isDark ? 'text-white' : 'text-slate-900'}`}>
               {activeCard.displayName}
             </h3>
-            <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+            <p className={`text-sm mt-1 font-sans ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
               {formatSubtitle(activeCard.price)}
             </p>
           </div>

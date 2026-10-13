@@ -88,7 +88,7 @@ export default function OrbitDemo() {
           <span className="text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400 font-semibold">
             Komponen Siap Digunakan
           </span>
-          <h3 className="text-2xl md:text-3xl font-serif font-bold mt-2 mb-4">
+          <h3 className="text-2xl md:text-3xl font-heading font-bold mt-2 mb-4">
             Animasi Kartu Melengkung (Hero Orbit) Berhasil Diekstrak
           </h3>
           <p className="max-w-2xl mx-auto text-sm opacity-80 mb-8">

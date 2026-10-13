@@ -437,3 +437,66 @@ textarea::-webkit-scrollbar-thumb {
   animation: wave 4s ease-in-out infinite;
 }
 
+/* 3D Hardware Acceleration Helpers */
+.preserve-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+/* Watermark Text Stroke */
+.watermark-stroke {
+  -webkit-text-stroke: 1.5px currentColor;
+  color: transparent;
+}
+
+/* Mascot Creatures Keyframes */
+@keyframes blink {
+  0%, 96%, 98% { transform: scaleY(1); }
+  97%, 99% { transform: scaleY(0.1); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes walk-alive {
+  0%, 100% { transform: translateY(0) rotate(0) scale(1); }
+  25% { transform: translateY(-4px) rotate(15deg) scale(1.1); }
+  50% { transform: translateY(0) rotate(0) scale(1); }
+  75% { transform: translateY(2px) rotate(-15deg) scale(0.9); }
+}
+
+@keyframes waddle {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-2px); }
+}
+
+@keyframes squash {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.3, 0.7) translateY(4px); }
+  100% { transform: scale(1); }
+}
+
+@keyframes speechPop {
+  0% { opacity: 0; transform: translate(-50%) scale(0) translateY(10px); }
+  50% { opacity: 1; transform: translate(-50%) scale(1.1) translateY(-2px); }
+  100% { opacity: 1; transform: translate(-50%) scale(1); }
+}
+
+@keyframes mascotWave {
+  0% { transform: rotate(-15deg) scale(1); }
+  100% { transform: rotate(20deg) scale(1.2); }
+}
+
+.leg-walk-fast { animation: 0.3s linear infinite walk-alive; }
+.leg-walk-slow { animation: 0.5s linear infinite walk-alive; }
+.body-waddle-fast { animation: 0.2s linear infinite waddle; }
+.body-waddle-slow { animation: 0.4s linear infinite waddle; }
+.anim-squash { animation: 0.4s ease-out squash; }
+
+

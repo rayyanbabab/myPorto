@@ -37,11 +37,6 @@ const navlinks = [
     link: "#github"
   },
   {
-    id: 8,
-    text: "WakaTime",
-    link: "#wakatime"
-  },
-  {
     id: 9,
     text: "Achievements",
     link: "#achievements"
